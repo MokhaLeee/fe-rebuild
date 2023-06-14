@@ -1,5 +1,6 @@
-	.syntax unified
-	.arm
+.section ".text.ewram"
+.syntax unified
+.arm
 
 .include "gba.inc"
 .include "macro.inc"

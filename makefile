@@ -19,7 +19,7 @@ CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm -ff
 CPPFLAGS := -I $(AGBCC_HOME)/include -iquote include -iquote . -nostdinc -undef
 ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
-LDS := gamepak.lds
+LDS := $(SRC_DIR)/arch/gba-cart.lds
 ROM := $(BUILD_NAME).gba
 ELF := $(BUILD_NAME).elf
 MAP := $(BUILD_NAME).map
@@ -41,41 +41,43 @@ $(shell mkdir -p $(SUBDIRS))
 # ===========
 
 $(ROM): $(ELF)
-	@echo "[GEN]	$@"
-	$(SILENTCMD)$(OBJCOPY) --strip-debug -O binary $< $@
-	$(SILENTCMD)$(GBAGFX) $@
+	$(SILENTMSG) "[GEN]	$@"
+	$(SILENTCMD) $(OBJCOPY) --strip-debug -O binary $< $@
+	$(SILENTMSG) "[FIX]	$@"
+	$(SILENTCMD) $(GBAGFX) $@ --silent
 
 $(ELF): $(ALL_OBJS) $(LDS)
-	@echo "[LD ]	$@"
-	$(SILENTCMD)cd $(BUILD_DIR) && $(LD) -T ../$(LDS) -Map ../$(MAP) -L../tools/agbcc/lib $(ALL_OBJS:$(BUILD_DIR)/%=%) -lc -lgcc -o ../$@
+	$(SILENTMSG) "[LD ]	$@"
+	$(SILENTCMD) cd $(BUILD_DIR) && $(LD) -T ../$(LDS) -Map ../$(MAP) -L../tools/agbcc/lib $(ALL_OBJS:$(BUILD_DIR)/%=%) -lc -lgcc -o ../$@
 
 $(SYM): $(ELF)
-	@echo "[GEN]	$@"
-	$(SILENTCMD)$(OBJDUMP) -t $< | sort -u | grep -E "^0[2389]" | $(PERL) -p -e 's/^(\w{8}) (\w).{6} \S+\t(\w{8}) (\S+)$$/\1 \2 \3 \4/g' > $@
+	$(SILENTMSG) "[GEN]	$@"
+	$(SILENTCMD) $(OBJDUMP) -t $< | sort -u | grep -E "^0[2389]" | $(PERL) -p -e 's/^(\w{8}) (\w).{6} \S+\t(\w{8}) (\S+)$$/\1 \2 \3 \4/g' > $@
 
 # C dependency file
 $(BUILD_DIR)/%.d: %.c
-	$(SILENTCMD)$(CPP) $(CPPFLAGS) $< -o $@ -MM -MG -MT $@ -MT $(BUILD_DIR)/$*.o
+	$(SILENTCMD) $(CPP) $(CPPFLAGS) $< -o $@ -MM -MG -MT $@ -MT $(BUILD_DIR)/$*.o
 
-# C object
-$(BUILD_DIR)/%.o: %.c
-	@echo "[CC ]	$<"
-	$(SILENTCMD)$(CPP) $(CPPFLAGS) $< | iconv -f UTF-8 -t CP932 | $(CC1) $(CFLAGS) -o $(BUILD_DIR)/$*.s
-	$(SILENTCMD)echo ".ALIGN 2, 0" >> $(BUILD_DIR)/$*.s
-	$(SILENTCMD)$(AS) $(ASFLAGS) $(BUILD_DIR)/$*.s -o $@
+-include $(shell find $(BUILD_DIR) -name *.d)
+
+$(C_OBJS): $(BUILD_DIR)/%.o: %.c $(BUILD_DIR)/%.d
+	$(SILENTMSG) "[CC ]	$<"
+	$(SILENTCMD) $(CPP) $(CPPFLAGS) $< | iconv -f UTF-8 -t CP932 | $(CC1) $(CFLAGS) -o $(BUILD_DIR)/$*.s
+	$(SILENTCMD) echo ".ALIGN 2, 0" >> $(BUILD_DIR)/$*.s
+	$(SILENTCMD) $(AS) $(ASFLAGS) $(BUILD_DIR)/$*.s -o $@
 
 $(BUILD_DIR)/%.d: $(BUILD_DIR)/%.o
 	@touch $@
 
 # ASM object
-$(BUILD_DIR)/%.o: %.S
-	@echo "[AS ]	$<"
-	$(SILENTCMD)$(AS) $(ASFLAGS) $< -o $@ --MD $(BUILD_DIR)/$*.d
+$(ASM_OBJS): $(BUILD_DIR)/%.o: %.S
+	$(SILENTMSG) "[AS ]	$<"
+	$(SILENTCMD) $(AS) $(ASFLAGS) $< -o $@ --MD $(BUILD_DIR)/$*.d
 
 clean:
-	@echo "[RM ]	$(ROM) $(ELF) $(MAP) $(BUILD_DIR)/"
-	@rm -f $(ROM) $(ELF) $(MAP)
-	@rm -fr $(BUILD_DIR)/
+	$(SILENTMSG) "[RM ]	$(ROM) $(ELF) $(MAP) $(BUILD_DIR)/"
+	$(SILENTCMD) rm -f $(ROM) $(ELF) $(MAP)
+	$(SILENTCMD) rm -fr $(BUILD_DIR)/
 
 .PHONY: clean
 

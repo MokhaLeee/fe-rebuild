@@ -1,4 +1,4 @@
-.section	".crt0","ax"
+.section ".crt0","ax"
 .arm
 
 .include "gba.inc"
@@ -61,11 +61,20 @@ start_vector:
 	bx	r0
 	.thumb
 
+.type start_thumb %function
+start_thumb:
 	@ Clear EWRAM
 	mov	r1, #0x40
 	lsl	r1, #12				@ r1 = 0x40000
 	lsl	r0, r1, #7			@ r0 = 0x2000000
 	bl	ClearMem
+
+	@ Copy .text.ewram section to EWRAM
+	ldr	r1, =__text_cpy_start
+	ldr	r2, =__ewram_text_start
+	ldr	r3, =__text_cpy_end
+	sub	r3, r3, r1
+	bl	CopyMem
 
 	@ Clear IWRAM
 	ldr	r0, =__bss_start__
@@ -76,11 +85,13 @@ start_vector:
 	ldr	r1, =AgbMain
 	mov	lr, pc
 	bx	r1
-	B	reset
+
+	swi	#0x00				@ SoftReset
 
 @ r0 = Start Address
 @ r1 = Length
 .align
+.type ClearMem %function
 ClearMem:
 	mov	r2,#3				@ These	commands are used in cases where
 	add	r1,r2				@ the length is	not a multiple of 4,
@@ -92,6 +103,26 @@ ClrLoop:
 	sub	r1,#4
 	bne	ClrLoop
 ClearMX:
+	bx	lr
+
+
+@ r1 = Source Address
+@ r2 = Dest Address
+@ r3 = Length
+.align
+.type CopyMem %function
+CopyMem:
+	mov	r0, #3				@ These commands are used in cases where
+	add	r3, r0				@ the length is not a multiple	of 4,
+	bic	r3, r0				@ even	though it should be.
+	beq	CIDExit				@ Length is zero so exit
+
+CIDLoop:
+	ldmia	r1!, {r0}
+	stmia	r2!, {r0}
+	sub	r3, #4
+	bne	CIDLoop
+CIDExit:
 	bx	lr
 
 	.align

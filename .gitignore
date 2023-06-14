@@ -1,3 +1,4 @@
+.vscode
 tools/agbcc
 tools/gbafix/gbafix
 *.gba

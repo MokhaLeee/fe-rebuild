@@ -20,6 +20,6 @@ enum irq_index {
 
 typedef void (*IrqFunc)(void);
 
-void IrqMain(void);
+extern void IrqMain(void);
 void IrqInit(void);
 void SetIrqFunc(int iid, IrqFunc func);

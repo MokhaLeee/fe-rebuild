@@ -1,0 +1,6 @@
+tools/agbcc
+tools/gbafix/gbafix
+*.gba
+*.elf
+*.map
+build

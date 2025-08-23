@@ -13,6 +13,7 @@ cd $temp
 ./build.sh
 ./install.sh $here
 
+cd $here
 rm -rf $temp
 
 # Install others

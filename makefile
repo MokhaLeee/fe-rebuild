@@ -44,7 +44,7 @@ $(ROM): $(ELF)
 	$(SILENTMSG) "[GEN]	$@"
 	$(SILENTCMD) $(OBJCOPY) --strip-debug -O binary $< $@
 	$(SILENTMSG) "[FIX]	$@"
-	$(SILENTCMD) $(GBAGFX) $@ --silent
+#	$(SILENTCMD) $(GBAGFX) $@ --silent
 
 $(ELF): $(ALL_OBJS) $(LDS)
 	$(SILENTMSG) "[LD ]	$@"

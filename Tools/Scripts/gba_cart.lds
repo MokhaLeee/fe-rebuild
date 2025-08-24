@@ -61,25 +61,37 @@ SECTIONS
 		. = ALIGN(4);
 	} >rom = 0xff
 
+	/* EWRAM */
 	. = __ewram_start;
 
+	/* EWRAM overlays */
 	__ewram_overlay_start = ABSOLUTE(.);
+	__ewram_overlay_end   = __ewram_overlay_start;
 
-	OVERLAY ALIGN(4) : NOCROSSREFS AT (__ewram_overlay_start)
+	. = __ewram_overlay_start;
+	.ov0 ALIGN(4) (NOLOAD) : AT (__ewram_overlay_start)
 	{
-		.ewram_overlay_0 { *(.ewram_overlay_0) . = ALIGN(4); }
-		.ewram_overlay_1 { *(.ewram_overlay_1) . = ALIGN(4); }
-		.ewram_overlay_2 { *(.ewram_overlay_2) . = ALIGN(4); }
-		.ewram_overlay_3 { *(.ewram_overlay_3) . = ALIGN(4); }
-		.ewram_overlay_4 { *(.ewram_overlay_4) . = ALIGN(4); }
-		.ewram_overlay_5 { *(.ewram_overlay_5) . = ALIGN(4); }
-		.ewram_overlay_6 { *(.ewram_overlay_6) . = ALIGN(4); }
-		.ewram_overlay_7 { *(.ewram_overlay_7) . = ALIGN(4); }
-		.ewram_overlay_8 { *(.ewram_overlay_8) . = ALIGN(4); }
-		.ewram_overlay_9 { *(.ewram_overlay_9) . = ALIGN(4); }
-	} >ewram
+		*(.ewram_overlay_0)
+		. = ALIGN(4);
+		__ewram_overlay_end = MAX(., __ewram_overlay_end);
+	} >ewram = 0xff
 
-	__ewram_overlay_end = ABSOLUTE(.);
+	. = __ewram_overlay_start;
+	.ov1 ALIGN(4) (NOLOAD) : AT (__ewram_overlay_start)
+	{
+		*(.ewram_overlay_1)
+		. = ALIGN(4);
+		__ewram_overlay_end = MAX(., __ewram_overlay_end);
+	} >ewram = 0xff
+
+	. = __ewram_overlay_start;
+	.ov2 ALIGN(4) (NOLOAD) : AT (__ewram_overlay_start)
+	{
+		*(.ewram_overlay_2)
+		. = ALIGN(4);
+		__ewram_overlay_end = MAX(., __ewram_overlay_end);
+	} >ewram = 0xff
+
 	__ewram_lma = __ewram_overlay_start + (__ewram_overlay_end - __ewram_overlay_start);
 
 	.data ALIGN(4) (NOLOAD) : AT (__ewram_lma)
@@ -90,6 +102,7 @@ SECTIONS
 		__ewram_end = ABSOLUTE(.);
 	} >ewram = 0xff
 
+	/* IWRAM */
 	. = __iwram_start;
 	.bss ALIGN(4) (NOLOAD) :
 	{

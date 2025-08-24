@@ -1,7 +1,6 @@
 .vscode
-tools/agbcc
-tools/gbafix/gbafix
 *.gba
 *.elf
 *.map
-build
+*.o
+.cache_dir

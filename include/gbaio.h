@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.h"
+#include "common/types.h"
 
 #define REG(type, addr) (*((type volatile *) (addr)))
 

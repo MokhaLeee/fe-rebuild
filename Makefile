@@ -62,7 +62,10 @@ INC_FLAG := $(foreach dir, $(INC_DIRS), -I $(dir)) \
             $(foreach dir,$(LIB_DIRS),-I$(dir)/include)
 
 ARCH := -mcpu=arm7tdmi
-CFLAGS := -g $(ARCH) -mtune=arm7tdmi $(INC_FLAG) -std=gnu99 -O2 -Wall -Wextra -Werror -Wno-unused-parameter
+CFLAGS := -g $(ARCH) -mtune=arm7tdmi \
+          $(INC_FLAG) \
+		  -std=gnu99 -O2 \
+		  -Wall -Wextra -Werror -Wno-unused-parameter
 
 ASFLAGS := -g $(ARCH) $(INC_FLAG)
 LDFLAGS = -g $(ARCH) -Wl,-Map,$(notdir $*.map)
@@ -104,11 +107,14 @@ CLEAN_FILES += $(ALL_OBJS) $(ALL_OBJS)
 # ===========
 # = RECIPES =
 # ===========
-LDS := Tools/Scripts/gba_cart.lds
+LDS := Wizardry/Kernel/lds/gba_cart.lds
+LIBS := -lmm -lgba
+LIB_PATHES := $(foreach dir,$(LIB_DIRS),-L$(dir)/lib)
+LDFLAGS = -T $(LDS) -Map $(MAP) $(LIB_PATHES) $(LIBS)
 
 $(ELF): $(ALL_OBJS) $(LDS)
 	@echo "[LD ]	$@"
-	@$(LD) -T $(LDS) -Map $(MAP) $(ALL_OBJS) $(foreach dir,$(LIB_DIRS),-L$(dir)/lib) -lmm -lgba -o $@
+	@$(LD) $(LDFLAGS) $(ALL_OBJS)  -o $@
 
 $(ROM): $(ELF)
 	@echo "[GEN]	$@"

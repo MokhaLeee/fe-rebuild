@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.h"
+#include "common.h"
 
 extern u8 __text_cpy_start[];
 extern u8 __ewram_text_start[];

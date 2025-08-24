@@ -61,10 +61,14 @@ SECTIONS
 		. = ALIGN(4);
 	} >rom = 0xff
 
-	/* EWRAM */
+	/**
+	 * EWRAM
+	 */
 	. = __ewram_start;
 
-	/* EWRAM overlays */
+	/**
+	 * EWRAM overlays
+	 */
 	__ewram_overlay_start = ABSOLUTE(.);
 	__ewram_overlay_end   = __ewram_overlay_start;
 
@@ -74,7 +78,7 @@ SECTIONS
 		*(.ewram_overlay_0)
 		. = ALIGN(4);
 		__ewram_overlay_end = MAX(., __ewram_overlay_end);
-	} >ewram = 0xff
+	} >ewram
 
 	. = __ewram_overlay_start;
 	.ov1 ALIGN(4) (NOLOAD) : AT (__ewram_overlay_start)
@@ -82,7 +86,7 @@ SECTIONS
 		*(.ewram_overlay_1)
 		. = ALIGN(4);
 		__ewram_overlay_end = MAX(., __ewram_overlay_end);
-	} >ewram = 0xff
+	} >ewram
 
 	. = __ewram_overlay_start;
 	.ov2 ALIGN(4) (NOLOAD) : AT (__ewram_overlay_start)
@@ -90,7 +94,7 @@ SECTIONS
 		*(.ewram_overlay_2)
 		. = ALIGN(4);
 		__ewram_overlay_end = MAX(., __ewram_overlay_end);
-	} >ewram = 0xff
+	} >ewram
 
 	__ewram_lma = __ewram_overlay_start + (__ewram_overlay_end - __ewram_overlay_start);
 
@@ -100,7 +104,7 @@ SECTIONS
 		*(.data.*)
 		. = ALIGN(4);
 		__ewram_end = ABSOLUTE(.);
-	} >ewram = 0xff
+	} >ewram
 
 	/* IWRAM */
 	. = __iwram_start;
@@ -112,5 +116,6 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = ABSOLUTE(.);
+		__end__ = ABSOLUTE(.);
 	}
 }

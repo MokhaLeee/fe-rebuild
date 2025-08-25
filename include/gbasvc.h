@@ -4,29 +4,29 @@
 
 struct BgAffineSetSrc
 {
-    /* +00 */ s32 tex_x;
-    /* +04 */ s32 tex_y;
-    /* +08 */ s16 scr_x;
-    /* +0A */ s16 scr_y;
-    /* +0C */ s16 sx;
-    /* +0E */ s16 sy;
+    /* +00 */ i32 tex_x;
+    /* +04 */ i32 tex_y;
+    /* +08 */ i16 scr_x;
+    /* +0A */ i16 scr_y;
+    /* +0C */ i16 sx;
+    /* +0E */ i16 sy;
     /* +10 */ u16 alpha;
 };
 
 struct BgAffineSetDst
 {
-    /* +00 */ s16 pa;
-    /* +02 */ s16 pb;
-    /* +04 */ s16 pc;
-    /* +06 */ s16 pd;
-    /* +08 */ s32 dx;
-    /* +0C */ s32 dy;
+    /* +00 */ i16 pa;
+    /* +02 */ i16 pb;
+    /* +04 */ i16 pc;
+    /* +06 */ i16 pd;
+    /* +08 */ i32 dx;
+    /* +0C */ i32 dy;
 };
 
 struct ObjAffineSetSrc
 {
-    /* +00 */ s16 x_scale;
-    /* +02 */ s16 y_scale;
+    /* +00 */ i16 x_scale;
+    /* +02 */ i16 y_scale;
     /* +04 */ u16 rotation;
 };
 
@@ -69,17 +69,17 @@ enum
 // svc 03 */ void Stop(void);
 // svc 04 */ void IntrWait(bool wait_next, u16 intr_flags);
 /* svc 05 */ void VBlankIntrWait(void);
-/* svc 06 */ s32  Div(s32 lhs, s32 rhs);
-/* svc 06 */ s32  DivRem(s32 lhs, s32 rhs);
-// svc 07 */ s32  DivArm(s32 rhs, s32 lhs);
+/* svc 06 */ i32  Div(i32 lhs, i32 rhs);
+/* svc 06 */ i32  DivRem(i32 lhs, i32 rhs);
+// svc 07 */ i32  DivArm(i32 rhs, i32 lhs);
 /* svc 08 */ u16  Sqrt(u32 num);
 // svc 09 */ u32  ArcTan(u16 tan);
-/* svc 0A */ u16  ArcTan2(s16 x, s16 y);
+/* svc 0A */ u16  ArcTan2(i16 x, i16 y);
 /* svc 0B */ void CpuSet(const void * src, void * dst, u32 control);
 /* svc 0C */ void CpuFastSet(const void * src, void * dst, u32 control);
 // svc 0D */ u32  GetBiosChecksum(void);
-/* svc 0E */ void BgAffineSet(struct BgAffineSetSrc const * src, struct BgAffineSetDst * dst, s32 count);
-/* svc 0F */ void ObjAffineSet(struct ObjAffineSetSrc const * src, void * dest, s32 count, s32 offset);
+/* svc 0E */ void BgAffineSet(struct BgAffineSetSrc const * src, struct BgAffineSetDst * dst, i32 count);
+/* svc 0F */ void ObjAffineSet(struct ObjAffineSetSrc const * src, void * dest, i32 count, i32 offset);
 // svc 10 */ void BitUnpack(void const * src, void * dst, struct BitUnpackInfo const * info);
 /* svc 11 */ void LZ77UnCompWram(void const * src, void * dst);
 /* svc 12 */ void LZ77UnCompVram(void const * src, void * dst);

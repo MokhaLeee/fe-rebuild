@@ -1,8 +1,20 @@
 .section ".crt0","ax"
 .arm
 
-.include "gba.inc"
+.include "asm_gbaio.inc"
 #include "macro.inc"
+
+.set PSR_USR_MODE,  0x00000010
+.set PSR_FIQ_MODE,  0x00000011
+.set PSR_IRQ_MODE,  0x00000012
+.set PSR_SVC_MODE,  0x00000013
+.set PSR_ABT_MODE,  0x00000017
+.set PSR_UND_MODE,  0x0000001b
+.set PSR_SYS_MODE,  0x0000001f
+.set PSR_MODE_MASK, 0x0000001f
+.set PSR_T_BIT,     0x00000020
+.set PSR_F_BIT,     0x00000040
+.set PSR_I_BIT,     0x00000080
 
 .global _start
 _start:
@@ -47,12 +59,12 @@ start_vector:
 	str	r0, [r1]
 
 	@ Switch to IRQ Mode
-	mov	r0, #0x12
+	mov	r0, #PSR_IRQ_MODE
 	msr	cpsr_fc, r0
 	ldr	sp, =__sp_irq
 
 	@ Switch to System Mode
-	mov	r0, #0x1f
+	mov	r0, #PSR_SYS_MODE
 	msr	cpsr_fc, r0
 	ldr	sp, =__sp_usr
 

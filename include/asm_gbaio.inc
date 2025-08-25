@@ -1,3 +1,5 @@
+@ TODO: clean up
+
 @-------------------------------------------------------------------------------
 @ Program Status Register
 @-------------------------------------------------------------------------------
@@ -38,7 +40,6 @@ OBJ_VRAM1   = VRAM + 0x14000 @ bitmap-mode BG
 
 OAM         = 0x07000000
 
-SOUND_INFO_PTR = 0x3007FF0
 INTR_CHECK     = 0x3007FF8
 INTR_VECTOR    = 0x3007FFC
 
@@ -282,6 +283,7 @@ REG_BLDCNT       = (REG_BASE + REG_OFFSET_BLDCNT)
 REG_BLDALPHA     = (REG_BASE + REG_OFFSET_BLDALPHA)
 REG_BLDY         = (REG_BASE + REG_OFFSET_BLDY)
 
+REG_SOUND_BASE   = (REG_BASE + REG_OFFSET_SOUND1CNT)
 REG_SOUND1CNT    = (REG_BASE + REG_OFFSET_SOUND1CNT)
 REG_SOUND1CNT_L  = (REG_BASE + REG_OFFSET_SOUND1CNT_L)
 REG_NR10         = (REG_BASE + REG_OFFSET_NR10)

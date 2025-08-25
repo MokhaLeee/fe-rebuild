@@ -2,7 +2,7 @@
 .syntax unified
 .arm
 
-.include "gba.inc"
+.include "asm_gbaio.inc"
 .include "macro.inc"
 
 ARM_FUNC_START IrqMain

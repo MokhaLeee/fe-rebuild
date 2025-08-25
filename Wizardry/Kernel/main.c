@@ -11,6 +11,7 @@ int AgbMain(void)
 		| WAITCNT_PREFETCH_ENABLE;
 
 	IrqInit();
+	io_init();
 
 	REG_DISPSTAT = DISPSTAT_VBLANK_INT_ENABLE;
 

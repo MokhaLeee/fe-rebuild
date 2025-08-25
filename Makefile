@@ -22,6 +22,7 @@ BUILD_NAME := $(notdir $(CURDIR))
 ROM := $(BUILD_NAME).gba
 ELF := $(BUILD_NAME).elf
 MAP := $(BUILD_NAME).map
+SYM := $(BUILD_NAME).sym
 
 all: $(ROM)
 
@@ -64,7 +65,7 @@ INC_FLAG := $(foreach dir, $(INC_DIRS), -I $(dir)) \
 ARCH := -mcpu=arm7tdmi
 CFLAGS := -g $(ARCH) -mtune=arm7tdmi \
           $(INC_FLAG) \
-		  -std=gnu99 -O2 \
+		  -std=gnu99 -O2 -fno-builtin \
 		  -Wall -Wextra -Werror -Wno-unused-parameter
 
 ASFLAGS := -g $(ARCH) $(INC_FLAG)
@@ -102,7 +103,9 @@ ASM_OBJS := $(ASM_SRCS:%.S=%.o)
 ALL_OBJS := $(C_OBJS) $(ASM_OBJS)
 ALL_DEPS := $(ALL_OBJS:%.o=%.d)
 
-CLEAN_FILES += $(ALL_OBJS) $(ALL_OBJS)
+CLEAN_FILES += $(ALL_OBJS) $(ALL_OBJS) $(ALL_DEPS)
+
+CLEAN_FILES += $(C_SRCS:%.c=%.asm)
 
 # ===========
 # = RECIPES =
@@ -118,7 +121,8 @@ $(ELF): $(ALL_OBJS) $(LDS)
 
 $(ROM): $(ELF)
 	@echo "[GEN]	$@"
-	@$(OBJCOPY) --strip-debug -O binary $< $@
+	@$(OBJCOPY) --strip-debug -O binary $< $@ || exit 1
+	@python3 ./Tools/Scripts/elf2sym.py $< > $(SYM)
 	@gbafix $@ -t$(BUILD_NAME) -c0000 -m00
 
 CLEAN_FILES += $(ELF) $(ROM) $(MAP)

@@ -65,3 +65,13 @@ void *memcpy(void *dst, const void *src, size_t n)
 
 	return dst;
 }
+
+void *memset(void *_s, int c, size_t n)
+{
+	uint8_t *s = _s;
+
+	while ((n--) > 0)
+		*(s++) = c;
+
+	return _s;
+}

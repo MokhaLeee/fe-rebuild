@@ -1,4 +1,5 @@
 #include "common.h"
+#include "irq.h"
 #include "hardware.h"
 
 struct DispIo gDispIo;
@@ -50,4 +51,48 @@ void SyncDispIo(void)
 	SET_REG(u32, BG3Y,     gDispIo.bg3y);
 
 	#undef SET_REG
+}
+
+void SetOnVBlank(IrqFunc func)
+{
+	if (func != NULL) {
+		gDispIo.disp_stat.vblank_int_enable = TRUE;
+
+		SetIrqFunc(II_VBLANK, func);
+		REG_IE |= INTR_FLAG_VBLANK;
+	} else {
+		gDispIo.disp_stat.vblank_int_enable = FALSE;
+		REG_IE &= ~INTR_FLAG_VBLANK;
+	}
+}
+
+void SetOnVMatch(IrqFunc func)
+{
+	if (func != NULL) {
+		gDispIo.disp_stat.vcount_int_enable = TRUE;
+
+		SetIrqFunc(II_VCOUNT, func);
+		REG_IE |= INTR_FLAG_VCOUNT;
+	} else {
+		gDispIo.disp_stat.vcount_int_enable = FALSE;
+		REG_IE &= ~INTR_FLAG_VCOUNT;
+
+		gDispIo.disp_stat.vcount_compare = 0;
+	}
+}
+
+void SetNextVCount(int vcount)
+{
+	u16 disp_stat;
+
+	disp_stat = REG_DISPSTAT;
+	disp_stat = disp_stat & 0xFF;
+	disp_stat = disp_stat | (vcount << 8);
+
+	REG_DISPSTAT = disp_stat;
+}
+
+void SetVCount(int vcount)
+{
+	gDispIo.disp_stat.vcount_compare = vcount;
 }

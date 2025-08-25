@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "irq.h"
 
 enum {
 	FRAMES_PER_SECOND = 60,
@@ -156,6 +157,11 @@ struct KeySt {
 
 extern struct KeySt *const gKeySt;
 
+void RefreshKeyStFromKeys(struct KeySt *keySt, short keys);
+void RefreshKeySt(struct KeySt *keySt);
+void ClearKeySt(struct KeySt *keySt);
+void InitKeySt(struct KeySt *keySt);
+
 enum {
 	BG_0 = 0,
 	BG_1,
@@ -169,3 +175,22 @@ enum {
 	BG2_SYNC_BIT = (1 << 2),
 	BG3_SYNC_BIT = (1 << 3),
 };
+
+void SyncDispIo(void);
+void SetOnVBlank(IrqFunc func);
+void SetOnVMatch(IrqFunc func);
+void SetNextVCount(int vcount);
+void SetVCount(int vcount);
+
+/**
+ * time
+ */
+u32 GetGameTime(void);
+void SetGameTime(u32 time);
+void IncGameTime(void);
+bool FormatTime(u32 time, u16 *hours, u16 *minutes, u16 *seconds);
+
+/**
+ * misc
+ */
+void SoftResetIfKeyCombo(void);

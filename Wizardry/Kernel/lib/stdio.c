@@ -22,7 +22,7 @@ static const struct io_handle console_io = {
 	.read  = __debug_stdio_read,
 };
 
-static FILE ___stdio_FILEs[3] = {
+static const FILE ___stdio_FILEs[3] = {
 	[0] = { .io = &console_io }, // stdin
 	[1] = { .io = &console_io }, // stdout
 	[2] = { .io = &console_io }, // stderr

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "irq.h"
+#include "hardware.h"
 
 int AgbMain(void)
 {
@@ -14,6 +15,11 @@ int AgbMain(void)
 	io_init();
 
 	REG_DISPSTAT = DISPSTAT_VBLANK_INT_ENABLE;
+	REG_IME = true;
+
+#if CONFIG_USE_DEBUG
+	kprintf_test();
+#endif
 
 	while (1) {
 

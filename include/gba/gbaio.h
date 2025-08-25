@@ -1,7 +1,5 @@
 #pragma once
 
-#include "common/types.h"
-
 #define REG(type, addr) (*((type volatile *) (addr)))
 
 #define REG_DISPCNT     REG(u16, 0x04000000)
@@ -19,18 +17,18 @@
 #define REG_BG2VOFS     REG(u16, 0x0400001A)
 #define REG_BG3HOFS     REG(u16, 0x0400001C)
 #define REG_BG3VOFS     REG(u16, 0x0400001E)
-#define REG_BG2PA       REG(s16, 0x04000020)
-#define REG_BG2PB       REG(s16, 0x04000022)
-#define REG_BG2PC       REG(s16, 0x04000024)
-#define REG_BG2PD       REG(s16, 0x04000026)
-#define REG_BG2X        REG(s32, 0x04000028)
-#define REG_BG2Y        REG(s32, 0x0400002C)
-#define REG_BG3PA       REG(s16, 0x04000030)
-#define REG_BG3PB       REG(s16, 0x04000032)
-#define REG_BG3PC       REG(s16, 0x04000034)
-#define REG_BG3PD       REG(s16, 0x04000036)
-#define REG_BG3X        REG(s32, 0x04000038)
-#define REG_BG3Y        REG(s32, 0x0400003C)
+#define REG_BG2PA       REG(i16, 0x04000020)
+#define REG_BG2PB       REG(i16, 0x04000022)
+#define REG_BG2PC       REG(i16, 0x04000024)
+#define REG_BG2PD       REG(i16, 0x04000026)
+#define REG_BG2X        REG(i32, 0x04000028)
+#define REG_BG2Y        REG(i32, 0x0400002C)
+#define REG_BG3PA       REG(i16, 0x04000030)
+#define REG_BG3PB       REG(i16, 0x04000032)
+#define REG_BG3PC       REG(i16, 0x04000034)
+#define REG_BG3PD       REG(i16, 0x04000036)
+#define REG_BG3X        REG(i32, 0x04000038)
+#define REG_BG3Y        REG(i32, 0x0400003C)
 #define REG_WIN0H       REG(u16, 0x04000040)
 #define REG_WIN1H       REG(u16, 0x04000042)
 #define REG_WIN0V       REG(u16, 0x04000044)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "config/configs.h"
+
 #include "common/types.h"
 #include "common/attributes.h"
 #include "common/sections.h"
@@ -15,3 +17,8 @@
 #ifndef hang
 #define hang() do { while (1); } while (0)
 #endif
+
+#define STRUCT_PAD(from, to) unsigned char _pad_ ## from[(to) - (from)]
+#define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
+#define ABS(val) ((val) >= 0 ? (val) : -(val))
+#define RECT_DISTANCE(xa, ya, xb, yb) (ABS((xa) - (xb)) + ABS((ya) - (yb)))

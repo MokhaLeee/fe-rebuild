@@ -20,5 +20,15 @@ void DisablePalSync(void)
 
 bool CheckePalSync(void)
 {
-	return sPalSyncFlag;
+    return sPalSyncFlag;
+}
+
+void ApplyPaletteExt(void const * data, int startOffset, int size)
+{
+    if (size & 0x1F) // size is not a multiple of 32
+        CpuCopy16(data, gPal + (startOffset >> 1), size);
+    else
+        CpuFastCopy(data, gPal + (startOffset >> 1), size);
+
+    EnablePalSync();
 }

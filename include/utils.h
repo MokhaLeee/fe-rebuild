@@ -4,6 +4,11 @@
 
 extern u8 EWRAM_DATA gBuf[0x2000];
 
+/**
+ * decomp
+ */
+void Decompress(void const * src, void * dst);
+
 /* move data */
 void RegisterDataMove(void const *src, void *dst, int size);
 void RegisterDataFill(u32 value, void * dst, int size);

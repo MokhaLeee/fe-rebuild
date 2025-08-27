@@ -278,6 +278,7 @@ void SetBgOffset(u16 bgid, u16 x_offset, u16 y_offset);
 void SyncBgsAndPal(void);
 void TmFill(u16 *dest, int tileref);
 void SetBlankChr(int chr);
+void InitBgs(u16 const *config);
 u16 *GetBgTilemap(int bg);
 
 void EnableBgSync(int bits);
@@ -288,6 +289,8 @@ void DisableBgSync(int bits);
  * Pal
  */
 extern u16 EWRAM_DATA gPal[0x200];
+
+void ApplyPaletteExt(void const * data, int startOffset, int size);
 
 #define PAL_COLOR_OFFSET(palid, colornum) (palid) * 0x10 + (colornum)
 #define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
@@ -301,6 +304,14 @@ extern u16 EWRAM_DATA gPal[0x200];
 #define PAL_BG(palid) (&PAL_BG_COLOR(palid, 0))
 #define PAL_OBJ(palid) (&PAL_OBJ_COLOR(palid, 0))
 
+#define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
+#define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
+
+#define ApplyBgPalettes ApplyPalettes
+#define ApplyBgPalette ApplyPalette
+#define ApplyObPalettes(src, num, count) ApplyPalettes((src), 0x10 + (num), (count))
+#define ApplyObPalette(src, num) ApplyPalette((src), 0x10 + (num))
+
 void EnablePalSync(void);
 void DisablePalSync(void);
 bool CheckePalSync(void);
@@ -313,6 +324,61 @@ struct OamView { u16 oam0, oam1, oam2, aff; };
 void InitOam(int loSz);
 void SyncHiOam(void);
 void SyncLoOam(void);
+
+#define OAM0_Y(ay)          ((ay) & 0x00FF)
+#define OAM0_Y_MASK         0x00FF
+#define OAM0_AFFINE_ENABLE  0x0100
+#define OAM0_DOUBLESIZE     0x0200
+#define OAM0_DISABLE        0x0200
+#define OAM0_BLEND          0x0400
+#define OAM0_WINDOW         0x0800
+#define OAM0_MOSAIC         0x1000
+#define OAM0_256COLORS      0x2000
+#define OAM0_SHAPE_8x8      0x0000
+#define OAM0_SHAPE_16x16    0x0000
+#define OAM0_SHAPE_32x32    0x0000
+#define OAM0_SHAPE_64x64    0x0000
+#define OAM0_SHAPE_16x8     0x4000
+#define OAM0_SHAPE_32x8     0x4000
+#define OAM0_SHAPE_32x16    0x4000
+#define OAM0_SHAPE_64x32    0x4000
+#define OAM0_SHAPE_8x16     0x8000
+#define OAM0_SHAPE_8x32     0x8000
+#define OAM0_SHAPE_16x32    0x8000
+#define OAM0_SHAPE_32x64    0x8000
+
+#define OAM1_X(ax)          ((ax) & 0x01FF)
+#define OAM1_X_MASK         0x01FF
+#define OAM1_AFFINE_ID(ai)  (((ai) << 9) & 0x3E00)
+#define OAM1_AFFINE_ID_MASK 0x3E00
+#define OAM1_HFLIP          0x1000
+#define OAM1_VFLIP          0x2000
+#define OAM1_SIZE_8x8       0x0000
+#define OAM1_SIZE_16x8      0x0000
+#define OAM1_SIZE_8x16      0x0000
+#define OAM1_SIZE_16x16     0x4000
+#define OAM1_SIZE_32x8      0x4000
+#define OAM1_SIZE_8x32      0x4000
+#define OAM1_SIZE_32x32     0x8000
+#define OAM1_SIZE_32x16     0x8000
+#define OAM1_SIZE_16x32     0x8000
+#define OAM1_SIZE_64x64     0xC000
+#define OAM1_SIZE_64x32     0xC000
+#define OAM1_SIZE_32x64     0xC000
+
+#define OAM2_CHR(ac)        ((ac) & 0x03FF)
+#define OAM2_CHR_MASK       0x03FF
+#define OAM2_LAYER(al)      (((al) & 0x3) * 0x0400)
+#define OAM2_LAYER_MASK     0x0C00
+#define OAM2_PAL(ap)        (((ap) & 0xF) * 0x1000)
+#define OAM2_PAL_MASK       0xF000
+
+#define SetObjAffineAuto(id, angle, x_scale, y_scale) \
+    SetObjAffine((id), \
+        Div(+COS_Q12((angle)) << 4, (x_scale)), \
+        Div(-SIN_Q12((angle)) << 4, (y_scale)), \
+        Div(+SIN_Q12((angle)) << 4, (x_scale)), \
+        Div(+COS_Q12((angle)) << 4, (y_scale)))
 
 /**
  * time

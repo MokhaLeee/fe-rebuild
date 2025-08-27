@@ -1,10 +1,13 @@
 #include "common.h"
 #include "proc.h"
 #include "game-ctrl.h"
+#include "title.h"
 
 const struct ProcScr ProcScr_GameController[] = {
 	PROC_NAME("GAMECTRL"),
 	PROC_MARK(PROC_MARK_GAMECTRL),
+	PROC_CALL(StartMainTitle),
+	PROC_YIELD,
 
 	PROC_BLOCK,
 	PROC_END

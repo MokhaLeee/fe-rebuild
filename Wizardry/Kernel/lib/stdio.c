@@ -1,5 +1,8 @@
 #include "common.h"
 
+#include "include/stdio.h"
+#include "include/io.h"
+
 static size_t __debug_stdio_write(FILE *fp, const char *buf, size_t len)
 {
 	char out_buf[len + 1];

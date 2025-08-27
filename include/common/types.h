@@ -57,6 +57,9 @@ enum { false, true };
 typedef i8 bool8;
 
 // TODO: move types below
+typedef struct FILE {
+	const struct io_handle *io;
+} FILE;
 
 typedef void (* Func)(void);
 

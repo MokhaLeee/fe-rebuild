@@ -1,5 +1,7 @@
 #include "common.h"
 
+#include "include/io.h"
+
 int mgba_print_level;
 
 /**

@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+#include "include/printf.h"
+#include "include/stdio.h"
+
 typedef int (*kprintf_putc_func)(const char *str, size_t len, void *arg);
 
 #define LONGFLAG       0x00000001

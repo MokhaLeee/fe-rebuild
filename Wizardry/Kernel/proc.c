@@ -1,4 +1,7 @@
+#include "common.h"
 #include "proc.h"
+
+#define LOCAL_TRACE 1
 
 enum { PROC_COUNT = 64 };
 
@@ -735,10 +738,11 @@ static void StepProcScr(struct ProcDummy *proc)
 static void PrintProcInfo(struct ProcDummy *proc)
 {
 	if (proc->proc_name != NULL)
-	{
-		// print name?
-		return;
-	}
+		LTRACEF("[PROC] scr=0x%08X, cur=%d (%s)",
+				(uintptr_t)proc->proc_script, proc->proc_script_pc - proc->proc_script, proc->proc_name);
+	else
+		LTRACEF("[PROC] scr=0x%08X, cur=%d",
+				(uintptr_t)proc->proc_script, proc->proc_script_pc - proc->proc_script);
 }
 
 static void WalkPrintProcInfo(struct ProcDummy *proc, int *indent)
@@ -748,18 +752,23 @@ static void WalkPrintProcInfo(struct ProcDummy *proc, int *indent)
 
 	PrintProcInfo(proc);
 
-	if (proc->proc_child != NULL)
-	{
+	if (proc->proc_child != NULL) {
 		*indent += 2;
 		WalkPrintProcInfo(proc->proc_child, indent);
 		*indent -= 2;
 	}
 }
 
-void Proc_PrintSubtreeInfo(ProcPtr proc)
+void Proc_PrintSubtreeInfo(int tree)
 {
 	int indent;
-	struct ProcDummy *casted = proc;
+	struct ProcDummy *casted = gProcTreeRootArray[tree];
+
+	if (!casted)
+		return;
+
+	if (tree >= 0)
+		LTRACEF("[PROC] dump tree %d", tree);
 
 	indent = 4;
 
@@ -787,4 +796,13 @@ void Proc_Lock(ProcPtr proc)
 void Proc_Release(ProcPtr proc)
 {
 	((struct ProcDummy *) proc)->proc_lock_cnt--;
+}
+
+void Proc_ExecRoot(int tree)
+{
+#if CONFIG_USE_DEBUG
+	Proc_PrintSubtreeInfo(tree);
+#endif
+
+	Proc_Run(gProcTreeRootArray[tree]);
 }

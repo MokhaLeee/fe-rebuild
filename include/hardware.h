@@ -14,6 +14,9 @@ enum {
 #define CHR_LINE 0x20
 #endif
 
+/**
+ * Disp IO
+ */
 #define IO_ALIGNED(n) ALIGNED(4)
 
 struct IO_ALIGNED(2) DispCnt {
@@ -141,6 +144,85 @@ struct DispIo {
 
 extern struct DispIo gDispIo;
 
+void SyncDispIo(void);
+void SetOnVBlank(IrqFunc func);
+void SetOnVMatch(IrqFunc func);
+void SetNextVCount(int vcount);
+void SetVCount(int vcount);
+
+#define SetDispEnable(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.disp_ct.bg0_enable = (bg0); \
+    gDispIo.disp_ct.bg1_enable = (bg1); \
+    gDispIo.disp_ct.bg2_enable = (bg2); \
+    gDispIo.disp_ct.bg3_enable = (bg3); \
+    gDispIo.disp_ct.obj_enable = (obj)
+
+#define SetWinEnable(win0, win1, objwin) \
+    gDispIo.disp_ct.win0_enable = (win0); \
+    gDispIo.disp_ct.win1_enable = (win1); \
+    gDispIo.disp_ct.objwin_enable = (objwin)
+
+#define SetWin0Box(left, top, right, bottom) \
+    gDispIo.win0_left = (left); \
+    gDispIo.win0_top = (top); \
+    gDispIo.win0_right = (right); \
+    gDispIo.win0_bottom = (bottom)
+
+#define SetWin1Box(left, top, right, bottom) \
+    gDispIo.win1_left = (left); \
+    gDispIo.win1_top = (top); \
+    gDispIo.win1_right = (right); \
+    gDispIo.win1_bottom = (bottom)
+
+#define SetWin0Layers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.win_ct.win0_enable_bg0 = (bg0); \
+    gDispIo.win_ct.win0_enable_bg1 = (bg1); \
+    gDispIo.win_ct.win0_enable_bg2 = (bg2); \
+    gDispIo.win_ct.win0_enable_bg3 = (bg3); \
+    gDispIo.win_ct.win0_enable_obj = (obj)
+
+#define SetWin1Layers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.win_ct.win1_enable_bg0 = (bg0); \
+    gDispIo.win_ct.win1_enable_bg1 = (bg1); \
+    gDispIo.win_ct.win1_enable_bg2 = (bg2); \
+    gDispIo.win_ct.win1_enable_bg3 = (bg3); \
+    gDispIo.win_ct.win1_enable_obj = (obj)
+
+#define SetWObjLayers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.win_ct.wobj_enable_bg0 = (bg0); \
+    gDispIo.win_ct.wobj_enable_bg1 = (bg1); \
+    gDispIo.win_ct.wobj_enable_bg2 = (bg2); \
+    gDispIo.win_ct.wobj_enable_bg3 = (bg3); \
+    gDispIo.win_ct.wobj_enable_obj = (obj)
+
+#define SetWOutLayers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.win_ct.wout_enable_bg0 = (bg0); \
+    gDispIo.win_ct.wout_enable_bg1 = (bg1); \
+    gDispIo.win_ct.wout_enable_bg2 = (bg2); \
+    gDispIo.win_ct.wout_enable_bg3 = (bg3); \
+    gDispIo.win_ct.wout_enable_obj = (obj)
+
+#define SetBlendConfig(eff, ca, cb, cy) \
+    gDispIo.blend_ct.effect = (eff); \
+    gDispIo.blend_coef_a = (ca); \
+    gDispIo.blend_coef_b = (cb); \
+    gDispIo.blend_y = (cy)
+
+#define SetBlendAlpha(ca, cb) \
+    SetBlendConfig(BLEND_EFFECT_ALPHA, (ca), (cb), 0)
+
+#define SetBlendBrighten(cy) \
+    SetBlendConfig(BLEND_EFFECT_BRIGHTEN, 0, 0, (cy))
+
+#define SetBlendDarken(cy) \
+    SetBlendConfig(BLEND_EFFECT_DARKEN, 0, 0, (cy))
+
+#define SetBlendNone() \
+    SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
+
+/**
+ * Key
+ */
 struct KeySt {
 	/* 00 */ u8 repeat_delay;    // initial delay before generating auto-repeat presses
 	/* 01 */ u8 repeat_interval; // time between auto-repeat presses
@@ -162,6 +244,9 @@ void RefreshKeySt(struct KeySt *keySt);
 void ClearKeySt(struct KeySt *keySt);
 void InitKeySt(struct KeySt *keySt);
 
+/**
+ * BG
+ */
 enum {
 	BG_0 = 0,
 	BG_1,
@@ -176,11 +261,58 @@ enum {
 	BG3_SYNC_BIT = (1 << 3),
 };
 
-void SyncDispIo(void);
-void SetOnVBlank(IrqFunc func);
-void SetOnVMatch(IrqFunc func);
-void SetNextVCount(int vcount);
-void SetVCount(int vcount);
+extern u16 EWRAM_DATA gBg0Tm[0x400];
+extern u16 EWRAM_DATA gBg1Tm[0x400];
+extern u16 EWRAM_DATA gBg2Tm[0x400];
+extern u16 EWRAM_DATA gBg3Tm[0x400];
+
+struct BgCnt *GetBgCt(u16 bgid);
+int GetBgChrOffset(int bg);
+int GetBgChrId(int bg, int offset);
+int GetBgTilemapOffset(int bg);
+void SetBgChrOffset(int bg, int offset);
+void SetBgTilemapOffset(int bg, int offset);
+void SetBgScreenSize(int bg, int size);
+void SetBgBpp(int bg, int bpp);
+void SetBgOffset(u16 bgid, u16 x_offset, u16 y_offset);
+void SyncBgsAndPal(void);
+void TmFill(u16 *dest, int tileref);
+void SetBlankChr(int chr);
+u16 *GetBgTilemap(int bg);
+
+void EnableBgSync(int bits);
+void EnableBgSyncById(int bgid);
+void DisableBgSync(int bits);
+
+/**
+ * Pal
+ */
+extern u16 EWRAM_DATA gPal[0x200];
+
+#define PAL_COLOR_OFFSET(palid, colornum) (palid) * 0x10 + (colornum)
+#define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
+#define BGPAL_OFFSET(bgpal) PAL_OFFSET(0x00 + (bgpal))
+#define OBPAL_OFFSET(obpal) PAL_OFFSET(0x10 + (obpal))
+
+#define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
+#define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
+#define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
+
+#define PAL_BG(palid) (&PAL_BG_COLOR(palid, 0))
+#define PAL_OBJ(palid) (&PAL_OBJ_COLOR(palid, 0))
+
+void EnablePalSync(void);
+void DisablePalSync(void);
+bool CheckePalSync(void);
+
+/**
+ * oam
+ */
+struct OamView { u16 oam0, oam1, oam2, aff; };
+
+void InitOam(int loSz);
+void SyncHiOam(void);
+void SyncLoOam(void);
 
 /**
  * time

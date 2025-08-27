@@ -3,9 +3,13 @@
 #include "hardware.h"
 #include "proc.h"
 #include "bm.h"
+#include "utils.h"
 #include "game-ctrl.h"
 
+#define LOCAL_TRACE 1
+
 EWRAM_DATA static Func MainFunc;
+EWRAM_DATA static u32 main_round_counter;
 
 static void StartGame(void);
 static void OnVBlank(void);
@@ -27,6 +31,8 @@ void AgbMain(void)
 	io_init();
 	SetGameTime(0);
 
+	main_round_counter = 0;
+
 	REG_DISPSTAT = DISPSTAT_VBLANK_INT_ENABLE;
 	REG_IME = true;
 
@@ -39,6 +45,9 @@ void AgbMain(void)
 	StartGame();
 
 	while (1) {
+		main_round_counter++;
+		LTRACEF("Main loop %ld", main_round_counter);
+
 		RunMainFunc();
 		SoftResetIfKeyCombo();
 	}
@@ -68,12 +77,15 @@ static void OnVBlank(void)
 	INTR_CHECK = INTR_FLAG_VBLANK;
 	IncGameTime();
 
-	Proc_Run(gProcTreeRootArray[0]);
+	Proc_ExecRoot(0);
 
 	if (gBmSt.main_loop_ended) {
 		gBmSt.main_loop_ended = false;
 
 		SyncDispIo();
+		SyncBgsAndPal();
+		ApplyDataMoves();
+		SyncHiOam();
 	}
 }
 
@@ -81,14 +93,14 @@ static void OnMain(void)
 {
 	RefreshKeySt(gKeySt);
 
-	Proc_Run(gProcTreeRootArray[1]);
+	Proc_ExecRoot(1);
 
 	if (GetGameLock() == 0)
-		Proc_Run(gProcTreeRootArray[2]);
+		Proc_ExecRoot(2);
 
-	Proc_Run(gProcTreeRootArray[3]);
-	Proc_Run(gProcTreeRootArray[5]);
-	Proc_Run(gProcTreeRootArray[4]);
+	Proc_ExecRoot(3);
+	Proc_ExecRoot(5);
+	Proc_ExecRoot(4);
 
 	gBmSt.main_loop_ended = TRUE;
 	gBmSt.main_loop_end_scanline = REG_VCOUNT;

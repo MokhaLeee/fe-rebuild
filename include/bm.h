@@ -10,9 +10,33 @@ struct BmSt {
 
 extern EWRAM_DATA struct BmSt gBmSt;
 
+enum playst_weathers {
+	/* PlaySt::weather */
+	WEATHER_NONE,
+
+	WEATHER_SNOW,
+	WEATHER_SNOWSTORM,
+	WEATHER_NIGHT,
+	WEATHER_RAIN,
+	WEATHER_FLAMES,
+	WEATHER_SANDSTORM,
+	WEATHER_CLOUDS,
+};
+
+struct PlaySt {
+	u8 weather;
+};
+
+extern EWRAM_DATA struct PlaySt gPlaySt;
+
 /**
  * lock
  */
 void LockGame(void);
 void UnlockGame(void);
 u8 GetGameLock(void);
+
+/**
+ * Misc
+ */
+void InitBmBgLayers(void);

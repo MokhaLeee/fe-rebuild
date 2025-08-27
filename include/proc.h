@@ -166,9 +166,11 @@ void Proc_EndEachMarked(int mark);
 void Proc_EndEach(struct ProcScr const *script);
 void Proc_BreakEach(struct ProcScr const *script);
 void Proc_ForSubtree(ProcPtr proc, ProcFunc func);
-void Proc_PrintSubtreeInfo(ProcPtr proc);
 void Proc_SetRepeatFunc(ProcPtr proc, ProcFunc func);
 void Proc_Lock(ProcPtr proc);
 void Proc_Release(ProcPtr proc);
+
+void Proc_PrintSubtreeInfo(int tree);
+void Proc_ExecRoot(int tree);
 
 #define Proc_Exists(script) (FindProc((script)) ? TRUE : FALSE)

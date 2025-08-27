@@ -5,7 +5,8 @@
 #include "common/types.h"
 #include "common/attributes.h"
 #include "common/sections.h"
-#include "lib/debug-kit.h"
+#include "lib/printf.h"
+#include "lib/debug.h"
 #include "lib/math.h"
 
 /**

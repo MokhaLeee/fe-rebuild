@@ -22,8 +22,3 @@ int fprintf(FILE *fp, const char *fmt, ...) __PRINTFLIKE(2, 3);
 int printf(const char *fmt, ...) __PRINTFLIKE(1, 2);
 
 void kprintf_test(void);
-
-/**
- * Always print to STDOUT regardless on debug config
- */
-#define fmt_printf(format, ...) printf("(%s): "format, __func__, ##__VA_ARGS__)

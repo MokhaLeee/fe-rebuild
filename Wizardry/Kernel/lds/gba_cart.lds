@@ -95,6 +95,7 @@ SECTIONS
 	{
 		*(.data)
 		*(.data.*)
+		*(.ewram*)
 		. = ALIGN(4);
 		__ewram_end = ABSOLUTE(.);
 	} >ewram
@@ -107,6 +108,7 @@ SECTIONS
 		__bss_start = ABSOLUTE(.);
 		__bss_start__ = ABSOLUTE(.);
 		*(.bss*)
+		*(.iwram*)
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = ABSOLUTE(.);

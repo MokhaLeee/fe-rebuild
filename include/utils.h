@@ -4,6 +4,17 @@
 
 extern u8 EWRAM_DATA gBuf[0x2000];
 
+enum {
+    INTERPOLATE_LINEAR,
+    INTERPOLATE_SQUARE,
+    INTERPOLATE_CUBIC,
+    INTERPOLATE_POW4,
+    INTERPOLATE_RSQUARE,
+    INTERPOLATE_RCUBIC,
+};
+
+int Interpolate(int method, int lo, int hi, int x, int end);
+
 /**
  * decomp
  */

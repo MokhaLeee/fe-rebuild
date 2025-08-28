@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "game-ctrl.h"
 #include "armfunc.h"
+#include "m4a.h"
 
 #define LOCAL_TRACE 1
 
@@ -38,7 +39,17 @@ void AgbMain(void)
 	REG_DISPSTAT = DISPSTAT_VBLANK_INT_ENABLE;
 	REG_IME = true;
 
+	/* key */
+	InitKeySt(gKeySt);
+	RefreshKeySt(gKeySt);
+
+	/* ram funcs */
+	InitRamFuncs();
+
 	InitProcs();
+
+	/* sound */
+	m4aSoundInit();
 
 	StartGame();
 

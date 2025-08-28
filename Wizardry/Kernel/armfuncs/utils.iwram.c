@@ -1,6 +1,6 @@
 #include "common.h"
 
-__attribute__((section(".iwram_code")))
+IWRAM_FUNC
 
 u32 Checksum32_ram(const void *buf, int size)
 {

@@ -10,7 +10,7 @@ void InitRamFuncs(void)
 	// memcpy(__iwram_code_vma, __iwram_code_lma, (size_t)(__iwram_code_lma_end - __iwram_code_lma));
 }
 
-__attribute__((section(".iwram_code.stub"), long_call, noinline)) 
+IWRAM_FUNC_STUB
 void PutOamHi(int x, int y, u16 const * oam_list, int oam2)
 {
 	PutOamHi_ram(x, y, oam_list, oam2);

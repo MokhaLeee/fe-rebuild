@@ -68,6 +68,11 @@ start_vector:
 	msr	cpsr_fc, r0
 	ldr	sp, =__sp_usr
 
+	@ Setup IRQ vector
+	ldr r1, =INTR_VECTOR
+	ldr r0, =IrqMain
+	str r0, [r1]
+
 	@ Switch to thumb mode
 	add	r0, pc, #1
 	bx	r0
@@ -81,10 +86,10 @@ start_thumb:
 	lsl	r0, r1, #7			@ r0 = 0x2000000
 	bl	ClearMem
 
-	@ Copy .text.ewram section to EWRAM
-	ldr	r1, =__text_cpy_start
-	ldr	r2, =__ewram_text_start
-	ldr	r3, =__text_cpy_end
+	@ Copy .text.iwram section
+	ldr	r1, =__iwram_code_lma
+	ldr	r2, =__iwram_code_vma
+	ldr	r3, =__iwram_code_lma_end
 	sub	r3, r3, r1
 	bl	CopyMem
 

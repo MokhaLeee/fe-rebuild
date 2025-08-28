@@ -74,10 +74,14 @@ LDFLAGS = -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 CDEPFLAGS = -MMD -MT "$*.o" -MT "$*.asm" -MF "$(CACHE_DIR)/$(notdir $*).d" -MP
 SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 
-%.arm.o  : EXT_FLAGS := -marm
-%iwram.o : EXT_FLAGS := -marm -mlong-calls
+%.o:   EXT_FLAGS := -mthumb -mthumb-interwork
+%.asm: EXT_FLAGS := -mthumb -mthumb-interwork
 
-EXT_FLAGS := -mthumb -mthumb-interwork
+%.arm.o   : EXT_FLAGS := -marm
+%.arm.asm : EXT_FLAGS := -marm
+
+%iwram.o   : EXT_FLAGS := -marm -mlong-calls
+%iwram.asm : EXT_FLAGS := -marm -mlong-calls
 
 %.o: %.c
 	@echo "[CC ]	$@"
@@ -125,7 +129,7 @@ $(ROM): $(ELF)
 	@python3 ./Tools/Scripts/elf2sym.py $< > $(SYM)
 	@gbafix $@ -t$(BUILD_NAME) -c0000 -m00
 
-CLEAN_FILES += $(ELF) $(ROM) $(MAP)
+CLEAN_FILES += $(ELF) $(ROM) $(MAP) $(SYM)
 
 clean:
 	@rm -f $(CLEAN_FILES)

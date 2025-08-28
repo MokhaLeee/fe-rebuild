@@ -1,8 +1,8 @@
 #include "common.h"
 #include "irq.h"
-#include "ram-funcs.h"
 
 IrqFunc gIrqFuncs[II_MAX];
+static u32 IntrMainRam[0x200];
 
 static void DummyIrqFunc(void)
 {
@@ -16,7 +16,8 @@ void IrqInit(void)
 		gIrqFuncs[i] = DummyIrqFunc;
 
 	/* Set irq entry */
-	INTR_VECTOR = RAM_FUNC_ADDR(IrqMain);
+	CpuFastCopy(IrqMain, IntrMainRam, sizeof IntrMainRam);
+	INTR_VECTOR = IntrMainRam;
 
 	/* Enable irq interrupts */
 	REG_IME = true;

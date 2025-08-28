@@ -23,17 +23,9 @@ SECTIONS
 	.crt0 :
 	{
 		KEEP (*(.crt0))
+		*(.text.irq)
 		. = ALIGN(4);
 	} >rom =0xff
-
-	__text_cpy_start = .;
-	.text.ewram ALIGN(4) :
-	{
-		*(.text.ewram)
-		. = ALIGN(4);
-	} >rom = 0xff
-
-	__text_cpy_end = .;
 
 	.text  :
 	{
@@ -58,6 +50,7 @@ SECTIONS
 	.rodata ALIGN(4) : AT (__rodata_start)
 	{
 		*(.rodata)
+		*(.rodata*)
 		. = ALIGN(4);
 	} >rom = 0xff
 
@@ -108,6 +101,7 @@ SECTIONS
 
 	/* IWRAM */
 	. = __iwram_start;
+
 	.bss ALIGN(4) (NOLOAD) :
 	{
 		__bss_start = ABSOLUTE(.);
@@ -117,5 +111,16 @@ SECTIONS
 		. = ALIGN(4);
 		__bss_end__ = ABSOLUTE(.);
 		__end__ = ABSOLUTE(.);
-	}
+	} >iwram
+
+	.iwram_code ALIGN(4) :
+	{
+		. = ALIGN(4);
+		*(.iwram_code)
+		. = ALIGN(4);
+	} >iwram AT>rom
+
+	__iwram_code_lma     = LOADADDR(.iwram_code);
+	__iwram_code_lma_end = LOADADDR(.iwram_code) + SIZEOF(.iwram_code);
+	__iwram_code_vma     = ADDR(.iwram_code);
 }

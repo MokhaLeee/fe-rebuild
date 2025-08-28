@@ -5,6 +5,7 @@
 #include "bm.h"
 #include "utils.h"
 #include "game-ctrl.h"
+#include "armfunc.h"
 
 #define LOCAL_TRACE 1
 
@@ -29,6 +30,7 @@ void AgbMain(void)
 	IrqInit();
 	SetOnVBlank(NULL);
 	io_init();
+	InitRamFuncs();
 	SetGameTime(0);
 
 	main_round_counter = 0;

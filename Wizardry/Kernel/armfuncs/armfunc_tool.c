@@ -1,58 +1,39 @@
 #include "common.h"
 #include "armfunc.h"
 
-extern u8 const ArmCodeStart[];
-extern u8 const ArmCodeEnd[];
+extern u32 const __iwram_code_lma[];
+extern u32 const __iwram_code_lma_end[];
+extern u32 __iwram_code_vma[];
 
-u8 RamFuncArea[0xA00];
-
-void (* DrawGlyphRamFunc)(u16 const * cvtLut, void * chr, u32 const * glyph, int offset);
-void (* DecodeStringRamFunc)(char const * src, char * dst);
-void (* PutOamHiRamFunc)(int x, int y, u16 const * oam_list, int oam2);
-void (* PutOamLoRamFunc)(int x, int y, u16 const * oam_list, int oam2);
-void (* MapFloodCoreStepRamFunc)();
-void (* MapFloodCoreRamFunc)(void);
+_maybe_unused static void (*const DrawGlyph_hook)(u16 const * cvtLut, void * chr, u32 const * glyph, int offset) = DrawGlyph_ram;
+_maybe_unused static void (*const DecodeString_hook)(char const * src, char * dst) = DecodeString_ram;
+_maybe_unused static void (*const PutOamHi_hook)(int x, int y, u16 const * oam_list, int oam2) = PutOamHi_ram;
+_maybe_unused static void (*const PutOamLo_hook)(int x, int y, u16 const * oam_list, int oam2) = PutOamLo_ram;
+_maybe_unused static void (*const MapFloodCoreStep_hook)(int connect, int x, int y) = MapFloodCoreStep_ram;
+_maybe_unused static void (*const MapFloodCore_hook)(void) = MapFloodCore_ram;
+_maybe_unused static void (*const ClearOam_hook)(void * oam, int count) = ClearOam_ram;
+_maybe_unused static void (*const TmApplyTsa_hook)(u16 * tm, u8 const * tsa, u16 tileref) = TmApplyTsa_ram;
+_maybe_unused static void (*const TmFillRect_hook)(u16 * tm, int width, int height, u16 tileref) = TmFillRect_ram;
+_maybe_unused static void (*const ColorFadeTick_hook)(void) = ColorFadeTick_ram;
+_maybe_unused static void (*const TmCopyRect_hook)(u16 const * src, u16 * dst, int width, int height) = TmCopyRect_ram;
+_maybe_unused static u32 (*const Checksum32_hook)(void const * buf, int size) = Checksum32_ram;
 
 void InitRamFuncs(void)
 {
-	int size = ArmCodeEnd - ArmCodeStart;
-
-	CpuCopy16(ArmCodeStart, RamFuncArea, size);
-
-	DrawGlyphRamFunc        = (void *) RamFuncArea + (((u8 *) (void *) DrawGlyph)        - ArmCodeStart);
-	DecodeStringRamFunc     = (void *) RamFuncArea + (((u8 *) (void *) DecodeString)     - ArmCodeStart);
-	PutOamHiRamFunc         = (void *) RamFuncArea + (((u8 *) (void *) PutOamHi)         - ArmCodeStart);
-	PutOamLoRamFunc         = (void *) RamFuncArea + (((u8 *) (void *) PutOamLo)         - ArmCodeStart);
-	MapFloodCoreStepRamFunc = (void *) RamFuncArea + (((u8 *) (void *) MapFloodCoreStep) - ArmCodeStart);
-	MapFloodCoreRamFunc     = (void *) RamFuncArea + (((u8 *) (void *) MapFloodCore)     - ArmCodeStart);
+	// memcpy(__iwram_code_vma, __iwram_code_lma, (size_t)(__iwram_code_lma_end - __iwram_code_lma));
 }
 
-void DrawGlyphRam(u16 const * cvtLut, void * chr, u32 const * glyph, int offset)
+void PutOamHi(int x, int y, u16 const * oam_list, int oam2)
 {
-	DrawGlyphRamFunc(cvtLut, chr, glyph, offset);
+	PutOamHi_hook(x, y, oam_list, oam2);
 }
 
-void DecodeStringRam(char const * src, char * dst)
+void PutOamLo(int x, int y, u16 const * oam_list, int oam2)
 {
-	DecodeStringRamFunc(src, dst);
+	PutOamLo_hook(x, y, oam_list, oam2);
 }
 
-void PutOamHiRam(int x, int y, u16 const * oam_list, int oam2)
+void ClearOam(void * oam, int count)
 {
-	PutOamHiRamFunc(x, y, oam_list, oam2);
-}
-
-void PutOamLoRam(int x, int y, u16 const * oam_list, int oam2)
-{
-	PutOamLoRamFunc(x, y, oam_list, oam2);
-}
-
-void MapFloodCoreStepRam(int connect, int x, int y)
-{
-	MapFloodCoreStepRamFunc(connect, x, y);
-}
-
-void MapFloodCoreRam(void)
-{
-	MapFloodCoreRamFunc();
+	ClearOam_hook(oam, count);
 }

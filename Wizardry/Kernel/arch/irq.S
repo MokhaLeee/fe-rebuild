@@ -1,4 +1,4 @@
-.section ".text.ewram"
+.section ".text.irq"
 .syntax unified
 .arm
 

@@ -108,6 +108,7 @@ SECTIONS
 		__bss_start = ABSOLUTE(.);
 		__bss_start__ = ABSOLUTE(.);
 		*(.bss*)
+		*(.iwram_data*)
 		*(.iwram*)
 		*(COMMON)
 		. = ALIGN(4);

@@ -71,20 +71,20 @@ extern void ply_xiecl(struct MusicPlayer *, struct MusicPlayerTrack *);
 extern void ply_xleng(struct MusicPlayer *, struct MusicPlayerTrack *);
 extern void ply_xswee(struct MusicPlayer *, struct MusicPlayerTrack *);
 
-SECTION(".iwram.SoundMainRam") ALIGNED(4)
-u8 SoundMainRam[0x400] = { 0 };
-
-SECTION(".iwram.gSoundInfo")
-struct SoundInfo gSoundInfo = { 0 };
-
-SECTION(".iwram.gMPlayJumpTable")
-MPlayFunc gMPlayJumpTable[36] = { 0 };
-
-SECTION(".iwram.gCgbChans")
-struct CgbChannel gCgbChans[4] = { { 0 } };
-
-SECTION(".iwram.gMPlayMemAccArea")
-u8 gMPlayMemAccArea[0x10] = { 0 };
+struct SoundInfo gSoundInfo;
+struct MusicPlayer gMPlayInfo_SE4_BMP2;
+struct MusicPlayer gMPlayInfo_SE5_BMP3;
+struct MusicPlayer gMusicPlayer_FightBgm;
+MPlayFunc gMPlayJumpTable[36];
+struct CgbChannel gCgbChans[4];
+struct MusicPlayer gMPlayInfo_SE6_BMP4;
+struct MusicPlayer gMusicPlayer_MainBgm;
+struct MusicPlayer gMPlayInfo_SE1_SYS1;
+struct MusicPlayer gMPlayInfo_SE3_BMP1;
+u8 gMPlayMemAccArea[0x10];
+struct MusicPlayer gMPlayInfo_SE7_EVT;
+struct MusicPlayer gMPlayInfo_SE2_SYS2;
+u8 SoundMainRam[0x400];
 
 typedef void (* XcmdFunc)(struct MusicPlayer *, struct MusicPlayerTrack *);
 

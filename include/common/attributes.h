@@ -11,6 +11,8 @@
  */
 #define SECTION(name) __attribute__((section(name)))
 
+#define IWRAM_DATA SECTION(".iwram_data")
+
 #define EWRAM_DATA SECTION(".data.ewram")
 #define RELOC_DATA SECTION(".rodata.reloc")
 

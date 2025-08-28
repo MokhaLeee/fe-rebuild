@@ -36,10 +36,6 @@ void AgbMain(void)
 	REG_DISPSTAT = DISPSTAT_VBLANK_INT_ENABLE;
 	REG_IME = true;
 
-#if CONFIG_USE_DEBUG
-	kprintf_test();
-#endif
-
 	InitProcs();
 
 	StartGame();

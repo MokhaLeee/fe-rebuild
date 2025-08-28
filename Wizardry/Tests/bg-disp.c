@@ -3,15 +3,15 @@
 #include "utils.h"
 #include "hardware.h"
 
-enum video_allocs_title {
-	BGCHR_TITLE_MURALBG = 0,
-	BGPAL_TITLE_MURALBG = 14,
+enum video_allocs_bgdisptest {
+	BGCHR_BGDISP_TEST_MURALBG = 0,
+	BGPAL_BGDISP_TEST_MURALBG = 14,
 };
 
 extern const u16 Img_MuralBackground[];
 extern const u16 Pal_MuralBackground[];
 
-static void Title_InitDisp(ProcPtr proc)
+static void BgDispTest_InitDisp(ProcPtr proc)
 {
 	InitBgs(NULL);
 
@@ -33,14 +33,14 @@ static void Title_InitDisp(ProcPtr proc)
 	SetDispEnable(0, 0, 0, 1, 0);
 }
 
-static void Title_PutBG(ProcPtr proc)
+static void BgDispTest_PutBG(ProcPtr proc)
 {
 	int i;
-	u16 *vram_dst = (void *)BG_VRAM + GetBgChrOffset(BG_3) + BGCHR_TITLE_MURALBG * CHR_SIZE;
-	int tile_ref = OAM2_CHR(BGCHR_TITLE_MURALBG) + OAM2_PAL(BGPAL_TITLE_MURALBG) + OAM2_LAYER(0);
+	u8 *vram_dst = (u8 *)BG_VRAM + GetBgChrOffset(BG_3) + BGCHR_BGDISP_TEST_MURALBG * CHR_SIZE;
+	int tile_ref = OAM2_CHR(BGCHR_BGDISP_TEST_MURALBG) + OAM2_PAL(BGPAL_BGDISP_TEST_MURALBG) + OAM2_LAYER(0);
 
 	Decompress(Img_MuralBackground, vram_dst);
-	ApplyPalettes(Pal_MuralBackground, BGPAL_TITLE_MURALBG, 2);
+	ApplyPalettes(Pal_MuralBackground, BGPAL_BGDISP_TEST_MURALBG, 2);
 
 	for (i = 0; i < 0x280; i++)
 		gBg3Tm[i] = i + tile_ref;
@@ -48,15 +48,15 @@ static void Title_PutBG(ProcPtr proc)
 	EnableBgSync(BG3_SYNC_BIT);
 }
 
-static const struct ProcScr ProcScr_MainTitle[] = {
-	PROC_NAME("MainTitle"),
-	PROC_CALL(Title_InitDisp),
-	PROC_CALL(Title_PutBG),
+static const struct ProcScr ProcScr_BgDispTest[] = {
+	PROC_NAME("BgDispTest"),
+	PROC_CALL(BgDispTest_InitDisp),
+	PROC_CALL(BgDispTest_PutBG),
 
 	PROC_BLOCK
 };
 
-void StartMainTitle(ProcPtr proc)
+void StartBgDispTest(ProcPtr proc)
 {
-	SpawnProcLocking(ProcScr_MainTitle, proc);
+	SpawnProcLocking(ProcScr_BgDispTest, proc);
 }

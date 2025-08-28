@@ -21,4 +21,4 @@ int snprintf(char *str, size_t len, const char *fmt, ...) __PRINTFLIKE(3, 4);
 int fprintf(FILE *fp, const char *fmt, ...) __PRINTFLIKE(2, 3);
 int printf(const char *fmt, ...) __PRINTFLIKE(1, 2);
 
-void kprintf_test(void);
+

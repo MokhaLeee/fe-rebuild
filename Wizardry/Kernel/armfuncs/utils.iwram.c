@@ -2,7 +2,7 @@
 
 __attribute__((section(".iwram_code")))
 
-u32 Checksum32(const void *buf, int size)
+u32 Checksum32_ram(const void *buf, int size)
 {
 	int i;
 	u32 add_acc = 0;

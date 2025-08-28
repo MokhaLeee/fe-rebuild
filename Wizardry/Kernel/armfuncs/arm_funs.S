@@ -264,19 +264,21 @@ PutOamLo_ram: @ 0x08000534
 	push {r4, r5, r6, r7}
 	ldr r7, .L08000530 @ =gOamLoPutIt
 	b .L0800049C
-.L08000540:
+
+DrawGlyph_Ref:
 	.byte 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
 	.byte 0x00, 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00
-.L08000560: .4byte 0x08000540
 
-	arm_func_start DrawGlyph_ram
-DrawGlyph_ram: @ 0x08000564
+pr_DrawGlyph_Ref: .4byte DrawGlyph_Ref
+
+	arm_func_start DrawGlyph
+DrawGlyph: @ 0x08000564
 	push {r4, r5, r6, r7, r8, sb, sl}
 	mov sb, #0xf
 	mov sl, #0x10000
 	sub sl, sl, #1
 .L08000574:
-	ldr r4, .L08000560 @ =0x08000540
+	ldr r4, pr_DrawGlyph_Ref @ DrawGlyph_Ref
 	ldr r5, [r4, r3, lsl #2]
 	ldr r4, [r2]
 	umull r5, r6, r4, r5
@@ -317,6 +319,57 @@ DrawGlyph_ram: @ 0x08000564
 	add r2, r2, #4
 	subs sb, sb, #1
 	bpl .L08000574
+	pop {r4, r5, r6, r7, r8, sb, sl}
+	bx lr
+
+	arm_func_start DrawGlyph_Unused
+DrawGlyph_Unused: @ 0x08000620
+	push {r4, r5, r6, r7, r8, sb, sl}
+	mov sb, #7
+	mov sl, #0x10000
+	sub sl, sl, #1
+.L08000630:
+	ldr r4, pr_DrawGlyph_Ref @ DrawGlyph_Ref
+	ldr r5, [r4, r3, lsl #2]
+	ldr r4, [r2]
+	umull r5, r6, r4, r5
+	mov r7, r5
+	and r7, r7, #0xff
+	ldr r7, [r0, r7, lsl #1]
+	lsr r8, r5, #8
+	and r8, r8, #0xff
+	ldr r8, [r0, r8, lsl #1]
+	and r7, r7, sl
+	orr r7, r7, r8, lsl #16
+	ldr r4, [r1]
+	orr r4, r4, r7
+	str r4, [r1]
+	lsr r7, r5, #0x10
+	and r7, r7, #0xff
+	ldr r7, [r0, r7, lsl #1]
+	lsr r8, r5, #0x18
+	and r8, r8, #0xff
+	ldr r8, [r0, r8, lsl #1]
+	and r7, r7, sl
+	orr r7, r7, r8, lsl #16
+	ldr r4, [r1, #0x40]
+	orr r4, r4, r7
+	str r4, [r1, #0x20]
+	mov r7, r6
+	and r7, r7, #0xff
+	ldr r7, [r0, r7, lsl #1]
+	lsr r8, r6, #8
+	and r8, r8, #0xff
+	ldr r8, [r0, r8, lsl #1]
+	and r7, r7, sl
+	orr r7, r7, r8, lsl #16
+	ldr r4, [r1, #0x80]
+	orr r4, r4, r7
+	str r4, [r1, #0x40]
+	add r1, r1, #4
+	add r2, r2, #4
+	subs sb, sb, #1
+	bpl .L08000630
 	pop {r4, r5, r6, r7, r8, sb, sl}
 	bx lr
 

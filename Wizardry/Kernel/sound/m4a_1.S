@@ -1,6 +1,6 @@
-    .include "asm_macros.inc"
-    .include "asm_m4a.inc"
-    .include "asm_gbaio.inc"
+    #include "asm_macros.inc"
+    #include "asm_m4a.inc"
+    #include "asm_gbaio.inc"
 
     .text
 

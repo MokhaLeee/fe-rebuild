@@ -1,4 +1,4 @@
-	.include "asm_m4a.inc"
+	#include "asm_m4a.inc"
 
 	.equiv TRACK_SIZE, 0x50
 	.equiv NUM_TRACKS_BGM1, 8

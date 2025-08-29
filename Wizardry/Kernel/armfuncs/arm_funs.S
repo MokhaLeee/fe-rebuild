@@ -1,6 +1,6 @@
     .section .iwram_code
 
-    .include "macro.inc"
+    #include "macro.inc"
 
     .syntax unified
     .arm

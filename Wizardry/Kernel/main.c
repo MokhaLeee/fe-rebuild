@@ -8,7 +8,7 @@
 #include "armfunc.h"
 #include "m4a.h"
 
-#define LOCAL_TRACE 1
+#define LOCAL_TRACE 0
 
 EWRAM_DATA static Func MainFunc;
 EWRAM_DATA static u32 main_round_counter;
@@ -85,6 +85,7 @@ static void OnVBlank(void)
 {
 	INTR_CHECK = INTR_FLAG_VBLANK;
 	IncGameTime();
+	m4aSoundVSync();
 
 	Proc_ExecRoot(0);
 

@@ -14,4 +14,9 @@ void kprintf_test(void);
  */
 void StartBgDispTest(ProcPtr proc);
 
+/**
+ * m4a
+ */
+void m4a_test(void);
+
 #endif

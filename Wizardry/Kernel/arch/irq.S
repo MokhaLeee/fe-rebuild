@@ -2,8 +2,8 @@
 .syntax unified
 .arm
 
-.include "asm_gbaio.inc"
-.include "macro.inc"
+#include "asm_gbaio.inc"
+#include "macro.inc"
 
 ARM_FUNC_START IrqMain
 IrqMain:

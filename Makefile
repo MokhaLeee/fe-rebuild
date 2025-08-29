@@ -59,8 +59,8 @@ LD      := $(PREFIX)ld
 # ============
 
 INC_DIRS := include $(LIB_DIR)/include
-INC_FLAG := $(foreach dir, $(INC_DIRS), -I $(dir)) \
-            $(foreach dir,$(LIB_DIRS),-I$(dir)/include)
+INC_FLAG := $(foreach dir, $(INC_DIRS), -I$(dir)) \
+            $(foreach dir, $(LIB_DIRS), -I$(dir)/include)
 
 ARCH := -mcpu=arm7tdmi
 CFLAGS := -g $(ARCH) -mtune=arm7tdmi \
@@ -93,7 +93,8 @@ SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 
 %.o: %.S
 	@echo "[AS ]	$@"
-	@$(AS) $(ASFLAGS) $(SDEPFLAGS) -I $(dir $<) $< -o $@
+	@$(CC) $(CFLAGS) $(EXT_FLAGS) $(CDEPFLAGS) -g -c $< -o $@
+#	@$(AS) $(ASFLAGS) $(SDEPFLAGS) -I $(dir $<) $< -o $@
 
 .PRECIOUS: %.o;
 -include $(wildcard $(CACHE_DIR)/*.d)

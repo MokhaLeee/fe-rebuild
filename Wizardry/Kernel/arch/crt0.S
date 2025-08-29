@@ -1,7 +1,7 @@
 .section ".crt0","ax"
 .arm
 
-.include "asm_gbaio.inc"
+#include "asm_gbaio.inc"
 #include "macro.inc"
 
 .set PSR_USR_MODE,  0x00000010

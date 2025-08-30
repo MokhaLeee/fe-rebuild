@@ -1,6 +1,8 @@
 #include "common.h"
 #include "m4a.h"
 
+#define LOCAL_TRACE 1
+
 #define MPLAY_JUMP_TABLE_FUNC(n) (*(gMPlayJumpTable + (n)))
 
 extern const u8 gCgb3Vol[];
@@ -178,7 +180,7 @@ void m4aSoundMain(void)
 void m4aSongNumStart(u16 n)
 {
     struct MusicPlayerEnt const * music_player_table = gMusicPlayerTable;
-    struct SongEnt const * song_table = gSongTable;
+    struct SongEnt const * song_table = pr_SongTable;
     struct SongEnt const * song_ent = song_table + n;
     struct MusicPlayerEnt const * music_player_ent = music_player_table + song_ent->ms;
 
@@ -188,7 +190,7 @@ void m4aSongNumStart(u16 n)
 void m4aSongNumStartOrChange(u16 n)
 {
     struct MusicPlayerEnt const * music_player_table = gMusicPlayerTable;
-    struct SongEnt const * song_table = gSongTable;
+    struct SongEnt const * song_table = pr_SongTable;
     struct SongEnt const * song_ent = song_table + n;
     struct MusicPlayerEnt const * music_player_ent = music_player_table + song_ent->ms;
 
@@ -209,7 +211,7 @@ void m4aSongNumStartOrChange(u16 n)
 void m4aSongNumStartOrContinue(u16 n)
 {
     struct MusicPlayerEnt const * music_player_table = gMusicPlayerTable;
-    struct SongEnt const * song_table = gSongTable;
+    struct SongEnt const * song_table = pr_SongTable;
     struct SongEnt const * song_ent = song_table + n;
     struct MusicPlayerEnt const * music_player_ent = music_player_table + song_ent->ms;
 
@@ -224,7 +226,7 @@ void m4aSongNumStartOrContinue(u16 n)
 void m4aSongNumStop(u16 n)
 {
     struct MusicPlayerEnt const * music_player_table = gMusicPlayerTable;
-    struct SongEnt const * song_table = gSongTable;
+    struct SongEnt const * song_table = pr_SongTable;
     struct SongEnt const * song_ent = song_table + n;
     struct MusicPlayerEnt const * music_player_ent = music_player_table + song_ent->ms;
 
@@ -235,7 +237,7 @@ void m4aSongNumStop(u16 n)
 void m4aSongNumContinue(u16 n)
 {
     struct MusicPlayerEnt const * music_player_table = gMusicPlayerTable;
-    struct SongEnt const * song_table = gSongTable;
+    struct SongEnt const * song_table = pr_SongTable;
     struct SongEnt const * song_ent = song_table + n;
     struct MusicPlayerEnt const * music_player_ent = music_player_table + song_ent->ms;
 

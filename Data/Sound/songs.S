@@ -8,16 +8,6 @@
 .endm
 
 .align 2
-.global song_000
-song_000:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_05A
 song_05A:
 @ ****************************** header ******************************
@@ -411,36 +401,6 @@ song_05C_tone:
 
 
 .align 2
-.global song_05D
-song_05D:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_05E
-song_05E:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_05F
-song_05F:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_060
 song_060:
 @ ****************************** header ******************************
@@ -574,36 +534,6 @@ song_061_track0:
 song_061_tone:
 	tone_data 0x02, 0x3C, 0x00, 0x00, 0x00000002, 0x00, 0x01, 0x00, 0x00 @ index=50
 	tone_data 0x02, 0x3C, 0x00, 0x00, 0x00000002, 0x00, 0x02, 0x00, 0x00 @ index=51
-
-
-.align 2
-.global song_062
-song_062:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_063
-song_063:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_064
-song_064:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -4228,16 +4158,6 @@ song_094_tone:
 
 
 .align 2
-.global song_095
-song_095:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_096
 song_096:
 @ ****************************** header ******************************
@@ -5047,26 +4967,6 @@ song_0AC_tone:
 
 
 .align 2
-.global song_0AD
-song_0AD:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_0AE
-song_0AE:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_0AF
 song_0AF:
 @ ****************************** header ******************************
@@ -5149,16 +5049,6 @@ song_0B1_track0:
 .align 4
 song_0B1_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x004833EC, 0xFF, 0x00, 0xFF, 0x00 @ index=70
-
-
-.align 2
-.global song_0B2
-song_0B2:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -5863,46 +5753,6 @@ song_0BF_track0:
 .align 4
 song_0BF_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0047F088, 0xFF, 0x00, 0xFF, 0xBC @ index=49
-
-
-.align 2
-.global song_0C0
-song_0C0:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_0C1
-song_0C1:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_0C2
-song_0C2:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_0C3
-song_0C3:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -8927,36 +8777,6 @@ song_0D8_track0:
 .align 4
 song_0D8_tone:
 	tone_data 0x04, 0x3C, 0x00, 0x00, 0x00000001, 0x00, 0x01, 0x00, 0x00 @ index=4
-
-
-.align 2
-.global song_0D9
-song_0D9:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_0DA
-song_0DA:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_0DB
-song_0DB:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -12481,16 +12301,6 @@ song_106_tone:
 
 
 .align 2
-.global song_107
-song_107:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_108
 song_108:
 @ ****************************** header ******************************
@@ -13708,26 +13518,6 @@ song_114_track0:
 .align 4
 song_114_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0047332C, 0xFF, 0x00, 0xFF, 0x00 @ index=42
-
-
-.align 2
-.global song_115
-song_115:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_116
-song_116:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -18233,26 +18023,6 @@ song_147_tone:
 
 
 .align 2
-.global song_148
-song_148:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_149
-song_149:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_14A
 song_14A:
 @ ****************************** header ******************************
@@ -18474,26 +18244,6 @@ song_151_track0:
 .align 4
 song_151_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x00527244, 0xFF, 0x00, 0xFF, 0x00 @ index=3
-
-
-.align 2
-.global song_152
-song_152:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_153
-song_153:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -18721,26 +18471,6 @@ song_15B_tone:
 
 
 .align 2
-.global song_15C
-song_15C:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_15D
-song_15D:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_15E
 song_15E:
 @ ****************************** header ******************************
@@ -18962,26 +18692,6 @@ song_165_track0:
 .align 4
 song_165_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0052BE84, 0xFF, 0x00, 0xFF, 0x00 @ index=11
-
-
-.align 2
-.global song_166
-song_166:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_167
-song_167:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -19209,26 +18919,6 @@ song_16F_tone:
 
 
 .align 2
-.global song_170
-song_170:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_171
-song_171:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_172
 song_172:
 @ ****************************** header ******************************
@@ -19450,26 +19140,6 @@ song_179_track0:
 .align 4
 song_179_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x00530AE8, 0xFF, 0x00, 0xFF, 0x00 @ index=19
-
-
-.align 2
-.global song_17A
-song_17A:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_17B
-song_17B:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -19697,26 +19367,6 @@ song_183_tone:
 
 
 .align 2
-.global song_184
-song_184:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_185
-song_185:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_186
 song_186:
 @ ****************************** header ******************************
@@ -19941,26 +19591,6 @@ song_18D_tone:
 
 
 .align 2
-.global song_18E
-song_18E:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_18F
-song_18F:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_190
 song_190:
 @ ****************************** header ******************************
@@ -20126,46 +19756,6 @@ song_195_track0:
 .align 4
 song_195_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0053B208, 0xFF, 0x00, 0xFF, 0x00 @ index=2
-
-
-.align 2
-.global song_196
-song_196:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_197
-song_197:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_198
-song_198:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_199
-song_199:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -20337,46 +19927,6 @@ song_19F_tone:
 
 
 .align 2
-.global song_1A0
-song_1A0:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1A1
-song_1A1:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1A2
-song_1A2:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1A3
-song_1A3:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_1A4
 song_1A4:
 @ ****************************** header ******************************
@@ -20545,46 +20095,6 @@ song_1A9_tone:
 
 
 .align 2
-.global song_1AA
-song_1AA:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1AB
-song_1AB:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1AC
-song_1AC:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1AD
-song_1AD:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_1AE
 song_1AE:
 @ ****************************** header ******************************
@@ -20750,46 +20260,6 @@ song_1B3_track0:
 .align 4
 song_1B3_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x005480D4, 0xFF, 0x00, 0xFF, 0x00 @ index=22
-
-
-.align 2
-.global song_1B4
-song_1B4:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1B5
-song_1B5:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1B6
-song_1B6:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1B7
-song_1B7:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -20963,46 +20433,6 @@ song_1BD_tone:
 
 
 .align 2
-.global song_1BE
-song_1BE:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1BF
-song_1BF:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1C0
-song_1C0:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1C1
-song_1C1:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_1C2
 song_1C2:
 @ ****************************** header ******************************
@@ -21168,46 +20598,6 @@ song_1C7_track0:
 .align 4
 song_1C7_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0054C3D8, 0xFF, 0x00, 0xFF, 0x00 @ index=28
-
-
-.align 2
-.global song_1C8
-song_1C8:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1C9
-song_1C9:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1CA
-song_1CA:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1CB
-song_1CB:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -21379,46 +20769,6 @@ song_1D1_tone:
 
 
 .align 2
-.global song_1D2
-song_1D2:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1D3
-song_1D3:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1D4
-song_1D4:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1D5
-song_1D5:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_1D6
 song_1D6:
 @ ****************************** header ******************************
@@ -21584,46 +20934,6 @@ song_1DB_track0:
 .align 4
 song_1DB_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x00543B50, 0xFF, 0x00, 0xFF, 0x00 @ index=15
-
-
-.align 2
-.global song_1DC
-song_1DC:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1DD
-song_1DD:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1DE
-song_1DE:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1DF
-song_1DF:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -21795,46 +21105,6 @@ song_1E5_tone:
 
 
 .align 2
-.global song_1E6
-song_1E6:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1E7
-song_1E7:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1E8
-song_1E8:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1E9
-song_1E9:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_1EA
 song_1EA:
 @ ****************************** header ******************************
@@ -22000,46 +21270,6 @@ song_1EF_track0:
 .align 4
 song_1EF_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0054E648, 0xFF, 0x00, 0xFF, 0x00 @ index=32
-
-
-.align 2
-.global song_1F0
-song_1F0:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1F1
-song_1F1:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1F2
-song_1F2:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1F3
-song_1F3:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -22211,46 +21441,6 @@ song_1F9_tone:
 
 
 .align 2
-.global song_1FA
-song_1FA:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1FB
-song_1FB:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1FC
-song_1FC:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_1FD
-song_1FD:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_1FE
 song_1FE:
 @ ****************************** header ******************************
@@ -22416,46 +21606,6 @@ song_203_track0:
 .align 4
 song_203_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x00552A08, 0xFF, 0x00, 0xFF, 0x00 @ index=38
-
-
-.align 2
-.global song_204
-song_204:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_205
-song_205:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_206
-song_206:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_207
-song_207:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -22627,46 +21777,6 @@ song_20D_tone:
 
 
 .align 2
-.global song_20E
-song_20E:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_20F
-song_20F:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_210
-song_210:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_211
-song_211:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_212
 song_212:
 @ ****************************** header ******************************
@@ -22832,46 +21942,6 @@ song_217_track0:
 .align 4
 song_217_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x00556F98, 0xFF, 0x00, 0xFF, 0x00 @ index=45
-
-
-.align 2
-.global song_218
-song_218:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_219
-song_219:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_21A
-song_21A:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_21B
-song_21B:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -23043,46 +22113,6 @@ song_221_tone:
 
 
 .align 2
-.global song_222
-song_222:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_223
-song_223:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_224
-song_224:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_225
-song_225:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_226
 song_226:
 @ ****************************** header ******************************
@@ -23248,46 +22278,6 @@ song_22B_track0:
 .align 4
 song_22B_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0055B1D4, 0xFF, 0x00, 0xFF, 0x00 @ index=52
-
-
-.align 2
-.global song_22C
-song_22C:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_22D
-song_22D:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_22E
-song_22E:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_22F
-song_22F:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -23459,46 +22449,6 @@ song_235_tone:
 
 
 .align 2
-.global song_236
-song_236:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_237
-song_237:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_238
-song_238:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_239
-song_239:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_23A
 song_23A:
 @ ****************************** header ******************************
@@ -23664,46 +22614,6 @@ song_23F_track0:
 .align 4
 song_23F_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x0055F814, 0xFF, 0x00, 0xFF, 0x00 @ index=58
-
-
-.align 2
-.global song_240
-song_240:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_241
-song_241:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_242
-song_242:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_243
-song_243:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2
@@ -23875,46 +22785,6 @@ song_249_tone:
 
 
 .align 2
-.global song_24A
-song_24A:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_24B
-song_24B:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_24C
-song_24C:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_24D
-song_24D:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_24E
 song_24E:
 @ ****************************** header ******************************
@@ -24083,46 +22953,6 @@ song_253_tone:
 
 
 .align 2
-.global song_254
-song_254:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_255
-song_255:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_256
-song_256:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_257
-song_257:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
 .global song_258
 song_258:
 @ ****************************** header ******************************
@@ -24288,46 +23118,6 @@ song_25D_track0:
 .align 4
 song_25D_tone:
 	tone_data 0x00, 0x3C, 0x00, 0x00, wav_0x005665EC, 0xFF, 0x00, 0xFF, 0x00 @ index=68
-
-
-.align 2
-.global song_25E
-song_25E:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_25F
-song_25F:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_260
-song_260:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
-
-
-.align 2
-.global song_261
-song_261:
-@ ****************************** header ******************************
-	.byte 0x00                      @ trackCount
-	.byte 0x00                      @ blockCount
-	.byte 0x00                      @ priority
-	.byte 0x00                      @ reverb
 
 
 .align 2

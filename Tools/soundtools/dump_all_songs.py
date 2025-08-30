@@ -7,6 +7,7 @@ from dump_sound import *
 
 SONGTABLE_AMT = 0x26D
 PR_SONGTABLE  = 0x3994D8
+PR_DUMMY_SOUND = 0x0839A840
 
 SKIPPED_SONGS = list(range(1, 0x5A))
 
@@ -46,8 +47,11 @@ if __name__ == '__main__':
 
 	for i in range(SONGTABLE_AMT):
 
-		if i in SKIPPED_SONGS:
-			song = Song("song_000", None, 0, 0)
+		song_addr   = PR_SONGTABLE + 8 * i
+		header_addr = ReadU32(rom_data, song_addr + 0)
+
+		if i in SKIPPED_SONGS or header_addr == PR_DUMMY_SOUND:
+			song = Song("dummy_sound", None, 0, 0)
 		else:
 			song_name = f"song_{i:03X}"
 			song_addr   = PR_SONGTABLE + 8 * i
@@ -67,5 +71,20 @@ if __name__ == '__main__':
 	print(".align 4")
 	print(".global NewSongTable")
 	print("NewSongTable:")
+
 	for song in songs:
-		print(f"    song {song.name}, {song.ms}, {song.me}")
+		print(f"	song {song.name}, {song.ms}, {song.me}")
+
+	print("")
+
+	print(
+'''.align 2
+.global dummy_sound
+dummy_sound:
+@ ****************************** header ******************************
+	.byte 0x00                      @ trackCount
+	.byte 0x00                      @ blockCount
+	.byte 0x00                      @ priority
+	.byte 0x00                      @ reverb
+'''
+	)

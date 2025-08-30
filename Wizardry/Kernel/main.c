@@ -11,13 +11,14 @@
 #define LOCAL_TRACE 0
 
 EWRAM_DATA static Func MainFunc;
-EWRAM_DATA static u32 main_round_counter;
 
 static void StartGame(void);
 static void OnVBlank(void);
 static void OnMain(void);
 static void SetMainFunc(Func func);
 static void RunMainFunc(void);
+
+const char *build_version = CONFIG_VERSION;
 
 void AgbMain(void)
 {
@@ -30,11 +31,12 @@ void AgbMain(void)
 
 	IrqInit();
 	SetOnVBlank(NULL);
+
 	io_init();
+	dprintf(INFO, "[version=%s] build time: %s-%s", CONFIG_VERSION, __DATE__, __TIME__);
+
 	InitRamFuncs();
 	SetGameTime(0);
-
-	main_round_counter = 0;
 
 	REG_DISPSTAT = DISPSTAT_VBLANK_INT_ENABLE;
 	REG_IME = true;
@@ -54,9 +56,6 @@ void AgbMain(void)
 	StartGame();
 
 	while (1) {
-		main_round_counter++;
-		LTRACEF("Main loop %ld", main_round_counter);
-
 		RunMainFunc();
 		SoftResetIfKeyCombo();
 	}

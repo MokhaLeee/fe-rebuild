@@ -12,113 +12,107 @@
 .align 4
 .global gSongTable
 gSongTable:
-	song song_000, 0, 0
-
-#if CONFIG_DEBUG_M4A_TEST
-	song test_song_main_bgm, 0, 0
-#else
-	song song_000, 0, 0
-#endif
-
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
-	song song_000, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_05A, 7, 7
 	song song_05B, 7, 7
 	song song_05C, 7, 7
-	song song_05D, 0, 0
-	song song_05E, 0, 0
-	song song_05F, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_060, 3, 3
 	song song_061, 3, 3
-	song song_062, 0, 0
-	song song_063, 0, 0
-	song song_064, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_065, 2, 2
 	song song_066, 2, 2
 	song song_067, 2, 2
@@ -167,7 +161,7 @@ gSongTable:
 	song song_092, 4, 4
 	song song_093, 4, 4
 	song song_094, 4, 4
-	song song_095, 0, 0
+	song dummy_sound, 0, 0
 	song song_096, 4, 4
 	song song_097, 4, 4
 	song song_098, 5, 5
@@ -191,12 +185,12 @@ gSongTable:
 	song song_0AA, 6, 6
 	song song_0AB, 6, 6
 	song song_0AC, 6, 6
-	song song_0AD, 0, 0
-	song song_0AE, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_0AF, 7, 7
 	song song_0B0, 7, 7
 	song song_0B1, 6, 6
-	song song_0B2, 0, 0
+	song dummy_sound, 0, 0
 	song song_0B3, 6, 6
 	song song_0B4, 5, 5
 	song song_0B5, 7, 7
@@ -210,10 +204,10 @@ gSongTable:
 	song song_0BD, 6, 6
 	song song_0BE, 6, 6
 	song song_0BF, 6, 6
-	song song_0C0, 0, 0
-	song song_0C1, 0, 0
-	song song_0C2, 0, 0
-	song song_0C3, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_0C4, 7, 7
 	song song_0C5, 7, 7
 	song song_0C6, 6, 6
@@ -235,9 +229,9 @@ gSongTable:
 	song song_0D6, 7, 7
 	song song_0D7, 7, 7
 	song song_0D8, 3, 3
-	song song_0D9, 0, 0
-	song song_0DA, 0, 0
-	song song_0DB, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_0DC, 6, 6
 	song song_0DD, 6, 6
 	song song_0DE, 7, 7
@@ -281,7 +275,7 @@ gSongTable:
 	song song_104, 6, 6
 	song song_105, 7, 7
 	song song_106, 6, 6
-	song song_107, 0, 0
+	song dummy_sound, 0, 0
 	song song_108, 6, 6
 	song song_109, 6, 6
 	song song_10A, 6, 6
@@ -295,8 +289,8 @@ gSongTable:
 	song song_112, 7, 7
 	song song_113, 6, 6
 	song song_114, 2, 2
-	song song_115, 0, 0
-	song song_116, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_117, 7, 7
 	song song_118, 7, 7
 	song song_119, 6, 6
@@ -346,8 +340,8 @@ gSongTable:
 	song song_145, 4, 4
 	song song_146, 4, 4
 	song song_147, 7, 7
-	song song_148, 0, 0
-	song song_149, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_14A, 4, 4
 	song song_14B, 5, 5
 	song song_14C, 4, 4
@@ -356,8 +350,8 @@ gSongTable:
 	song song_14F, 5, 5
 	song song_150, 4, 4
 	song song_151, 5, 5
-	song song_152, 0, 0
-	song song_153, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_154, 4, 4
 	song song_155, 5, 5
 	song song_156, 4, 4
@@ -366,8 +360,8 @@ gSongTable:
 	song song_159, 5, 5
 	song song_15A, 4, 4
 	song song_15B, 5, 5
-	song song_15C, 0, 0
-	song song_15D, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_15E, 4, 4
 	song song_15F, 5, 5
 	song song_160, 4, 4
@@ -376,8 +370,8 @@ gSongTable:
 	song song_163, 5, 5
 	song song_164, 4, 4
 	song song_165, 5, 5
-	song song_166, 0, 0
-	song song_167, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_168, 4, 4
 	song song_169, 5, 5
 	song song_16A, 4, 4
@@ -386,8 +380,8 @@ gSongTable:
 	song song_16D, 5, 5
 	song song_16E, 4, 4
 	song song_16F, 5, 5
-	song song_170, 0, 0
-	song song_171, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_172, 4, 4
 	song song_173, 5, 5
 	song song_174, 4, 4
@@ -396,8 +390,8 @@ gSongTable:
 	song song_177, 5, 5
 	song song_178, 4, 4
 	song song_179, 5, 5
-	song song_17A, 0, 0
-	song song_17B, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_17C, 4, 4
 	song song_17D, 5, 5
 	song song_17E, 4, 4
@@ -406,8 +400,8 @@ gSongTable:
 	song song_181, 5, 5
 	song song_182, 4, 4
 	song song_183, 5, 5
-	song song_184, 0, 0
-	song song_185, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_186, 4, 4
 	song song_187, 5, 5
 	song song_188, 4, 4
@@ -416,218 +410,218 @@ gSongTable:
 	song song_18B, 5, 5
 	song song_18C, 4, 4
 	song song_18D, 5, 5
-	song song_18E, 0, 0
-	song song_18F, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_190, 4, 4
 	song song_191, 5, 5
 	song song_192, 4, 4
 	song song_193, 5, 5
 	song song_194, 4, 4
 	song song_195, 5, 5
-	song song_196, 0, 0
-	song song_197, 0, 0
-	song song_198, 0, 0
-	song song_199, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_19A, 4, 4
 	song song_19B, 5, 5
 	song song_19C, 4, 4
 	song song_19D, 5, 5
 	song song_19E, 4, 4
 	song song_19F, 5, 5
-	song song_1A0, 0, 0
-	song song_1A1, 0, 0
-	song song_1A2, 0, 0
-	song song_1A3, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1A4, 4, 4
 	song song_1A5, 5, 5
 	song song_1A6, 4, 4
 	song song_1A7, 5, 5
 	song song_1A8, 4, 4
 	song song_1A9, 5, 5
-	song song_1AA, 0, 0
-	song song_1AB, 0, 0
-	song song_1AC, 0, 0
-	song song_1AD, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1AE, 4, 4
 	song song_1AF, 5, 5
 	song song_1B0, 4, 4
 	song song_1B1, 5, 5
 	song song_1B2, 4, 4
 	song song_1B3, 5, 5
-	song song_1B4, 0, 0
-	song song_1B5, 0, 0
-	song song_1B6, 0, 0
-	song song_1B7, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1B8, 4, 4
 	song song_1B9, 5, 5
 	song song_1BA, 4, 4
 	song song_1BB, 5, 5
 	song song_1BC, 4, 4
 	song song_1BD, 5, 5
-	song song_1BE, 0, 0
-	song song_1BF, 0, 0
-	song song_1C0, 0, 0
-	song song_1C1, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1C2, 4, 4
 	song song_1C3, 5, 5
 	song song_1C4, 4, 4
 	song song_1C5, 5, 5
 	song song_1C6, 4, 4
 	song song_1C7, 5, 5
-	song song_1C8, 0, 0
-	song song_1C9, 0, 0
-	song song_1CA, 0, 0
-	song song_1CB, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1CC, 4, 4
 	song song_1CD, 5, 5
 	song song_1CE, 4, 4
 	song song_1CF, 5, 5
 	song song_1D0, 4, 4
 	song song_1D1, 5, 5
-	song song_1D2, 0, 0
-	song song_1D3, 0, 0
-	song song_1D4, 0, 0
-	song song_1D5, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1D6, 4, 4
 	song song_1D7, 5, 5
 	song song_1D8, 4, 4
 	song song_1D9, 5, 5
 	song song_1DA, 4, 4
 	song song_1DB, 5, 5
-	song song_1DC, 0, 0
-	song song_1DD, 0, 0
-	song song_1DE, 0, 0
-	song song_1DF, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1E0, 4, 4
 	song song_1E1, 5, 5
 	song song_1E2, 4, 4
 	song song_1E3, 5, 5
 	song song_1E4, 4, 4
 	song song_1E5, 5, 5
-	song song_1E6, 0, 0
-	song song_1E7, 0, 0
-	song song_1E8, 0, 0
-	song song_1E9, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1EA, 4, 4
 	song song_1EB, 5, 5
 	song song_1EC, 4, 4
 	song song_1ED, 5, 5
 	song song_1EE, 4, 4
 	song song_1EF, 5, 5
-	song song_1F0, 0, 0
-	song song_1F1, 0, 0
-	song song_1F2, 0, 0
-	song song_1F3, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1F4, 4, 4
 	song song_1F5, 5, 5
 	song song_1F6, 4, 4
 	song song_1F7, 5, 5
 	song song_1F8, 4, 4
 	song song_1F9, 5, 5
-	song song_1FA, 0, 0
-	song song_1FB, 0, 0
-	song song_1FC, 0, 0
-	song song_1FD, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_1FE, 4, 4
 	song song_1FF, 5, 5
 	song song_200, 4, 4
 	song song_201, 5, 5
 	song song_202, 4, 4
 	song song_203, 5, 5
-	song song_204, 0, 0
-	song song_205, 0, 0
-	song song_206, 0, 0
-	song song_207, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_208, 4, 4
 	song song_209, 5, 5
 	song song_20A, 4, 4
 	song song_20B, 5, 5
 	song song_20C, 4, 4
 	song song_20D, 5, 5
-	song song_20E, 0, 0
-	song song_20F, 0, 0
-	song song_210, 0, 0
-	song song_211, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_212, 4, 4
 	song song_213, 5, 5
 	song song_214, 4, 4
 	song song_215, 5, 5
 	song song_216, 4, 4
 	song song_217, 5, 5
-	song song_218, 0, 0
-	song song_219, 0, 0
-	song song_21A, 0, 0
-	song song_21B, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_21C, 4, 4
 	song song_21D, 5, 5
 	song song_21E, 4, 4
 	song song_21F, 5, 5
 	song song_220, 4, 4
 	song song_221, 5, 5
-	song song_222, 0, 0
-	song song_223, 0, 0
-	song song_224, 0, 0
-	song song_225, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_226, 4, 4
 	song song_227, 5, 5
 	song song_228, 4, 4
 	song song_229, 5, 5
 	song song_22A, 4, 4
 	song song_22B, 5, 5
-	song song_22C, 0, 0
-	song song_22D, 0, 0
-	song song_22E, 0, 0
-	song song_22F, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_230, 4, 4
 	song song_231, 5, 5
 	song song_232, 4, 4
 	song song_233, 5, 5
 	song song_234, 4, 4
 	song song_235, 5, 5
-	song song_236, 0, 0
-	song song_237, 0, 0
-	song song_238, 0, 0
-	song song_239, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_23A, 4, 4
 	song song_23B, 5, 5
 	song song_23C, 4, 4
 	song song_23D, 5, 5
 	song song_23E, 4, 4
 	song song_23F, 5, 5
-	song song_240, 0, 0
-	song song_241, 0, 0
-	song song_242, 0, 0
-	song song_243, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_244, 4, 4
 	song song_245, 5, 5
 	song song_246, 4, 4
 	song song_247, 5, 5
 	song song_248, 4, 4
 	song song_249, 5, 5
-	song song_24A, 0, 0
-	song song_24B, 0, 0
-	song song_24C, 0, 0
-	song song_24D, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_24E, 4, 4
 	song song_24F, 5, 5
 	song song_250, 4, 4
 	song song_251, 5, 5
 	song song_252, 4, 4
 	song song_253, 5, 5
-	song song_254, 0, 0
-	song song_255, 0, 0
-	song song_256, 0, 0
-	song song_257, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_258, 4, 4
 	song song_259, 5, 5
 	song song_25A, 4, 4
 	song song_25B, 5, 5
 	song song_25C, 4, 4
 	song song_25D, 5, 5
-	song song_25E, 0, 0
-	song song_25F, 0, 0
-	song song_260, 0, 0
-	song song_261, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
+	song dummy_sound, 0, 0
 	song song_262, 4, 4
 	song song_263, 5, 5
 	song song_264, 4, 4
@@ -639,3 +633,12 @@ gSongTable:
 	song song_26A, 6, 6
 	song song_26B, 6, 6
 	song song_26C, 6, 6
+
+.align 2
+.global dummy_sound
+dummy_sound:
+@ ****************************** header ******************************
+	.byte 0x00                      @ trackCount
+	.byte 0x00                      @ blockCount
+	.byte 0x00                      @ priority
+	.byte 0x00                      @ reverb

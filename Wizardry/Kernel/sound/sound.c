@@ -292,7 +292,7 @@ static void PlaySongDelayed(int song, int delay, struct MusicPlayer * music_play
 static void PlaySongCore(int song, struct MusicPlayer * music_player)
 {
     if (music_player)
-        m4aMPlayStart(music_player, gSongTable[song].song);
+        m4aMPlayStart(music_player, pr_SongTable[song].song);
     else
         m4aSongNumStart(song);
 }

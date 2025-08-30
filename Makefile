@@ -28,7 +28,7 @@ all: $(ROM)
 
 WIZARDRY_DIR := Wizardry
 CONTENTS_DIR := Contents
-GAMEDATA_DIR := Data
+GAMEDATA_DIR := Data Reloc
 LIB_DIRS     := $(DEVKITPRO)/libgba
 
 HACK_DIRS := $(WIZARDRY_DIR) $(CONTENTS_DIR) $(GAMEDATA_DIR)
@@ -60,13 +60,15 @@ LD      := $(PREFIX)ld
 
 INC_DIRS := include $(LIB_DIR)/include
 INC_FLAG := $(foreach dir, $(INC_DIRS), -I$(dir)) \
-            $(foreach dir, $(LIB_DIRS), -I$(dir)/include)
+			$(foreach dir, $(LIB_DIRS), -I$(dir)/include)
 
 ARCH := -mcpu=arm7tdmi
 CFLAGS := -g $(ARCH) -mtune=arm7tdmi \
-          $(INC_FLAG) \
+		  $(INC_FLAG) \
 		  -std=gnu99 -O2 -fno-builtin \
 		  -Wall -Wextra -Werror -Wno-unused-parameter
+
+CFLAGS += -fno-inline
 
 ASFLAGS := -g $(ARCH) $(INC_FLAG)
 LDFLAGS = -g $(ARCH) -Wl,-Map,$(notdir $*.map)
@@ -99,10 +101,10 @@ SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 .PRECIOUS: %.o;
 -include $(wildcard $(CACHE_DIR)/*.d)
 
-C_SRCS := $(shell find $(SRC_DIR) -name *.c)
+C_SRCS := $(shell find $(HACK_DIRS) -name *.c)
 C_OBJS := $(C_SRCS:%.c=%.o)
 
-ASM_SRCS := $(shell find $(SRC_DIR) -name *.S)
+ASM_SRCS := $(shell find $(HACK_DIRS) -name *.S)
 ASM_OBJS := $(ASM_SRCS:%.S=%.o)
 
 ALL_OBJS := $(C_OBJS) $(ASM_OBJS)

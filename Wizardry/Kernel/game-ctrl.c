@@ -25,10 +25,6 @@ static void GameCtrl_ExecTest(ProcPtr proc)
 	kprintf_test();
 #endif
 
-#if CONFIG_DEBUG_M4A_TEST
-	m4a_test();
-#endif
-
 #if CONFIG_DEBUG_BGDISP_TEST
 	StartBgDispTest(proc);
 #endif

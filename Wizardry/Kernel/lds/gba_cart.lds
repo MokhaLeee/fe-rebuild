@@ -20,6 +20,7 @@ __irq_flags		=	0x03007ff8;
 SECTIONS
 {
 	. = __text_start;
+
 	.crt0 :
 	{
 		KEEP (*(.crt0))
@@ -40,11 +41,13 @@ SECTIONS
 
 	.reloc ALIGN(4) : AT (__reloc_map_start)
 	{
-		*(.rodata.reloc)
+		*(.rodata.reloc_list)
 		. = ALIGN(4);
 	} >rom = 0xff
 
-	__rodata_start = __reloc_map_start + 0x4000;
+	__reloc_map_end = .;
+
+	__rodata_start = __reloc_map_start + 0x10000;
 	. = __rodata_start;
 
 	.rodata ALIGN(4) : AT (__rodata_start)
@@ -53,6 +56,8 @@ SECTIONS
 		*(.rodata*)
 		. = ALIGN(4);
 	} >rom = 0xff
+
+	__rodata_end = .;
 
 	/**
 	 * EWRAM

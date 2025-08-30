@@ -26,6 +26,7 @@ enum playst_weathers {
 struct PlaySt {
 	u8 weather;
 
+	u32 config_se_disable  : 1;
 	u32 config_bgm_disable : 1;
 };
 

@@ -97,6 +97,8 @@ static void OnVBlank(void)
 		ApplyDataMoves();
 		SyncHiOam();
 	}
+
+	m4aSoundMain();
 }
 
 static void OnMain(void)

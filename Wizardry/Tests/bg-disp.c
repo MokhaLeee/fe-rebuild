@@ -53,10 +53,10 @@ static const struct ProcScr ProcScr_BgDispTest[] = {
 	PROC_CALL(BgDispTest_InitDisp),
 	PROC_CALL(BgDispTest_PutBG),
 
-	PROC_BLOCK
+	PROC_END
 };
 
 void StartBgDispTest(ProcPtr proc)
 {
-	SpawnProcLocking(ProcScr_BgDispTest, proc);
+	SpawnProc(ProcScr_BgDispTest, proc);
 }

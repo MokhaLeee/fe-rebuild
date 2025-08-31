@@ -2,6 +2,14 @@
 
 #include "common.h"
 
+enum videoalloc_bm {
+	/* Object chr */
+	OBCHR_SYSTEM_OBJECTS = 0x000,
+
+	/* Object palette */
+	OBPAL_SYSTEM_OBJECTS = 0,
+};
+
 struct BmSt {
 	bool main_loop_ended;
 	i8 bm_lock, disp_lock;
@@ -40,6 +48,12 @@ void UnlockGame(void);
 u8 GetGameLock(void);
 
 /**
+ * UI
+ */
+void ApplySystemObjectsGraphics(void);
+
+/**
  * Misc
  */
 void InitBmBgLayers(void);
+

@@ -14,4 +14,6 @@ void kprintf_test(void);
  */
 void StartBgDispTest(ProcPtr proc);
 
+void sprite_test(ProcPtr proc);
+
 #endif

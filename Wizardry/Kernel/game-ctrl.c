@@ -28,6 +28,10 @@ static void GameCtrl_ExecTest(ProcPtr proc)
 #if CONFIG_DEBUG_BGDISP_TEST
 	StartBgDispTest(proc);
 #endif
+
+#if CONFIG_DEBUG_SPRITE_TEST
+	sprite_test(proc);
+#endif
 }
 
 static void GameCtrl_MainLoop(ProcPtr proc)

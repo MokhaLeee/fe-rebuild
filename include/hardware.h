@@ -405,6 +405,14 @@ void IncGameTime(void);
 bool FormatTime(u32 time, u16 *hours, u16 *minutes, u16 *seconds);
 
 /**
+ * angle
+ */
+extern const i16 gSinLut[];
+
+#define SIN_Q12(angle) (gSinLut[(angle) & 0xFF])
+#define COS_Q12(angle) (gSinLut[0x40 + ((angle) & 0xFF)])
+
+/**
  *misc
  */
 void SoftResetIfKeyCombo(void);

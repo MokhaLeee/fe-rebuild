@@ -8,6 +8,7 @@
 #include "armfunc.h"
 #include "m4a.h"
 #include "sprite.h"
+#include "sprite_anim.h"
 
 #define LOCAL_TRACE 0
 
@@ -50,6 +51,7 @@ void AgbMain(void)
 	InitRamFuncs();
 
 	InitProcs();
+	InitSpriteAnims();
 
 	/* sound */
 	m4aSoundInit();

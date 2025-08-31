@@ -6,12 +6,12 @@
 #include "sprite.h"
 #include "test.h"
 
-static const u16 Sprite_MapCursorStretched[] = {
+static const u16 Sprite_MapCursorA[] = {
 	4,
-	OAM0_Y(-8)  | OAM0_SHAPE_8x8, OAM1_X(-4)  | OAM1_SIZE_8x8,                           0,
-	OAM0_Y(-8)  | OAM0_SHAPE_8x8, OAM1_X(+12) | OAM1_SIZE_8x8 | OAM1_HFLIP,              0,
-	OAM0_Y(+10) | OAM0_SHAPE_8x8, OAM1_X(-4)  | OAM1_SIZE_8x8 | OAM1_VFLIP,              0,
-	OAM0_Y(+10) | OAM0_SHAPE_8x8, OAM1_X(+12) | OAM1_SIZE_8x8 | OAM1_HFLIP | OAM1_VFLIP, 0,
+	OAM0_Y(-4) | OAM0_SHAPE_8x8, OAM1_X(-2)  | OAM1_SIZE_8x8,                           0,
+	OAM0_Y(-4) | OAM0_SHAPE_8x8, OAM1_X(+10) | OAM1_SIZE_8x8 | OAM1_HFLIP,              0,
+	OAM0_Y(+9) | OAM0_SHAPE_8x8, OAM1_X(-2)  | OAM1_SIZE_8x8 | OAM1_VFLIP,              0,
+	OAM0_Y(+9) | OAM0_SHAPE_8x8, OAM1_X(+10) | OAM1_SIZE_8x8 | OAM1_HFLIP | OAM1_VFLIP, 0,
 };
 
 static void SpriteTest_Init(ProcPtr proc)
@@ -24,7 +24,7 @@ static void SpriteTest_Init(ProcPtr proc)
 static void SpriteTest_Loop(ProcPtr proc)
 {
 	PutSprite(4, 0x10, 0x10,
-		Sprite_MapCursorStretched,
+		Sprite_MapCursorA,
 		OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x02) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS));
 }
 

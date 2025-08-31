@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "proc.h"
 
 extern u8 EWRAM_DATA gBuf[0x2000];
 
@@ -45,3 +46,50 @@ void ApplyDataMoves(void);
 		(value), \
 		(void *) VRAM + (0x1FFFF & (offset)), \
 		(size))
+
+/**
+ * Fade
+ */
+ProcPtr StartPalFade(u16 const *colors, int pal, int duration, ProcPtr parent);
+void StartPalFadeToBlack(int palid, int duration, ProcPtr parent);
+void StartPalFadeToWhite(int palid, int duration, ProcPtr parent);
+void SetPalFadeStop(ProcPtr _proc, int val);
+
+bool FadeExists(void);
+void StartFadeToBlack(int q4_speed);
+void StartFadeFromBlack(int q4_speed);
+void StartLockingFadeToBlack(int q4_speed, ProcPtr parent);
+void StartLockingFadeFromBlack(int q4_speed, ProcPtr parent);
+void StartLockingFadeToWhite(int q4_speed, ProcPtr parent);
+void StartLockingFadeFromWhite(int q4_speed, ProcPtr parent);
+void StartMidFadeToBlack(void);
+void StartSlowFadeToBlack(void);
+void StartFastFadeToBlack(void);
+void StartMidFadeFromBlack(void);
+void StartSlowFadeFromBlack(void);
+void StartFastFadeFromBlack(void);
+void StartMidLockingFadeToBlack(ProcPtr parent);
+void StartSlowLockingFadeToBlack(ProcPtr parent);
+void StartFastLockingFadeToBlack(ProcPtr parent);
+void StartMidLockingFadeFromBlack(ProcPtr parent);
+void StartSlowLockingFadeFromBlack(ProcPtr parent);
+void StartFastLockingFadeFromBlack(ProcPtr parent);
+void StartSlowLockingFadeToWhite(ProcPtr parent);
+void StartSlowLockingFadeFromWhite(ProcPtr parent);
+void WhileFadeExists(ProcPtr proc);
+void FadeInBlackWithCallBack_Speed04(ProcPtr parent);
+void FadeInBlackWithCallBack_Speed08(ProcPtr parent);
+void FadeInBlackWithCallBack_Speed10(ProcPtr parent);
+void FadeInBlackWithCallBack_Speed20(ProcPtr parent);
+void FadeInBlackWithCallBack_Speed40(ProcPtr parent);
+void FadeInBlackSpeed04(ProcPtr parent);
+void FadeInBlackSpeed08(ProcPtr parent);
+void FadeInBlackSpeed10(ProcPtr parent);
+void FadeInBlackSpeed20(ProcPtr parent);
+void FadeInBlackSpeed40(ProcPtr parent);
+
+extern const u16 Pal_AllBlack[];
+extern const u16 Pal_AllWhite[];
+extern const u16 Pal_AllRed[];
+extern const u16 Pal_AllGreen[];
+extern const u16 Pal_AllBlue[];

@@ -52,6 +52,8 @@ static const struct ProcScr ProcScr_BgDispTest[] = {
 	PROC_NAME("BgDispTest"),
 	PROC_CALL(BgDispTest_InitDisp),
 	PROC_CALL(BgDispTest_PutBG),
+	PROC_CALL(StartMidFadeFromBlack),
+	PROC_REPEAT(WhileFadeExists),
 
 	PROC_END
 };

@@ -220,6 +220,30 @@ void SetVCount(int vcount);
 #define SetBlendNone() \
     SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
 
+#define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.blend_ct.target1_enable_bg0 = (bg0); \
+    gDispIo.blend_ct.target1_enable_bg1 = (bg1); \
+    gDispIo.blend_ct.target1_enable_bg2 = (bg2); \
+    gDispIo.blend_ct.target1_enable_bg3 = (bg3); \
+    gDispIo.blend_ct.target1_enable_obj = (obj)
+
+#define SetBlendTargetB(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.blend_ct.target2_enable_bg0 = (bg0); \
+    gDispIo.blend_ct.target2_enable_bg1 = (bg1); \
+    gDispIo.blend_ct.target2_enable_bg2 = (bg2); \
+    gDispIo.blend_ct.target2_enable_bg3 = (bg3); \
+    gDispIo.blend_ct.target2_enable_obj = (obj)
+
+#define SetBlendBackdropA(enable) \
+    gDispIo.blend_ct.target1_enable_bd = (enable)
+
+#define SetBlendBackdropB(enable) \
+    gDispIo.blend_ct.target2_enable_bd = (enable)
+
+#define SetBackdropColor(color) \
+    gPal[0] = (color); \
+    EnablePalSync()
+
 /**
  *Key
  */
@@ -300,6 +324,18 @@ extern u16 EWRAM_DATA gPal[0x200];
 
 void ApplyPaletteExt(void const *data, int startOffset, int size);
 
+#define RGB_GET_RED(color) ((color) & 0x1F)
+#define RGB_GET_GREEN(color) (((color) >> 5) & 0x1F)
+#define RGB_GET_BLUE(color) (((color) >> 10) & 0x1F)
+
+#define RGB_R(color) ((color) & 0x1F)
+#define RGB_G(color) (((color) >> 5) & 0x1F)
+#define RGB_B(color) (((color) >> 10) & 0x1F)
+
+#define RGB5_MASK_R (0x1F << 0)
+#define RGB5_MASK_G (0x1F << 5)
+#define RGB5_MASK_B (0x1F << 10)
+
 #define PAL_COLOR_OFFSET(palid, colornum) (palid) *0x10 + (colornum)
 #define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
 #define BGPAL_OFFSET(bgpal) PAL_OFFSET(0x00 + (bgpal))
@@ -323,6 +359,10 @@ void ApplyPaletteExt(void const *data, int startOffset, int size);
 void EnablePalSync(void);
 void DisablePalSync(void);
 bool CheckePalSync(void);
+
+#define SetBackdropColor(color) \
+	gPal[0] = (color); \
+	EnablePalSync()
 
 /**
  *oam
@@ -395,6 +435,22 @@ void SetObjAffine(int id, fi16 pa, fi16 pb, fi16 pc, fi16 pd);
         Div(-SIN_Q12((angle)) << 4, (y_scale)), \
         Div(+SIN_Q12((angle)) << 4, (x_scale)), \
         Div(+COS_Q12((angle)) << 4, (y_scale)))
+
+/**
+ * Fade
+ */
+extern i8 EWRAM_DATA gFadeComponentStep[0x20];
+extern i8 EWRAM_DATA gFadeComponents[0x600];
+
+void ColorFadeInit(void);
+void ColFadeDirect(u16 const *in_pal, int bank, int count, int unk);
+void ColFadeStep(int a, int b, int c, int d);
+void ColFadeSet(int start, int count, int col);
+void ColFadeToBlack(fi8 component_step);
+void ColFadeFromBlack(fi8 component_step);
+void ColFadeToWhite(fi8 component_step);
+void ColFadeFromWhite(fi8 component_step);
+void ColFadeTick(void);
 
 /**
  *time

@@ -34,6 +34,8 @@ void SyncDispIo(void)
 	SET_REG(u16, BLDCNT,   gDispIo.blend_ct);
 
 	REG_BLDALPHA = gDispIo.blend_coef_a + (gDispIo.blend_coef_b << 8);
+	SET_REG(u8,  BLDY,     gDispIo.blend_y);
+
 	REG_BG2PA = gDispIo.bg2pa;
 	REG_BG2PB = gDispIo.bg2pb;
 	REG_BG2PC = gDispIo.bg2pc;

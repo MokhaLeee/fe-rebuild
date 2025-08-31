@@ -52,3 +52,16 @@ void SyncLoOam(void)
 
 	gOamLoPutIt = sOamLo.buf;
 }
+
+void SetObjAffine(int id, fi16 pa, fi16 pb, fi16 pc, fi16 pd)
+{
+	gOam[id*0x10 + 3]  = pa;
+	gOam[id*0x10 + 7]  = pb;
+	gOam[id*0x10 + 11] = pc;
+	gOam[id*0x10 + 15] = pd;
+}
+
+int GetOamSplice(void)
+{
+	return sOamLo.count;
+}

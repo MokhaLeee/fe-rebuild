@@ -5,8 +5,8 @@
 
 enum {
 	FRAMES_PER_SECOND = 60,
-	FRAMES_PER_MINUTE = 60 * FRAMES_PER_SECOND,
-	FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
+	FRAMES_PER_MINUTE = 60 *FRAMES_PER_SECOND,
+	FRAMES_PER_HOUR   = 60 *FRAMES_PER_MINUTE,
 };
 
 #ifndef CHR_SIZE
@@ -15,7 +15,7 @@ enum {
 #endif
 
 /**
- * Disp IO
+ *Disp IO
  */
 #define IO_ALIGNED(n) ALIGNED(4)
 
@@ -221,7 +221,7 @@ void SetVCount(int vcount);
     SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
 
 /**
- * Key
+ *Key
  */
 struct KeySt {
 	/* 00 */ u8 repeat_delay;    // initial delay before generating auto-repeat presses
@@ -245,7 +245,7 @@ void ClearKeySt(struct KeySt *keySt);
 void InitKeySt(struct KeySt *keySt);
 
 /**
- * BG
+ *BG
  */
 enum {
 	BG_0 = 0,
@@ -286,25 +286,25 @@ void EnableBgSyncById(int bgid);
 void DisableBgSync(int bits);
 
 /**
- * Pal
+ *Pal
  */
 extern u16 EWRAM_DATA gPal[0x200];
 
-void ApplyPaletteExt(void const * data, int startOffset, int size);
+void ApplyPaletteExt(void const *data, int startOffset, int size);
 
-#define PAL_COLOR_OFFSET(palid, colornum) (palid) * 0x10 + (colornum)
+#define PAL_COLOR_OFFSET(palid, colornum) (palid) *0x10 + (colornum)
 #define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
 #define BGPAL_OFFSET(bgpal) PAL_OFFSET(0x00 + (bgpal))
 #define OBPAL_OFFSET(obpal) PAL_OFFSET(0x10 + (obpal))
 
-#define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
+#define PAL_COLOR(palid, colornum) gPal[(palid) *0x10 + (colornum)]
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
 
 #define PAL_BG(palid) (&PAL_BG_COLOR(palid, 0))
 #define PAL_OBJ(palid) (&PAL_OBJ_COLOR(palid, 0))
 
-#define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
+#define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 *(num), 0x20 *(count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
 
 #define ApplyBgPalettes ApplyPalettes
@@ -317,13 +317,21 @@ void DisablePalSync(void);
 bool CheckePalSync(void);
 
 /**
- * oam
+ *oam
  */
 struct OamView { u16 oam0, oam1, oam2, aff; };
 
+extern u16 gOam[0x200];
+extern u16 *gOamHiPutIt;
+extern u16 *gOamLoPutIt;
+extern struct OamView *gOamAffinePutIt;
+extern u16 gOamAffinePutId;
+
 void InitOam(int loSz);
+int GetOamSplice(void);
 void SyncHiOam(void);
 void SyncLoOam(void);
+void SetObjAffine(int id, fi16 pa, fi16 pb, fi16 pc, fi16 pd);
 
 #define OAM0_Y(ay)          ((ay) & 0x00FF)
 #define OAM0_Y_MASK         0x00FF
@@ -368,9 +376,9 @@ void SyncLoOam(void);
 
 #define OAM2_CHR(ac)        ((ac) & 0x03FF)
 #define OAM2_CHR_MASK       0x03FF
-#define OAM2_LAYER(al)      (((al) & 0x3) * 0x0400)
+#define OAM2_LAYER(al)      (((al) & 0x3) *0x0400)
 #define OAM2_LAYER_MASK     0x0C00
-#define OAM2_PAL(ap)        (((ap) & 0xF) * 0x1000)
+#define OAM2_PAL(ap)        (((ap) & 0xF) *0x1000)
 #define OAM2_PAL_MASK       0xF000
 
 #define SetObjAffineAuto(id, angle, x_scale, y_scale) \
@@ -381,7 +389,7 @@ void SyncLoOam(void);
         Div(+COS_Q12((angle)) << 4, (y_scale)))
 
 /**
- * time
+ *time
  */
 u32 GetGameTime(void);
 void SetGameTime(u32 time);
@@ -389,6 +397,6 @@ void IncGameTime(void);
 bool FormatTime(u32 time, u16 *hours, u16 *minutes, u16 *seconds);
 
 /**
- * misc
+ *misc
  */
 void SoftResetIfKeyCombo(void);

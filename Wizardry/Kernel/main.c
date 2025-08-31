@@ -7,6 +7,7 @@
 #include "game-ctrl.h"
 #include "armfunc.h"
 #include "m4a.h"
+#include "sprite.h"
 
 #define LOCAL_TRACE 0
 
@@ -103,6 +104,7 @@ static void OnVBlank(void)
 static void OnMain(void)
 {
 	RefreshKeySt(gKeySt);
+	ClearSprites();
 
 	Proc_ExecRoot(1);
 
@@ -111,7 +113,12 @@ static void OnMain(void)
 
 	Proc_ExecRoot(3);
 	Proc_ExecRoot(5);
+
+	PutSpriteLayerOam(0);
+
 	Proc_ExecRoot(4);
+
+	PutSpriteLayerOam(13);
 
 	gBmSt.main_loop_ended = TRUE;
 	gBmSt.main_loop_end_scanline = REG_VCOUNT;

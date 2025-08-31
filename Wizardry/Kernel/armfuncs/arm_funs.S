@@ -9,8 +9,8 @@
 .LFadeComponents: .4byte gFadeComponents
 .LFadeComponentStep: .4byte gFadeComponentStep
 
-    ARM_FUNC_START ColorFadeTick_ram
-ColorFadeTick_ram:
+    ARM_FUNC_START ColorFadeTick
+ColorFadeTick:
     push {r4-r7}
 
     @ r7 = start offset of next palette
@@ -103,8 +103,8 @@ ColorFadeTick_ram:
     pop  {r4-r7}
     bx   lr
 
-    ARM_FUNC_START ClearOam_ram
-ClearOam_ram:
+    ARM_FUNC_START ClearOam
+ClearOam:
     lsr  r1, 4
     sub  r1, 1
 
@@ -136,8 +136,8 @@ ClearOam_ram:
     @ end
     bx   lr
 
-	arm_func_start TmFillRect_ram
-TmFillRect_ram: @ 0x080003A8
+	arm_func_start TmFillRect
+TmFillRect: @ 0x080003A8
 	push {r4, r5, r6, r7}
 	mov r4, r0
 	sub r6, r2, #0
@@ -155,8 +155,8 @@ TmFillRect_ram: @ 0x080003A8
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	arm_func_start TmCopyRect_ram
-TmCopyRect_ram: @ 0x080003E0
+	arm_func_start TmCopyRect
+TmCopyRect: @ 0x080003E0
 	push {r4, r5, r6, r7}
 	tst r2, r2
 	beq .L08000434
@@ -184,8 +184,8 @@ TmCopyRect_ram: @ 0x080003E0
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	arm_func_start TmApplyTsa_ram
-TmApplyTsa_ram: @ 0x0800043C
+	arm_func_start TmApplyTsa
+TmApplyTsa: @ 0x0800043C
 	push {r4, r5, r6, r7}
 	ldrb r3, [r1]
 	ldrb r4, [r1, #1]
@@ -212,8 +212,8 @@ TmApplyTsa_ram: @ 0x0800043C
 	.align 2, 0
 .L08000490: .4byte gOamHiPutIt
 
-	arm_func_start PutOamHi_ram
-PutOamHi_ram: @ 0x08000494
+	arm_func_start PutOamHi
+PutOamHi: @ 0x08000494
 	push {r4, r5, r6, r7}
 	ldr r7, .L08000490 @ =gOamHiPutIt
 .L0800049C:
@@ -259,8 +259,8 @@ PutOamHi_ram: @ 0x08000494
 	.align 2, 0
 .L08000530: .4byte gOamLoPutIt
 
-	arm_func_start PutOamLo_ram
-PutOamLo_ram: @ 0x08000534
+	arm_func_start PutOamLo
+PutOamLo: @ 0x08000534
 	push {r4, r5, r6, r7}
 	ldr r7, .L08000530 @ =gOamLoPutIt
 	b .L0800049C
@@ -379,8 +379,8 @@ DrawGlyph_Unused: @ 0x08000620
 .L080006DC: .4byte gMsgHuffmanTableRoot
 .L080006E0: .4byte gMsgHuffmanTable
 
-	arm_func_start DecodeString_ram
-DecodeString_ram: @ 0x080006E4
+	arm_func_start DecodeString
+DecodeString: @ 0x080006E4
 	push {r4, r5, r6, r7}
 	sub r3, r3, r3
 	ldr r5, .L080006E0 @ =gMsgHuffmanTable
@@ -434,8 +434,8 @@ DecodeString_ram: @ 0x080006E4
 .L08000780: .4byte gMapUnit
 
 
-	arm_func_start MapFloodCoreStep_ram
-MapFloodCoreStep_ram: @ 0x08000784
+	arm_func_start MapFloodCoreStep
+MapFloodCoreStep: @ 0x08000784
 	push {r4, r5, r6, r7, r8, sb, sl}
 	ldr r3, .L08000774 @ =gMapFloodSt
 	ldr r4, [r3]
@@ -497,8 +497,8 @@ MapFloodCoreStep_ram: @ 0x08000784
 	.byte 0x3E, 0x00, 0x00, 0xEA, 0x30, 0x00, 0x00, 0xEA, 0x69, 0x00, 0x00, 0xEA, 0x1D, 0x00, 0x00, 0xEA
 	.byte 0x58, 0x08, 0x00, 0x08
 
-	arm_func_start MapFloodCore_ram
-MapFloodCore_ram: @ 0x08000874
+	arm_func_start MapFloodCore
+MapFloodCore: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
 	ldr r5, .L08000774 @ =gMapFloodSt

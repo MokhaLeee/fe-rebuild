@@ -37,7 +37,9 @@ CACHE_DIR := .cache_dir
 $(shell mkdir -p $(CACHE_DIR) > /dev/null)
 
 CLEAN_FILES :=
-CLEAN_DIRS  := $(CACHE_DIR) .release_dir $(shell find -name __pycache__)
+CLEAN_PNG_FILES :=
+
+CLEAN_DIRS := $(CACHE_DIR) .release_dir $(shell find -name __pycache__)
 
 # =========
 # = Tools =
@@ -53,6 +55,16 @@ CC      := $(PREFIX)gcc
 AS      := $(PREFIX)as
 OBJCOPY := $(PREFIX)objcopy
 LD      := $(PREFIX)ld
+
+GRIT := $(DEVKITPRO)/tools/bin/grit
+LZSS := $(DEVKITPRO)/tools/bin/gbalzss
+
+GRITLZ77ARGS      := -gu 16 -gzl -gB 4 -p! -m! -ft bin -fh!
+GRIT4BPPARGS      := -gu 16 -gB 4 -p! -m! -ft bin -fh!
+GRIT2BPPARGS      := -gu 16 -gb -gB 2 -p! -m! -ft bin -fh!
+GRITPALETTEARGS	  := -g! -m! -p -ft bin -fh!
+MAPPALETTEARGS    := -pn 160
+BTLPALETTEARGS    := -pn 80
 
 # ============
 # = Wizardry =
@@ -93,13 +105,19 @@ SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 	@echo "[CC ]	$@"
 	@$(CC) $(CFLAGS) $(EXT_FLAGS) $(CDEPFLAGS) -S $< -o $@ -fverbose-asm
 
+ASM_DEP := python3 Tools/asmtools/asmdep.py
+$(CACHE_DIR)/%.d: %.S
+	@mkdir -p $(dir $@)
+	@echo "$(CACHE_DIR)/$*.o: \\" > $@
+	@$(ASM_DEP) $(INC_FLAG) $< >> $@
+
+SDEPFLAGS := -MD "$(CACHE_DIR)/$*.d"
+
 %.o: %.S
 	@echo "[AS ]	$@"
-	@$(CC) $(CFLAGS) $(EXT_FLAGS) $(CDEPFLAGS) -g -c $< -o $@
+#	@$(CC) $(CFLAGS) $(EXT_FLAGS) $(CDEPFLAGS) -g -c $< -o $@
+	@$(CC) $(CFLAGS) $(EXT_FLAGS) -g -c $< -o $@
 #	@$(AS) $(ASFLAGS) $(SDEPFLAGS) -I $(dir $<) $< -o $@
-
-.PRECIOUS: %.o;
--include $(wildcard $(CACHE_DIR)/*.d)
 
 C_SRCS := $(shell find $(HACK_DIRS) -name *.c)
 C_OBJS := $(C_SRCS:%.c=%.o)
@@ -108,11 +126,51 @@ ASM_SRCS := $(shell find $(HACK_DIRS) -name *.S)
 ASM_OBJS := $(ASM_SRCS:%.S=%.o)
 
 ALL_OBJS := $(C_OBJS) $(ASM_OBJS)
-ALL_DEPS := $(ALL_OBJS:%.o=%.d)
+ALL_DEPS := $(ALL_OBJS:%.o=$(CACHE_DIR)/%.d)
+
+ifneq (clean,$(MAKECMDGOALS))
+-include $(ALL_DEPS)
+.PRECIOUS: $(BUILD_DIR)/%.d
+endif
 
 CLEAN_FILES += $(ALL_OBJS) $(ALL_OBJS) $(ALL_DEPS)
-
 CLEAN_FILES += $(C_SRCS:%.c=%.asm)
+
+# ============
+# = Spritans =
+# ============
+
+PNG_FILES := $(shell find $(HACK_DIRS) -type f -name '*.png')
+TSA_FILES := $(shell find $(HACK_DIRS) -type f -name '*.tsa')
+
+%.4bpp: %.png
+	@echo "[GEN]	$@"
+	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRIT4BPPARGS)
+	@mv $(basename $<).img.bin $@
+
+%.gbapal: %.png
+	@echo "[GEN]	$@"
+	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRITPALETTEARGS)
+	@mv $(basename $<).pal.bin $@
+
+%.lz: %
+	@echo "[LZ ]	$@"
+	@$(LZSS) e $< $@
+
+%.lz77: %.png
+	@echo "[LZ ]	$@"
+	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRITLZ77ARGS)
+	@mv $(basename $<).img.bin $@
+
+CLEAN_PNG_FILES += $(PNG_FILES:.png=.gbapal) $(PNG_FILES:.png=.4bpp) $(PNG_FILES:.png=.4bpp.lz)
+CLEAN_PNG_FILES += $(PNG_FILES:.png=.lz77)
+CLEAN_PNG_FILES += $(TSA_FILES:.tsa=.tsa.lz)
+
+%.img.bin %.map.bin %.pal.bin: %.png
+	@echo "[GEN]	$@"
+	@$(GRIT) $< -gB 4 -gzl -m -mLf -mR4 -mzl -pn 16 -ftb -fh! -o $@
+
+CLEAN_PNG_FILES += $(PNG_FILES:.png=.img.bin) $(PNG_FILES:.png=.map.bin) $(PNG_FILES:.png=.pal.bin)
 
 # ===========
 # = RECIPES =
@@ -136,5 +194,6 @@ CLEAN_FILES += $(ELF) $(ROM) $(MAP) $(SYM)
 
 clean:
 	@rm -f $(CLEAN_FILES)
+	@rm -f $(CLEAN_PNG_FILES)
 	@rm -rf $(CLEAN_DIRS)
 	@echo "all cleaned..."

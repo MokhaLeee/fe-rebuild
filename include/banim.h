@@ -4,16 +4,34 @@
 #include "proc.h"
 
 /* animdrv */
+enum {
+	// For use with Anim::currentRoundType
+
+	ANIM_ROUND_HIT_CLOSE,
+	ANIM_ROUND_CRIT_CLOSE,
+	ANIM_ROUND_NONCRIT_FAR,
+	ANIM_ROUND_CRIT_FAR,
+	ANIM_ROUND_TAKING_MISS_CLOSE,
+	ANIM_ROUND_TAKING_MISS_FAR,
+	ANIM_ROUND_TAKING_HIT_CLOSE,
+	ANIM_ROUND_STANDING,
+	ANIM_ROUND_TAKING_HIT_FAR,
+	ANIM_ROUND_MISS_CLOSE,
+	ANIM_ROUND_MAX,
+
+	ANIM_ROUND_INVALID = -1,
+};
+
 void BasUpdateAll(void);
 
 /* banim data */
 struct BattleAnim {
 	char abbr[12];
-	int * modes;
-	void * script;
-	void * oam_r;
-	void * oam_l;
-	void * pal;
+	int *modes;
+	void *script;
+	void *oam_r;
+	void *oam_l;
+	void *pal;
 };
 
 extern struct BattleAnim gBanimTable[];
@@ -24,6 +42,28 @@ struct BanimScrFrame {
 	const u32 *img;
 	u32 oam_offset;
 };
+
+/* banim info */
+enum banim_faction_palette_idx {
+    BANIMPAL_BLUE = 0,
+    BANIMPAL_RED = 1,
+    BANIMPAL_GREEN = 2,
+    BANIMPAL_PURPLE = 3,
+};
+
+int GetBanimFactionPalette(u32 faction);
+
+enum banim_sprites_size {
+    BAS_SCR_MAX_SIZE = 0x2A00,
+    BAS_OAM_MAX_SIZE = 0x5800,
+    BAS_IMG_MAX_SIZE = 0x1000,
+
+    BAS_OAM_REF_MAX_SIZE = BAS_OAM_MAX_SIZE - 0x10,
+};
+
+extern u8 gBanimScrs[2 * BAS_SCR_MAX_SIZE];
+extern u8 gBanimOamBufs[2 * BAS_OAM_MAX_SIZE];
+extern u8 gBanimImgSheetBufs[2 * BAS_IMG_MAX_SIZE];
 
 /* EkrMain mini */
 struct EkrMainMiniDesc {
@@ -54,6 +94,7 @@ void EndEkrMainMini(struct EkrMainMiniDesc *desc);
 void NewEfxAnimeDrvProc(void);
 void EndEfxAnimeDrvProc(void);
 
+void EkrMainMini_UpdateAnim(struct EkrMainMiniDesc *desc);
 void EkrMainMini_ChangeAnim(struct EkrMainMiniDesc *desc, int bid);
 void EkrMainMini_SetAnimPosition(struct EkrMainMiniDesc *desc, u16 x, u16 y);
 void EkrMainMini_SetAnimLayer(struct EkrMainMiniDesc *desc, u16 layer);

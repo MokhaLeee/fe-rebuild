@@ -21,7 +21,7 @@ static void OnMain(void);
 static void SetMainFunc(Func func);
 static void RunMainFunc(void);
 
-const char *build_version = CONFIG_VERSION;
+const char *const build_version = CONFIG_VERSION;
 
 void AgbMain(void)
 {

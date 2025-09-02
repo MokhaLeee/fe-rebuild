@@ -49,18 +49,6 @@ enum ekr_hit {
     EKR_MISS
 };
 
-enum banim_sprites_size {
-    BAS_SCR_MAX_SIZE = 0x2A00,
-    BAS_OAM_MAX_SIZE = 0x5800,
-    BAS_IMG_MAX_SIZE = 0x1000,
-
-    BAS_OAM_REF_MAX_SIZE = BAS_OAM_MAX_SIZE - 0x10,
-};
-
-extern u8 gBanimScrs[2 * BAS_SCR_MAX_SIZE];
-extern u8 gBanimOamBufs[2 * BAS_OAM_MAX_SIZE];
-extern u8 gBanimImgSheetBufs[2 * BAS_IMG_MAX_SIZE];
-
 enum anim_round_type {
     ANIM_ROUND_BIT8 = 0x0100,
     ANIM_ROUND_PIERCE = 0x0200,

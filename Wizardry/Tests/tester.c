@@ -1,5 +1,6 @@
 #include "common.h"
 #include "proc.h"
+#include "hardware.h"
 #include "game-ctrl.h"
 #include "test.h"
 
@@ -10,6 +11,7 @@ struct ProcTester {
 static void Tetser_Init(struct ProcTester *proc)
 {
 	ForceEnableSounds();
+	SetDispEnable(0, 0, 0, 1, 1);
 }
 
 static void Tetser_Main(struct ProcTester *proc)
@@ -24,6 +26,10 @@ static void Tetser_Main(struct ProcTester *proc)
 
 #if CONFIG_DEBUG_SPRITE_TEST
 	sprite_test(proc);
+#endif
+
+#if CONFIG_DEBUG_EKRMAINMINI_TEST
+	ekrmainmini_test(proc);
 #endif
 }
 

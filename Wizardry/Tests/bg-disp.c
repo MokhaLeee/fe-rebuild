@@ -30,7 +30,7 @@ static void BgDispTest_InitDisp(ProcPtr proc)
 	TmFill(gBg2Tm, 0);
 	TmFill(gBg3Tm, 0);
 
-	SetDispEnable(0, 0, 0, 1, 0);
+	// SetDispEnable(0, 0, 0, 1, 0);
 }
 
 static void BgDispTest_PutBG(ProcPtr proc)

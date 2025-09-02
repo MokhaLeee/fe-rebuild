@@ -49,7 +49,7 @@ const AnimScr AnimScr_DefaultAnim[] = {
 	ANIMSCR_BLOCKED
 };
 
-void SyncBanimImage(struct Anim * anim)
+void SyncBanimImage(struct Anim *anim)
 {
 	void *mmap;
 

@@ -19,4 +19,6 @@ void StartBgDispTest(ProcPtr proc);
 
 void sprite_test(ProcPtr proc);
 
+void ekrmainmini_test(ProcPtr proc);
+
 #endif

@@ -8,10 +8,15 @@
 
 /* Tests */
 #if CONFIG_USE_DEBUG
+#define CONFIG_TEST 1
+#endif
+
+#if CONFIG_TEST
 	#define CONFIG_DEBUG_EXEC_TEXTER 1
 	#define CONFIG_DEBUG_PRINTF_TEST 0
 	#define CONFIG_DEBUG_BGDISP_TEST 1
-	#define CONFIG_DEBUG_SPRITE_TEST 1
-#endif /* USE_DEBUG */
+	#define CONFIG_DEBUG_SPRITE_TEST 0
+	#define CONFIG_DEBUG_EKRMAINMINI_TEST 0
+#endif /* TEST */
 
 #endif

@@ -230,7 +230,7 @@ static void EkrMainMini_InitAnim(struct EkrMainMiniDesc *desc)
 	EnablePalSync();
 }
 
-static void EkrMainMini_UpdateAnim(struct EkrMainMiniDesc *desc)
+void EkrMainMini_UpdateAnim(struct EkrMainMiniDesc *desc)
 {
 	int mode1, mode2;
 	struct Anim *anim;

@@ -56,7 +56,6 @@ enum { false, true };
 #endif
 typedef i8 bool8;
 
-// TODO: move types below
 typedef struct FILE {
 	const struct io_handle *io;
 } FILE;
@@ -81,7 +80,6 @@ struct Vec2u
 };
 
 // Forward decls for common types
-// TODO: move
 
 struct FaceInfo;
 
@@ -107,7 +105,6 @@ struct MenuProc;
 struct MenuEntProc;
 struct MenuEntInfo;
 
-// TODO: move
 struct ChapterEventInfo;
 struct EventInfo;
 

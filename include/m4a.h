@@ -388,8 +388,6 @@ void m4aMPlayPanpotControl(struct MusicPlayer * music_player, u16 track_bits, i8
 void m4aMPlayModDepthSet(struct MusicPlayer * music_player, u16 track_bits, u8 mod_depth);
 void m4aMPlayLFOSpeedSet(struct MusicPlayer * music_player, u16 track_bits, u8 lfo_speed);
 
-// TODO: move elsewhere
-
 enum
 {
     SOUND_MODE = SOUND_MODE_DA_BIT_8
@@ -400,5 +398,3 @@ enum
 
 #define NUM_MUSIC_PLAYERS 9
 #define MAX_LINES 0
-
-// end TODO

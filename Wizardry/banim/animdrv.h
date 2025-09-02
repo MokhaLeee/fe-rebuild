@@ -85,15 +85,12 @@ enum {
 enum {
 	// Command Identifiers
 
-	// TODO: complete during battle anim decomp
-
 	BAS_CMD_NOP     = 0x00,
 	BAS_CMD_WAIT_01 = 0x01, // wait for hp depletion
 	BAS_CMD_WAIT_02 = 0x02, // wait for dodge start, then dodge
 	BAS_CMD_WAIT_03 = 0x03, // wait for attack start
 	BAS_CMD_WAIT_04 = 0x04,
 	BAS_CMD_WAIT_05 = 0x05, // wait for spell anim?
-	// TODO: more
 	BAS_CMD_WAIT_13 = 0x13, // unk
 	BAS_CMD_WAIT_18 = 0x18, // wait for dodge start, then forward dodge
 	BAS_CMD_WAIT_39 = 0x39, // unk

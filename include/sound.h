@@ -40,8 +40,6 @@ void StartBgmVolumeChange(int volume_from, int volume_to, int duration, ProcPtr 
     if (!gPlaySt.config_bgm_disable) \
         StartBgmCore((id), NULL)
 
-// TODO: move
-
 extern struct Song const Song_Unk_0857A61C;
 extern struct Song const Song_Unk_0857B774;
 extern struct Song const Song_Unk_0857C1E4;

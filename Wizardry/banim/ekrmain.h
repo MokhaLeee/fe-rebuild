@@ -2,7 +2,7 @@
 
 #include "common.h"
 #include "banim.h"
-#include "banimdrv.h"
+#include "animdrv.h"
 
 enum video_banim {
     BGPAL_EFX_0 = 0,

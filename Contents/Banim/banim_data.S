@@ -1,7 +1,7 @@
 #include "common.inc"
 #include "macro.inc"
 
-.section .rodata
+.section .banim_data
 
 .align 2, 0
 .global gBanimTableCount

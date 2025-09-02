@@ -3,7 +3,7 @@
 #include "proc.h"
 #include "banim.h"
 
-#include "banimdrv.h"
+#include "animdrv.h"
 #include "ekrmain.h"
 #include "banim_info.h"
 #include "efxmagicmini.h"

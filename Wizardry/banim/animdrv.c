@@ -1,7 +1,7 @@
 #include "common.h"
 #include "hardware.h"
 
-#include "banimdrv.h"
+#include "animdrv.h"
 
 static int BasRunScript(struct Anim *BaSprite);
 static void BasInsert(struct Anim *BaSprite);

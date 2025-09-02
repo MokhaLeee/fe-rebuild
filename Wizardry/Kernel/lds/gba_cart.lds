@@ -54,6 +54,11 @@ SECTIONS
 	{
 		*(.rodata)
 		*(.rodata*)
+
+		/* todo */
+		. = 0x086A0000 - __rodata_start;
+		*(.banim_data)
+
 		. = ALIGN(4);
 	} >rom = 0xff
 

@@ -4,6 +4,8 @@
 #include "game-ctrl.h"
 #include "test.h"
 
+#if CONFIG_TEST
+
 struct ProcTester {
 	PROC_HEADER;
 };
@@ -16,19 +18,13 @@ static void Tetser_Init(struct ProcTester *proc)
 
 static void Tetser_Main(struct ProcTester *proc)
 {
-#if CONFIG_DEBUG_PRINTF_TEST
+#if CONFIG_DEBUG_TEST_PRINTF
 	kprintf_test();
-#endif
-
-#if CONFIG_DEBUG_BGDISP_TEST
+#elif CONFIG_DEBUG_TEST_BGDISP
 	StartBgDispTest(proc);
-#endif
-
-#if CONFIG_DEBUG_SPRITE_TEST
+#elif CONFIG_DEBUG_TEST_SPRIT
 	sprite_test(proc);
-#endif
-
-#if CONFIG_DEBUG_EKRMAINMINI_TEST
+#elif CONFIG_DEBUG_TEST_EKRMAINMINI
 	ekrmainmini_test(proc);
 #endif
 }
@@ -46,3 +42,5 @@ void NewGameTester(void)
 {
 	SpawnProc(ProcScr_Tester, PROC_TREE_3);
 }
+
+#endif /* TEST */

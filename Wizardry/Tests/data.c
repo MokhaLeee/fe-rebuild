@@ -1,5 +1,7 @@
 #include "common.h"
 
+#if CONFIG_DEBUG_TEST_DATA_SECTION
+
 /* start from 0x02000000, overlay0 */
 EWRAM_OVERLAY_BMAP int ewram_overlay_0_array[2];
 
@@ -20,3 +22,5 @@ RELOC_DATA int *const pr_ewram_overlay_1_array = ewram_overlay_1_array;
 RELOC_DATA int *const pr_ewram_overlay_2_array = ewram_overlay_2_array;
 RELOC_DATA int *const pr_ewram_data_array = ewram_data_array;
 RELOC_DATA int *const pr_iwram_bss_array = iwram_bss_array;
+
+#endif

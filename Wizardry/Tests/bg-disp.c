@@ -3,6 +3,8 @@
 #include "utils.h"
 #include "hardware.h"
 
+#if CONFIG_DEBUG_TEST_BGDISP
+
 enum video_allocs_bgdisptest {
 	BGCHR_BGDISP_TEST_MURALBG = 0,
 	BGPAL_BGDISP_TEST_MURALBG = 14,
@@ -62,3 +64,5 @@ void StartBgDispTest(ProcPtr proc)
 {
 	SpawnProc(ProcScr_BgDispTest, proc);
 }
+
+#endif

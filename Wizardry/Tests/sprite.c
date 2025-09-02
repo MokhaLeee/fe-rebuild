@@ -6,6 +6,8 @@
 #include "sprite.h"
 #include "test.h"
 
+#if CONFIG_DEBUG_TEST_SPRIT
+
 static const u16 Sprite_MapCursorA[] = {
 	4,
 	OAM0_Y(-4) | OAM0_SHAPE_8x8, OAM1_X(-2)  | OAM1_SIZE_8x8,                           0,
@@ -43,3 +45,5 @@ void sprite_test(ProcPtr proc)
 	else
 		SpawnProc(ProcScr_SpriteTest, PROC_TREE_3);
 }
+
+#endif

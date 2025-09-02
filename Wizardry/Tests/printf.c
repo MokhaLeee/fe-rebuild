@@ -1,6 +1,8 @@
 #include "common.h"
 #include "test.h"
 
+#if CONFIG_DEBUG_TEST_EKRMAINMINI
+
 void kprintf_test(void)
 {
 	uint32_t sp[2] = { 0x08090A0B, 0x03040201 };
@@ -11,3 +13,5 @@ void kprintf_test(void)
 	printf("%% i: %i", 0x090807);
 	printf("%% -: %08d", -980);
 }
+
+#endif

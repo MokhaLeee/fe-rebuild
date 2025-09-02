@@ -70,7 +70,7 @@ static void StartGame(void)
 	SetMainFunc(OnMain);
 	SetOnVBlank(OnVBlank);
 
-#if CONFIG_DEBUG_EXEC_TEXTER
+#if CONFIG_TEST
 	NewGameTester();
 #else
 	NewGameController();

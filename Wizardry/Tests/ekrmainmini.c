@@ -3,7 +3,7 @@
 #include "test.h"
 #include "banim.h"
 
-#if CONFIG_DEBUG_EKRMAINMINI_TEST
+#if CONFIG_DEBUG_TEST_EKRMAINMINI
 
 EWRAM_OVERLAY_TEST static struct EkrMainMiniDesc _desc;
 

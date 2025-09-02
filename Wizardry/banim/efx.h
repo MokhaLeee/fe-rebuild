@@ -79,16 +79,6 @@ enum banim_mode_index {
 
 #define ANIM_REF_OFFSET(off_ref_round, off_ref_pos) ((off_ref_round) * 2 + off_ref_pos)
 
-enum EkrDistanceType_idx {
-    EKR_DISTANCE_CLOSE,
-    EKR_DISTANCE_FAR,
-    EKR_DISTANCE_FARFAR,
-    EKR_DISTANCE_MONOCOMBAT,
-    EKR_DISTANCE_PROMOTION,
-
-    EKR_DISTANCE_MAX
-};
-
 extern EWRAM_DATA i16 gEkrDistanceType;
 
 extern const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4];

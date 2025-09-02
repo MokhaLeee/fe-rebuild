@@ -6,6 +6,16 @@
 typedef u32 AnimScr;
 typedef u32 AnimSpriteScr;
 
+enum EkrDistanceType_idx {
+	EKR_DISTANCE_CLOSE,
+	EKR_DISTANCE_FAR,
+	EKR_DISTANCE_FARFAR,
+	EKR_DISTANCE_MONOCOMBAT,
+	EKR_DISTANCE_PROMOTION,
+
+	EKR_DISTANCE_MAX
+};
+
 /* animdrv */
 enum {
 	// For use with Anim::currentRoundType

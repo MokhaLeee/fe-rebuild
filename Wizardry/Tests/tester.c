@@ -35,7 +35,7 @@ static void Tetser_InitDisp(struct ProcTester *proc)
 static void Tetser_Init(struct ProcTester *proc)
 {
 	ForceEnableSounds();
-	SetDispEnable(0, 0, 0, 1, 1);
+	SetDispEnable(1, 1, 1, 1, 1);
 }
 
 static void Tetser_Main(struct ProcTester *proc)

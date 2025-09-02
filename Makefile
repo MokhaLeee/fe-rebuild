@@ -85,7 +85,7 @@ CFLAGS += -fno-inline
 ASFLAGS := -g $(ARCH) $(INC_FLAG)
 LDFLAGS = -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-CDEPFLAGS = -MMD -MT "$*.o" -MT "$*.asm" -MF "$(CACHE_DIR)/$(notdir $*).d" -MP
+CDEPFLAGS = -MMD -MQ "$*.o" -MQ "$*.asm" -MF "$(CACHE_DIR)/$*.d" -MP
 SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 
 %.o:   EXT_FLAGS := -mthumb -mthumb-interwork
@@ -99,10 +99,12 @@ SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 
 %.o: %.c
 	@echo "[CC ]	$@"
+	@mkdir -p $(dir $@) $(dir $(CACHE_DIR)/$*.d)
 	@$(CC) $(CFLAGS) $(EXT_FLAGS) $(CDEPFLAGS) -g -c $< -o $@
 
 %.asm: %.c
 	@echo "[CC ]	$@"
+	@mkdir -p $(dir $@) $(dir $(CACHE_DIR)/$*.d)
 	@$(CC) $(CFLAGS) $(EXT_FLAGS) $(CDEPFLAGS) -S $< -o $@ -fverbose-asm
 
 ASM_DEP := python3 Tools/asmtools/asmdep.py

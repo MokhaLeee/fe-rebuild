@@ -1,22 +1,22 @@
 #ifndef CONFIG_DEBUG_H
 #define CONFIG_DEBUG_H
 
-#define CONFIG_USE_DEBUG 0
+#define CONFIG_USE_DEBUG 1
 
 /* dprintf log level */
 #define CONFIG_DEBUG_LEVEL 2
 
 /* Tests */
 #if CONFIG_USE_DEBUG
-#define CONFIG_TEST 0
+#define CONFIG_TEST 1
 #endif
 
 #if CONFIG_TEST
 	#define CONFIG_DEBUG_TEST_DATA_SECTION 0
 	#define CONFIG_DEBUG_TEST_PRINTF 0
-	#define CONFIG_DEBUG_TEST_BGDISP 1
+	#define CONFIG_DEBUG_TEST_BGDISP 0
 	#define CONFIG_DEBUG_TEST_SPRIT 0
-	#define CONFIG_DEBUG_TEST_EKRMAINMINI 0
+	#define CONFIG_DEBUG_TEST_EKRMAINMINI 1
 #endif /* TEST */
 
 #endif

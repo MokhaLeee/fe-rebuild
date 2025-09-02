@@ -93,3 +93,8 @@ extern const u16 Pal_AllWhite[];
 extern const u16 Pal_AllRed[];
 extern const u16 Pal_AllGreen[];
 extern const u16 Pal_AllBlue[];
+
+/**
+ * Misc
+ */
+void StartTemporaryLock(ProcPtr proc, int duration);

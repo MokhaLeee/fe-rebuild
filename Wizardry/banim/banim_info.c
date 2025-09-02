@@ -1,6 +1,5 @@
 #include "common.h"
-#include "animdrv.h"
-#include "banim_info.h"
+#include "efx.h"
 
 int GetAnimLayer(struct Anim *anim)
 {

@@ -2,8 +2,7 @@
 #include "proc.h"
 #include "banim.h"
 
-#include "animdrv.h"
-#include "efxmagicmini.h"
+#include "efx.h"
 
 void StartClassReelSpellAnim(struct Anim *anim)
 {

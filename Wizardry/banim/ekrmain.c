@@ -3,7 +3,9 @@
 #include "utils.h"
 #include "hardware.h"
 
-#include "ekrmain.h"
+#include "efx.h"
+
+EWRAM_OVERLAY_ANIM u32 gEkrInitPosReal;
 
 const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {
 	/**

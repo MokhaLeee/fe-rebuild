@@ -3,6 +3,9 @@
 #include "common.h"
 #include "proc.h"
 
+typedef u32 AnimScr;
+typedef u32 AnimSpriteScr;
+
 /* animdrv */
 enum {
 	// For use with Anim::currentRoundType
@@ -36,6 +39,15 @@ struct BattleAnim {
 
 extern struct BattleAnim gBanimTable[];
 
+struct BattleAnimTerrain {
+	char abbr[12];
+	char * tileset;
+	short * palette;
+	int null_1; // useless, always 00
+};
+
+extern const struct BattleAnimTerrain gBanimTerrainTable[];
+
 struct BanimScrFrame {
 	// disassemble of ANIMSCR_FRAME
 	u32 prefix;
@@ -45,20 +57,20 @@ struct BanimScrFrame {
 
 /* banim info */
 enum banim_faction_palette_idx {
-    BANIMPAL_BLUE = 0,
-    BANIMPAL_RED = 1,
-    BANIMPAL_GREEN = 2,
-    BANIMPAL_PURPLE = 3,
+	BANIMPAL_BLUE = 0,
+	BANIMPAL_RED = 1,
+	BANIMPAL_GREEN = 2,
+	BANIMPAL_PURPLE = 3,
 };
 
 int GetBanimFactionPalette(u32 faction);
 
 enum banim_sprites_size {
-    BAS_SCR_MAX_SIZE = 0x2A00,
-    BAS_OAM_MAX_SIZE = 0x5800,
-    BAS_IMG_MAX_SIZE = 0x1000,
+	BAS_SCR_MAX_SIZE = 0x2A00,
+	BAS_OAM_MAX_SIZE = 0x5800,
+	BAS_IMG_MAX_SIZE = 0x1000,
 
-    BAS_OAM_REF_MAX_SIZE = BAS_OAM_MAX_SIZE - 0x10,
+	BAS_OAM_REF_MAX_SIZE = BAS_OAM_MAX_SIZE - 0x10,
 };
 
 extern u8 gBanimScrs[2 * BAS_SCR_MAX_SIZE];
@@ -101,3 +113,35 @@ void EkrMainMini_SetAnimLayer(struct EkrMainMiniDesc *desc, u16 layer);
 bool EkrMainMini_CheckBlocking(struct EkrMainMiniDesc *desc);
 void EkrMainMini_EndBlock(struct EkrMainMiniDesc *desc);
 bool EkrMainMini_CheckDone(struct EkrMainMiniDesc *desc);
+
+/**
+ * EkrTerrainfx
+ */
+struct EkrTerrainfxDesc {
+	/* 00 */ i16 terrain_l;
+	/* 02 */ i16 pal_l;
+	/* 04 */ i16 chr_l;
+	/* 06 */ i16 terrain_r;
+	/* 0A */ i16 pal_r;
+	/* 08 */ i16 chr_r;
+	/* 0C */ i16 distance;
+	/* 0E */ i16 bg_index;
+
+	/* 10 */ u16 _pad_10;
+
+	/* 14 */ struct ProcEkrSubAnimeEmulator *proc1;
+	/* 18 */ struct ProcEkrSubAnimeEmulator *proc2;
+	/* 1C */ int vram_offset;
+	/* 20 */ u8 *img_buf;
+
+	/* 24 */ int _pad_24;
+};
+
+extern EWRAM_OVERLAY_ANIM struct EkrTerrainfxDesc gEkrTerrainfxDesc;
+extern EWRAM_OVERLAY_ANIM struct EkrTerrainfxDesc gEkrLvupTerrainfxDesc;
+
+void NewEkrTerrainfx(struct EkrTerrainfxDesc *desc); // FE8: sub_805AA68
+void EndEkrTerrainfx(struct EkrTerrainfxDesc *desc);
+void EkrTerrainfx_SetPosition(struct EkrTerrainfxDesc *desc, i16 x1, i16 y1, i16 x2, i16 y2);
+void EkrTerrainfx_PutTiles(struct EkrTerrainfxDesc *desc);
+void BanimCopyBgTM(i16 distance, i16 pos);

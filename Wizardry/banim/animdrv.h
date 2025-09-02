@@ -134,7 +134,6 @@ void BasPutOam(struct Anim *banim_sprite);
 #define BAS_IS_DISABLED(banim_sprite) ((banim_sprite)->flags == 0)
 
 /*
-
 	BATTLE ANIM INSTRUCTION FORMAT:
 
 	CallFunc(function):
@@ -187,6 +186,16 @@ void BasPutOam(struct Anim *banim_sprite);
 		+31bit | 1bit  | 0b
 
 */
+enum anim_inst_type {
+	ANIM_INS_TYPE_STOP    = 0,
+	ANIM_INS_TYPE_END     = 1,
+	ANIM_INS_TYPE_LOOP    = 2,
+	ANIM_INS_TYPE_MOVE    = 3,
+	ANIM_INS_TYPE_WAIT    = 4,
+	ANIM_INS_TYPE_COMMAND = 5,
+	ANIM_INS_TYPE_FRAME   = 6,
+};
+
 #define ANFMT_FORCESPRITE 0x00000000
 #define ANFMT_NOT_FORCESPRITE 0x80000000
 #define ANFMT_PTRINS 0x40000000

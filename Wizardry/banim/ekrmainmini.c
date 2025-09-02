@@ -3,10 +3,7 @@
 #include "proc.h"
 #include "banim.h"
 
-#include "animdrv.h"
-#include "ekrmain.h"
-#include "banim_info.h"
-#include "efxmagicmini.h"
+#include "efx.h"
 
 static void EkrMainMini_C01_Blocking(struct Anim *anim)
 {

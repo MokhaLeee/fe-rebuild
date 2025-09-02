@@ -23,3 +23,8 @@
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 #define ABS(val) ((val) >= 0 ? (val) : -(val))
 #define RECT_DISTANCE(xa, ya, xb, yb) (ABS((xa) - (xb)) + ABS((ya) - (yb)))
+
+#define _UNUSED __attribute__((unused))
+#define __maybe_unused _UNUSED
+
+#define NONMATCHING 1

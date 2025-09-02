@@ -31,7 +31,7 @@ static const FILE ___stdio_FILEs[3] = {
 	[2] = { .io = &console_io }, // stderr
 };
 
-FILE __stdio_FILEs[3];
+EWRAM_DATA FILE __stdio_FILEs[3];
 
 void io_init(void)
 {

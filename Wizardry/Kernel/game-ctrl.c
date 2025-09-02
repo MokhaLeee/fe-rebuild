@@ -8,7 +8,7 @@
 #include "sound.h"
 #include "constants/songs.h"
 
-static void ForceEnableSounds(void)
+void ForceEnableSounds(void)
 {
 	gPlaySt.config_bgm_disable = FALSE;
 	gPlaySt.config_se_disable = FALSE;
@@ -17,21 +17,6 @@ static void ForceEnableSounds(void)
 static void GameCtrl_Init(ProcPtr proc)
 {
 	ForceEnableSounds();
-}
-
-static void GameCtrl_ExecTest(ProcPtr proc)
-{
-#if CONFIG_DEBUG_PRINTF_TEST
-	kprintf_test();
-#endif
-
-#if CONFIG_DEBUG_BGDISP_TEST
-	StartBgDispTest(proc);
-#endif
-
-#if CONFIG_DEBUG_SPRITE_TEST
-	sprite_test(proc);
-#endif
 }
 
 static void GameCtrl_MainLoop(ProcPtr proc)
@@ -59,9 +44,6 @@ const struct ProcScr ProcScr_GameController[] = {
 	PROC_MARK(PROC_MARK_GAMECTRL),
 	PROC_YIELD,
 	PROC_CALL(GameCtrl_Init),
-	PROC_YIELD,
-
-	PROC_CALL(GameCtrl_ExecTest),
 	PROC_YIELD,
 
 	PROC_REPEAT(GameCtrl_MainLoop),

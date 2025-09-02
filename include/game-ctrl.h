@@ -29,3 +29,5 @@ struct ProcGameCtrl {
 extern const struct ProcScr ProcScr_GameController[];
 
 void NewGameController(void);
+
+void ForceEnableSounds(void);

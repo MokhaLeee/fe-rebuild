@@ -4,6 +4,9 @@
 #include "proc.h"
 
 #if CONFIG_USE_DEBUG
+
+void NewGameTester(void);
+
 /**
  * printf
  */

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "test.h"
 #include "irq.h"
 #include "hardware.h"
 #include "proc.h"
@@ -69,7 +70,11 @@ static void StartGame(void)
 	SetMainFunc(OnMain);
 	SetOnVBlank(OnVBlank);
 
+#if CONFIG_DEBUG_EXEC_TEXTER
+	NewGameTester();
+#else
 	NewGameController();
+#endif
 }
 
 static void SetMainFunc(Func func)

@@ -90,6 +90,7 @@ enum banim_mode_index {
 };
 
 extern const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4];
+extern const AnimScr AnimScr_DefaultAnim[];
 
 void NewEkrChienCHR(struct Anim *anim);
 void SyncBanimImage(struct Anim *anim);

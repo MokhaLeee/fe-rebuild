@@ -53,3 +53,10 @@ void EndEkrMainMini(struct EkrMainMiniDesc *desc);
 
 void NewEfxAnimeDrvProc(void);
 void EndEfxAnimeDrvProc(void);
+
+void EkrMainMini_ChangeAnim(struct EkrMainMiniDesc *desc, int bid);
+void EkrMainMini_SetAnimPosition(struct EkrMainMiniDesc *desc, u16 x, u16 y);
+void EkrMainMini_SetAnimLayer(struct EkrMainMiniDesc *desc, u16 layer);
+bool EkrMainMini_CheckBlocking(struct EkrMainMiniDesc *desc);
+void EkrMainMini_EndBlock(struct EkrMainMiniDesc *desc);
+bool EkrMainMini_CheckDone(struct EkrMainMiniDesc *desc);

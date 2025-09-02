@@ -44,6 +44,11 @@ const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {
 	BANIM_MODE_MISSED_ATK, 0x64, BANIM_MODE_INVALID, 0x28,
 };
 
+const AnimScr AnimScr_DefaultAnim[] = {
+	ANIMSCR_FRAME(1, NULL, BAS_OAM_REF_MAX_SIZE),
+	ANIMSCR_BLOCKED
+};
+
 void SyncBanimImage(struct Anim * anim)
 {
 	void *mmap;

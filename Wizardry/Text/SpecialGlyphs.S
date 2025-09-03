@@ -1,13 +1,6 @@
 #include "common.inc"
 .section .rodata
 
-.global TextGlyphs_System
-TextGlyphs_System:
-
-.global TextGlyphs_Talk
-TextGlyphs_Talk:
-
-
 .align 2, 0
 TextGlyph_Special_0859327C:	@ 0x59327C
 	.incbin "roms/fe6.gba", 0x59327C, 0x5932C4 - 0x59327C

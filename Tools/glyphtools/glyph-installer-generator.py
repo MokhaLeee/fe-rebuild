@@ -15,11 +15,6 @@ FontType = {
     GlyphType.GlyT: 'text',
 }
 
-FontTable = {
-    GlyphType.GlyS: 0x58C7EC,
-    GlyphType.GlyT: 0x58F6F4,
-}
-
 def show_exception_and_exit(exc_type, exc_value, tb):
     traceback.print_exception(exc_type, exc_value, tb)
     sys.exit(-1)
@@ -63,18 +58,27 @@ def make_installer(glyphs, type, fpath):
         unicod_lo = unicod & 0xFF
         unicod_hi = (unicod >> 0x8) & 0xFF
 
-        print("Font{0}_{1}: @ // {2}".format(type_str, "{:04X}".format(ord(character)), character))
+        print(".align 2, 0")
+        print("Font{0}_{1}: @ {2}".format(type_str, "{:04X}".format(ord(character)), character))
         if unicod_lo in g:
             print("\t.word Font{0}_{1}".format(type_str, "{:04X}".format(ord(g[unicod_lo]))))
         else:
             print("\t.word 0")
 
-        print("\t.byte {0} {1} 0 0".format(hex(unicod_hi), hex(glyph["width"])))
-        print("\t.incbin \"Glyph{0}/{1}.img.bin\"".format(type_str, os.path.splitext(os.path.basename(glyph["fpah"]))[0]))
+        print("\t.byte {0}, {1}, 0, 0".format(hex(unicod_hi), hex(glyph["width"])))
+        print("\t.incbin \"{0}/Glyph{1}/{2}.2bpp.bin\"".format(fpath, type_str, os.path.splitext(os.path.basename(glyph["fpah"]))[0]))
         print("")
 
         g[unicod_lo] = character
 
+    if type == GlyphType.GlyS:
+        table_name = "TextGlyphs_System"
+    else:
+        table_name = "TextGlyphs_Talk"
+
+    print(".align 2, 0")
+    print(f".global {table_name}")
+    print(f"{table_name}:")
     for i in range(0x100):
         if i in g:
             print(f"\t.word Font{type_str}_{ord(g[i]):04X}")
@@ -88,7 +92,7 @@ def main(args):
     argParser.add_argument("-i", "--input",  help = "input list file")
     arguments = argParser.parse_args()
 
-    fpath_in = os.path.abspath(arguments.input)
+    fpath_in = arguments.input # os.path.abspath(arguments.input)
     fdir_in  = os.path.dirname(fpath_in)
 
     if not os.path.exists(fpath_in):
@@ -97,6 +101,9 @@ def main(args):
     fpath_list = []
 
     # print(f"fdir_in={fdir_in}")
+    
+    print(".section .rodata")
+    print("")
 
     with open(fpath_in, 'r') as f:
         for line in f.readlines():
@@ -125,8 +132,7 @@ def main(args):
     for fpath in fpath_list:
         append_glyph(glyphs, fpath, GlyphType.GlyS, glyphs_dir)
 
-    fpath_installer = "{0}/build/Glyph{1}Installer.event".format(fdir_in, FontType[GlyphType.GlyS].capitalize())
-    make_installer(glyphs, GlyphType.GlyS, fpath_installer)
+    make_installer(glyphs, GlyphType.GlyS, f"{fdir_in}/build")
 
     # Generate text fonts
     glyphs = {}
@@ -138,8 +144,8 @@ def main(args):
     for fpath in fpath_list:
         append_glyph(glyphs, fpath, GlyphType.GlyT, glyphs_dir)
 
-    fpath_installer = "{0}/build/Glyph{1}Installer.event".format(fdir_in, FontType[GlyphType.GlyT].capitalize())
-    make_installer(glyphs, GlyphType.GlyT, fpath_installer)
+    fpath_installer = f"{fdir_in}/build"
+    make_installer(glyphs, GlyphType.GlyT, f"{fdir_in}/build")
 
 if __name__ == '__main__':
     main(sys.argv[1:])

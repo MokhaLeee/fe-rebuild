@@ -24,7 +24,8 @@ ELF := $(BUILD_NAME).elf
 MAP := $(BUILD_NAME).map
 SYM := $(BUILD_NAME).sym
 
-all: $(ROM)
+PREBUILD_DEP :=
+all: build
 
 WIZARDRY_DIR := Wizardry
 CONTENTS_DIR := Contents
@@ -32,6 +33,9 @@ GAMEDATA_DIR := Data Reloc
 LIB_DIRS     := $(DEVKITPRO)/libgba
 
 HACK_DIRS := $(WIZARDRY_DIR) $(CONTENTS_DIR) $(GAMEDATA_DIR)
+
+C_SRCS   := $(shell find $(HACK_DIRS) -name *.c)
+ASM_SRCS := $(shell find $(HACK_DIRS) -name *.S)
 
 CACHE_DIR := .cache_dir
 $(shell mkdir -p $(CACHE_DIR) > /dev/null)
@@ -65,6 +69,65 @@ GRIT2BPPARGS      := -gu 16 -gb -gB 2 -p! -m! -ft bin -fh!
 GRITPALETTEARGS	  := -g! -m! -p -ft bin -fh!
 MAPPALETTEARGS    := -pn 160
 BTLPALETTEARGS    := -pn 80
+
+# ============
+# = Spritans =
+# ============
+
+PNG_FILES := $(shell find $(HACK_DIRS) -type f -name '*.png')
+TSA_FILES := $(shell find $(HACK_DIRS) -type f -name '*.tsa')
+
+%.4bpp: %.png
+	@echo "[GEN]	$@"
+	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRIT4BPPARGS)
+	@mv $(basename $<).img.bin $@
+
+%.gbapal: %.png
+	@echo "[GEN]	$@"
+	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRITPALETTEARGS)
+	@mv $(basename $<).pal.bin $@
+
+%.lz: %
+	@echo "[LZ ]	$@"
+	@$(LZSS) e $< $@
+
+%.lz77: %.png
+	@echo "[LZ ]	$@"
+	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRITLZ77ARGS)
+	@mv $(basename $<).img.bin $@
+
+CLEAN_PNG_FILES += $(PNG_FILES:.png=.gbapal) $(PNG_FILES:.png=.4bpp) $(PNG_FILES:.png=.4bpp.lz)
+CLEAN_PNG_FILES += $(PNG_FILES:.png=.lz77)
+CLEAN_PNG_FILES += $(TSA_FILES:.tsa=.tsa.lz)
+
+%.img.bin %.map.bin %.pal.bin: %.png
+	@echo "[GEN]	$@"
+	@$(GRIT) $< -gB 4 -gzl -m -mLf -mR4 -mzl -pn 16 -ftb -fh! -o $@
+
+CLEAN_PNG_FILES += $(PNG_FILES:.png=.img.bin) $(PNG_FILES:.png=.map.bin) $(PNG_FILES:.png=.pal.bin)
+
+# =========
+# = Glyph =
+# =========
+FONT_DIR := Fonts
+GLYPH_LIST := $(FONT_DIR)/FontList.txt
+FONT_BUILD := $(FONT_DIR)/build
+
+GLYPH_GENERATOR := python3 Tools/glyphtools/glyph-installer-generator.py
+GLYPH_INSTALLER := $(FONT_BUILD)/glyph_installer.S
+
+$(GLYPH_INSTALLER): $(GLYPH_LIST)
+	@mkdir -p $(dir $@)
+	$(GLYPH_GENERATOR) -i $(GLYPH_LIST) > $(GLYPH_INSTALLER)
+
+%_font.2bpp.bin: %_font.png
+	@echo "[GEN]	$@"
+	@$(GRIT) $< -gB2 -p! -tw16 -th16 -ftb -fh! -o $@
+	@mv $(basename $<).img.bin $@
+
+ASM_SRCS += $(GLYPH_INSTALLER)
+PREBUILD_DEP += $(GLYPH_INSTALLER)
+CLEAN_DIRS += $(FONT_BUILD)
 
 # ============
 # = Wizardry =
@@ -111,7 +174,7 @@ SDEPFLAGS = --MD "$(CACHE_DIR)/$(notdir $*).d"
 ASM_DEP := python3 Tools/asmtools/asmdep.py
 $(CACHE_DIR)/%.d: %.S
 	@mkdir -p $(dir $@)
-	@echo "$(CACHE_DIR)/$*.o: \\" > $@
+	@echo "$*.o: \\" > $@
 	@$(ASM_DEP) $(INC_FLAG) $< >> $@
 
 SDEPFLAGS := -MD "$(CACHE_DIR)/$*.d"
@@ -122,10 +185,7 @@ SDEPFLAGS := -MD "$(CACHE_DIR)/$*.d"
 	@$(CC) $(CFLAGS) $(EXT_FLAGS) -g -c $< -o $@
 #	@$(AS) $(ASFLAGS) $(SDEPFLAGS) -I $(dir $<) $< -o $@
 
-C_SRCS := $(shell find $(HACK_DIRS) -name *.c)
 C_OBJS := $(C_SRCS:%.c=%.o)
-
-ASM_SRCS := $(shell find $(HACK_DIRS) -name *.S)
 ASM_OBJS := $(ASM_SRCS:%.S=%.o)
 
 ALL_OBJS := $(C_OBJS) $(ASM_OBJS)
@@ -138,42 +198,6 @@ endif
 
 CLEAN_FILES += $(ALL_OBJS) $(ALL_OBJS) $(ALL_DEPS)
 CLEAN_FILES += $(C_SRCS:%.c=%.asm)
-
-# ============
-# = Spritans =
-# ============
-
-PNG_FILES := $(shell find $(HACK_DIRS) -type f -name '*.png')
-TSA_FILES := $(shell find $(HACK_DIRS) -type f -name '*.tsa')
-
-%.4bpp: %.png
-	@echo "[GEN]	$@"
-	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRIT4BPPARGS)
-	@mv $(basename $<).img.bin $@
-
-%.gbapal: %.png
-	@echo "[GEN]	$@"
-	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRITPALETTEARGS)
-	@mv $(basename $<).pal.bin $@
-
-%.lz: %
-	@echo "[LZ ]	$@"
-	@$(LZSS) e $< $@
-
-%.lz77: %.png
-	@echo "[LZ ]	$@"
-	@cd $(dir $<) && $(GRIT) $(notdir $<) $(GRITLZ77ARGS)
-	@mv $(basename $<).img.bin $@
-
-CLEAN_PNG_FILES += $(PNG_FILES:.png=.gbapal) $(PNG_FILES:.png=.4bpp) $(PNG_FILES:.png=.4bpp.lz)
-CLEAN_PNG_FILES += $(PNG_FILES:.png=.lz77)
-CLEAN_PNG_FILES += $(TSA_FILES:.tsa=.tsa.lz)
-
-%.img.bin %.map.bin %.pal.bin: %.png
-	@echo "[GEN]	$@"
-	@$(GRIT) $< -gB 4 -gzl -m -mLf -mR4 -mzl -pn 16 -ftb -fh! -o $@
-
-CLEAN_PNG_FILES += $(PNG_FILES:.png=.img.bin) $(PNG_FILES:.png=.map.bin) $(PNG_FILES:.png=.pal.bin)
 
 # ===========
 # = RECIPES =
@@ -194,6 +218,9 @@ $(ROM): $(ELF)
 	@gbafix $@ -t$(BUILD_NAME) -c0000 -m00
 
 CLEAN_FILES += $(ELF) $(ROM) $(MAP) $(SYM)
+
+build: $(PREBUILD_DEP)
+	@$(MAKE) $(ROM)
 
 clean:
 	@rm -f $(CLEAN_FILES)

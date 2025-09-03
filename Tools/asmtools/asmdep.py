@@ -25,8 +25,9 @@ def find_incbin_dependencies(file_path, include_dirs):
 
 
 def print_dep(asm_file, dependencies):
-    target = os.path.splitext(asm_file)[0] + '.o'
-    print(f"{' '.join(dependencies)}")
+    # target = os.path.splitext(asm_file)[0] + '.o'
+    for dep in dependencies:
+        print(f"  {dep} \\")
 
 
 def main():

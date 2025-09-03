@@ -80,7 +80,8 @@ CFLAGS := -g $(ARCH) -mtune=arm7tdmi \
 		  -std=gnu99 -O2 -fno-builtin \
 		  -Wall -Wextra -Werror -Wno-unused-parameter
 
-CFLAGS += -fno-inline
+CFLAGS += -fno-jump-tables
+# CFLAGS += -fno-inline
 
 ASFLAGS := -g $(ARCH) $(INC_FLAG)
 LDFLAGS = -g $(ARCH) -Wl,-Map,$(notdir $*.map)

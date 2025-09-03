@@ -4,6 +4,8 @@
 #define _maybe_unused __attribute__((unused))
 #define NOINLINE __attribute__((noinline))
 
+#define __WEAK __attribute__((weak))
+
 #define ALIGNED(n) __attribute__((aligned(n)))
 
 /**
@@ -11,8 +13,8 @@
  */
 #define SECTION(name) __attribute__((section(name)))
 
+#define CONST_DATA const
 #define IWRAM_DATA SECTION(".iwram_data")
-
 #define EWRAM_DATA SECTION(".data.ewram")
 #define RELOC_DATA SECTION(".rodata.reloc")
 

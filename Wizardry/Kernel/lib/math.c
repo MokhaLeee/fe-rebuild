@@ -49,7 +49,7 @@ u32 k_umod(u32 a, u32 b)
 	return ret;
 }
 
-u64 k_udiv64(u64 a, u64 b)
+u64 k_u64div(u64 a, u64 b)
 {
 	u64 ret = 0;
 	u64 tmp_a = a;
@@ -74,7 +74,7 @@ u64 k_udiv64(u64 a, u64 b)
 	return ret;
 }
 
-u64 k_umod64(u64 a, u64 b)
+u64 k_u64mod(u64 a, u64 b)
 {
 	u64 ret = 0;
 	u64 tmp_a = a;
@@ -95,4 +95,15 @@ u64 k_umod64(u64 a, u64 b)
 
 	ret = tmp_a;
 	return ret;
+}
+
+u32 k_udiv10(u32 n)
+{
+	// 0xCCCCCCCD = (2^35 + 2) / 10
+	return ((u64)n * 0xCCCCCCCD) >> 35;
+}
+
+u32 k_umod10(u32 n)
+{
+	return n - k_udiv10(n) * 10;
 }

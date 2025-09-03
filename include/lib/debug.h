@@ -32,3 +32,14 @@ do { \
 		fmt_printf(SPEW, format, ##__VA_ARGS__); \
 	} \
 } while (0)
+
+#define Errorf(format, ...) \
+	fmt_printf(CRITICAL, format, ##__VA_ARGS__)
+
+#define Assert(condition) \
+do { \
+	if (!(condition)) { \
+		fmt_printf(CRITICAL, "Assertion failed: " #condition); \
+		hang(); \
+	} \
+} while (0)

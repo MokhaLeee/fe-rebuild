@@ -16,7 +16,11 @@
 
 /* others */
 #ifndef hang
+#if CONFIG_USE_DEBUG
 #define hang() do { while (1); } while (0)
+#else
+#define hang() do {} while (0)
+#endif
 #endif
 
 #define STRUCT_PAD(from, to) unsigned char _pad_ ## from[(to) - (from)]

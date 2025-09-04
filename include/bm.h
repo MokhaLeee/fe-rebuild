@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "proc.h"
 
 enum videoalloc_bm {
 	/* Object chr */
@@ -10,16 +11,52 @@ enum videoalloc_bm {
 	OBPAL_SYSTEM_OBJECTS = 0,
 };
 
-struct BmSt {
-	bool main_loop_ended;
-	i8 bm_lock, disp_lock;
-	u16 main_loop_end_scanline;
+// BmSt::flags
+enum {
+	// enables "limit view" (move/range squares)
+	BM_FLAG_LIMITVIEW = (1 << 0),
+
+	// enables cursor sticking to the edge of the movement map
+	BM_FLAG_LIMITCURSOR = (1 << 1),
+
+	// when the cursor moves, this is used to prevent sounds from being played back every frame
+	BM_FLAG_CURSORMOVE = (1 << 2),
+
+	// unknown usage/unused
+	BM_FLAG_3 = (1 << 3),
+
+	// in the preparation phase
+	BM_FLAG_PREP = (1 << 4),
+
+	// unknown meaning
+	BM_FLAG_5 = (1 << 5),
+
+	// in link-arena mode
+	BM_FLAG_LINKARENA = (1 << 6),
 };
 
-extern EWRAM_DATA struct BmSt gBmSt;
+// BmSt::partial_actions_taken (flags)
+enum {
+	PARTIAL_ACTION_RESCUE_TRANSFER = (1 << 0),
+	PARTIAL_ACTION_TRADED = (1 << 1),
+	PARTIAL_ACTION_SUPPLY = (1 << 2),
+};
 
-enum playst_weathers {
-	/* PlaySt::weather */
+enum {
+	PLAY_FLAG_STATSCREENPAGE0 = (1 << 0),
+	PLAY_FLAG_STATSCREENPAGE1 = (1 << 1),
+	PLAY_FLAG_2               = (1 << 2),
+	PLAY_FLAG_TUTORIAL        = (1 << 3),
+	PLAY_FLAG_PREP            = (1 << 4),
+	PLAY_FLAG_COMPLETE        = (1 << 5),
+	PLAY_FLAG_HARD            = (1 << 6),
+	PLAY_FLAG_7               = (1 << 7),
+
+	PLAY_FLAG_STATSCREENPAGE_SHIFT = 0,
+	PLAY_FLAG_STATSCREENPAGE_MASK = PLAY_FLAG_STATSCREENPAGE0 | PLAY_FLAG_STATSCREENPAGE1,
+};
+
+enum {
 	WEATHER_NONE,
 
 	WEATHER_SNOW,
@@ -31,11 +68,71 @@ enum playst_weathers {
 	WEATHER_CLOUDS,
 };
 
+enum {
+	MAP_CURSOR_DEFAULT,
+	MAP_CURSOR_REGULAR,
+	MAP_CURSOR_RED_MOVING,
+	MAP_CURSOR_STRETCHED,
+	MAP_CURSOR_RED_STATIC,
+};
+
+enum {
+	L_BMMAIN_INIT,
+	L_BMMAIN_CHANGEPHASE,
+	L_BMMAIN_2,
+	L_BMMAIN_DURINGPHASE,
+	L_BMMAIN_4,
+	L_BMMAIN_5,
+	L_BMMAIN_6,
+	L_BMMAIN_STARTPHASE,
+	L_BMMAIN_8,
+};
+
+struct BmSt {
+	bool main_loop_ended;
+	i8 bm_lock, disp_lock;
+	u8 flags;
+	u16 main_loop_end_scanline;
+	struct Vec2i camera;
+	struct Vec2i camera_previous;
+	struct Vec2i cursor;
+	struct Vec2i cursor_previous;
+	struct Vec2i cursor_sprite_target;
+	struct Vec2i cursor_sprite;
+	struct Vec2i map_render_anchor;
+	struct Vec2i camera_max;
+
+	short unk_32;
+	short unk_34;
+	i8 unk_36;
+	i8 unk_37;
+};
+
+extern EWRAM_DATA struct BmSt gBmSt;
+
 struct PlaySt {
 	u8 weather;
 
-	u32 config_se_disable  : 1;
-	u32 config_bgm_disable : 1;
+	/* bit  0 */ u32 config_unique_pal : 1;
+	/* bit  1 */ u32 config_terrain_mapui : 1;
+	/* bit  2 */ u32 config_unit_mapui : 2;
+	/* bit  4 */ u32 config_no_auto_cursor : 1;
+	/* bit  5 */ u32 config_talk_speed : 2;
+	/* bit  7 */ u32 config_walk_speed : 1;
+	/* bit  8 */ u32 config_bgm_disable : 1;
+	/* bit  9 */ u32 config_se_disable : 1;
+	/* bit 10 */ u32 config_window_theme : 2;
+	/* bit 12 */ u32 unk_1D_5 : 1;
+	/* bit 13 */ u32 unk_1D_6 : 1;
+	/* bit 14 */ u32 config_no_auto_end_turn : 1;
+	/* bit 15 */ u32 config_no_subtitle_help : 1;
+	/* bit 16 */ u32 config_battle_anim : 2;
+	/* bit 18 */ u32 config_battle_preview_kind : 2;
+	/* bit 20 */ u32 unk_1E_5 : 1;
+	/* bit 21 */ u32 unk_1E_6 : 1;
+	/* bit 22 */ u32 debug_control_red : 2;
+	/* bit 24 */ u32 debug_control_green : 2;
+	/* bit 26 */ u32 unk_1F_3 : 6;
 };
 
 extern EWRAM_DATA struct PlaySt gPlaySt;
@@ -51,6 +148,42 @@ u8 GetGameLock(void);
  * UI
  */
 void ApplySystemObjectsGraphics(void);
+
+/**
+ * cursor
+ */
+enum {
+    MAP_MOVEMENT_MAX = 120,
+    MAP_MOVEMENT_EXTENDED = 124,
+};
+
+/**
+ * camera
+ */
+extern const struct ProcScr ProcScr_CamMove[];
+
+bool CameraMoveWatchPosition(ProcPtr proc, int x, int y);
+bool IsCameraNotWatchingPosition(int x, int y);
+bool CameraMove_08016290(ProcPtr proc);
+
+/**
+ * cursor
+ */
+void HandleMapCursorInput(u16 keys);
+void HandleMoveMapCursor(int step);
+void HandleMoveCameraWithMapCursor(int step);
+u16 GetCameraAdjustedX(int x);
+u16 GetCameraAdjustedY(int y);
+u16 GetCameraCenteredX(int x);
+u16 GetCameraCenteredY(int y);
+void PutMapCursor(int x, int y, int kind);
+void SetMapCursorPosition(int x, int y);
+
+/**
+ * arrow
+ */
+void PutSysArrow(int x, int y, u8 isDown);
+void PutSysAButton(int x, int y, int palid);
 
 /**
  * Misc

@@ -19,6 +19,7 @@ int Interpolate(int method, int lo, int hi, int x, int end);
 /**
  * decomp
  */
+int GetDataSize(void const *data);
 void Decompress(void const *src, void *dst);
 
 /**
@@ -93,6 +94,56 @@ extern const u16 Pal_AllWhite[];
 extern const u16 Pal_AllRed[];
 extern const u16 Pal_AllGreen[];
 extern const u16 Pal_AllBlue[];
+
+/**
+ * ui utils
+ */
+enum {
+	// window_theme (including PlaySt::config_window_theme)
+
+	UI_WINDOW_THEME_BLUE,
+	UI_WINDOW_THEME_RED,
+	UI_WINDOW_THEME_GRAY,
+	UI_WINDOW_THEME_GREEN,
+};
+
+enum {
+	// PutUiWindowFrame param window_kind
+
+	UI_WINDOW_REGULAR,
+	UI_WINDOW_FILL,
+	UI_WINDOW_SABLE,
+};
+
+void ApplyUiWindowFramePal(int palid);
+void UnpackUiWindowFrameImg(void *vram);
+void ApplyUiStatBarPal(int palid);
+void UnpackUiWindowFrameGraphics2(int window_theme);
+void PutUiWindowFrame(int x, int y, int width, int height, int window_kind);
+void PutUiHand(int x, int y);
+void PutFrozenUiHand(int x, int y);
+int GetUiHandPrevX(void);
+int GetUiHandPrevY(void);
+void ClearUi(void);
+void PutUiEntryHover(int x, int y, int width);
+void RemoveUiEntryHover(int x, int y, int width);
+void UnpackUiUnitNameFrameGraphics(void *vram, int palid, int palcount);
+void UnpackUiWindowFrameGraphics(void);
+
+extern u16 const Pal_UiWindowFrame_ThemeBlue[];
+extern u16 const Pal_UiWindowFrame_ThemeRed[];
+extern u16 const Pal_UiWindowFrame_ThemeGray[];
+extern u16 const Pal_UiWindowFrame_ThemeGreen[];
+extern u8 const Img_UiWindowFrame_ThemeBlue[];
+extern u8 const Img_UiWindowFrame_ThemeRed[];
+extern u8 const Img_UiWindowFrame_ThemeGray[];
+extern u8 const Img_UiWindowFrame_ThemeGreen[];
+extern u16 const Pal_UiStatBar_ThemeBlue[];
+extern u16 const Pal_UiStatBar_ThemeRed[];
+extern u16 const Pal_UiStatBar_ThemeGray[];
+extern u16 const Pal_UiStatBar_ThemeGreen[];
+extern u8 const Img_UiUnitNameFrame[];
+extern u16 const Pal_UiUnitNameFrame[];
 
 /**
  * Misc

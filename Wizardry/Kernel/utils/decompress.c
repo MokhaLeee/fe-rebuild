@@ -1,12 +1,12 @@
 #include "common.h"
 #include "utils.h"
 
-static int GetDataSize(void const * data)
+int GetDataSize(void const *data)
 {
 	return *((u32 const *) data) >> 8;
 }
 
-static void UnpackRaw(void const * src, void * dst)
+static void UnpackRaw(void const *src, void *dst)
 {
 	int size = GetDataSize(src) - 4;
 
@@ -16,7 +16,7 @@ static void UnpackRaw(void const * src, void * dst)
 		CpuFastCopy(src + 4, dst, size);
 }
 
-void Decompress(void const * src, void * dst)
+void Decompress(void const *src, void *dst)
 {
 	typedef void (* DecompressFunc)(void const *, void *);
 

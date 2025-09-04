@@ -3,8 +3,7 @@
 #include "common.h"
 #include "proc.h"
 
-enum
-{
+enum {
 	GAME_ACTION_0,
 	GAME_ACTION_1,
 	GAME_ACTION_2,

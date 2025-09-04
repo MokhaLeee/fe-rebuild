@@ -1,7 +1,7 @@
 #include "common.h"
 #include "proc.h"
 
-#define LOCAL_TRACE 1
+#define LOCAL_TRACE 0
 
 enum { PROC_COUNT = 64 };
 

@@ -13,31 +13,50 @@ EWRAM_OVERLAY_TEST struct Text test_texts[3];
 
 static void TextTest_Init(ProcPtr proc)
 {
-	struct Text texts[3], *text;
+	struct Text texts[4], *text;
 
 	ResetText();
 	StartGreenText(NULL);
 
-	// InitTalkTextFont();
+#if 0
+	InitTalkTextFont();
+#else
 	InitSystemTextFont();
+#endif
 
 	text = &texts[0];
 	InitText(text, 0x10);
 	Text_SetColor(text, TEXT_COLOR_SYSTEM_WHITE);
 	Text_DrawString(text, "helloworld mokha");
-	PutText(text, gBg0Tm + TM_OFFSET(4, 6));
+	PutText(text, gBg0Tm + TM_OFFSET(4, 1));
+
+	PutString(gBg0Tm + TM_OFFSET(4, 3), TEXT_COLOR_SYSTEM_GRAY, Utf8ToNarrowFonts("helloworld mokha (narrowfont test)", NULL));
 
 	text = &texts[1];
 	InitText(text, 0x10);
 	Text_SetColor(text, TEXT_COLOR_SYSTEM_GOLD);
 	Text_DrawString(text, "This is system text font test");
-	PutText(text, gBg0Tm + TM_OFFSET(4, 8));
+	PutText(text, gBg0Tm + TM_OFFSET(4, 5));
 
 	text = &texts[2];
 	InitText(text, 0x10);
 	Text_SetColor(text, TEXT_COLOR_SYSTEM_GREEN);
 	Text_DrawString(text, "This is green text test");
-	PutText(text, gBg0Tm + TM_OFFSET(4, 10));
+	PutText(text, gBg0Tm + TM_OFFSET(4, 7));
+
+	text = &texts[3];
+	InitText(text, 0x18);
+	Text_SetColor(text, TEXT_COLOR_SYSTEM_BLUE);
+	Text_DrawString(text, "初めまして、今日のご気分はいかがですか？");
+	PutText(text, gBg0Tm + TM_OFFSET(4, 9));
+
+	PutString(gBg0Tm + TM_OFFSET(4, 11), TEXT_COLOR_SYSTEM_GRAY, "Text utils test");
+
+	PutStringCentered(
+		gBg0Tm + TM_OFFSET(0, 13),
+		TEXT_COLOR_SYSTEM_GRAY,
+		30,
+		"これは Text のテストです。確認してください");
 
 	EnableBgSync(BG0_SYNC_BIT);
 }

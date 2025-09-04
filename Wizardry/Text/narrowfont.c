@@ -149,18 +149,17 @@ const u32 AutoNarrowFontConfToUnicode[0x100] = {
 /**
  * We don't care about overflow (if overflowed, it must be developer's fault)
  */
-char *Utf8ToNarrowFonts(char *str)
+char *Utf8ToNarrowFonts(char *str, void *_outbuf)
 {
 	int i;
-	char *buf_cur, *ret_cur, *ret, *buf = (void *)gBuf;
+	char *buf_cur, *ret_cur, *ret;
+	char *outbuf = (_outbuf != NULL) ? _outbuf : gBuf;
 
 	if (!str)
 		return NULL;
 
-	strcpy(buf, str);
-
-	buf_cur = buf;
-	ret = ret_cur = str;
+	buf_cur = str;
+	ret = ret_cur = outbuf;
 
 	while (*buf_cur != '\0') {
 		int utf8_len = GetChLenUtf8(buf_cur);

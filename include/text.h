@@ -183,6 +183,10 @@ void PutNumber2DigitSmall(u16 *tm, int color, int number);
 void PutTime(u16 *tm, int color, int time, bool always_display_punctuation);
 void PutTwoSpecialChar(u16 *tm, int color, int id_a, int id_b);
 
+int NumberToString(int number, char *buf);
+struct Text *PutStringCentered(u16 *tm, int color, int width, char const *str);
+struct Text *PutString(u16 *tm, int color, char const *str);
+
 extern EWRAM_DATA struct Font gDefaultFont;
 extern EWRAM_DATA struct Font *gActiveFont;
 

@@ -101,7 +101,7 @@ CLEAN_PNG_FILES += $(PNG_FILES:.png=.lz77)
 CLEAN_PNG_FILES += $(TSA_FILES:.tsa=.tsa.lz)
 
 %.img.bin %.map.bin %.pal.bin: %.png
-	@echo "[GEN]	$@"
+	@echo "[GRT]	$@"
 	@$(GRIT) $< -gB 4 -gzl -m -mLf -mR4 -mzl -pn 16 -ftb -fh! -o $@
 
 CLEAN_PNG_FILES += $(PNG_FILES:.png=.img.bin) $(PNG_FILES:.png=.map.bin) $(PNG_FILES:.png=.pal.bin)
@@ -117,11 +117,12 @@ GLYPH_GENERATOR := python3 Tools/glyphtools/glyph-installer-generator.py
 GLYPH_INSTALLER := $(FONT_BUILD)/glyph_installer.S
 
 $(GLYPH_INSTALLER): $(GLYPH_LIST)
+	@echo "[GEN]	$@"
 	@mkdir -p $(dir $@)
-	$(GLYPH_GENERATOR) -i $(GLYPH_LIST) > $(GLYPH_INSTALLER)
+	@$(GLYPH_GENERATOR) -i $(GLYPH_LIST) > $(GLYPH_INSTALLER)
 
 %_font.2bpp.bin: %_font.png
-	@echo "[GEN]	$@"
+#	@echo "[GRT]	$@"
 	@$(GRIT) $< -gB2 -p! -tw16 -th16 -ftb -fh! -o $@
 	@mv $(basename $<).img.bin $@
 

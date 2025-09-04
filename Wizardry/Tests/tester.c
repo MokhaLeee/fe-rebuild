@@ -30,6 +30,8 @@ static void Tetser_InitDisp(struct ProcTester *proc)
 	TmFill(gBg1Tm, 0);
 	TmFill(gBg2Tm, 0);
 	TmFill(gBg3Tm, 0);
+
+	EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 }
 
 static void Tetser_Init(struct ProcTester *proc)
@@ -48,12 +50,15 @@ static void Tetser_Main(struct ProcTester *proc)
 	sprite_test(proc);
 #elif CONFIG_DEBUG_TEST_EKRMAINMINI
 	ekrmainmini_test(proc);
+#elif CONFIG_DEBUG_TEST_TEXT
+	text_test(proc);
 #endif
 }
 
 static const struct ProcScr ProcScr_Tester[] = {
 	PROC_NAME("tester"),
 	PROC_CALL(Tetser_InitDisp),
+	PROC_YIELD,
 	PROC_CALL(Tetser_Init),
 	PROC_YIELD,
 	PROC_CALL(Tetser_Main),

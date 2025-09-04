@@ -85,6 +85,8 @@ def make_installer(glyphs, type, fpath):
         else:
             print("\t.word 0")
 
+    print("")
+
 def main(args):
     sys.excepthook = show_exception_and_exit
 
@@ -103,6 +105,8 @@ def main(args):
     # print(f"fdir_in={fdir_in}")
     
     print(".section .rodata")
+    print("")
+    print("@ auto generated, do NOT edit")
     print("")
 
     with open(fpath_in, 'r') as f:

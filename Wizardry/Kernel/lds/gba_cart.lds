@@ -114,14 +114,19 @@ SECTIONS
 	. = __ewram_overlay_end;
 
 	__ewram_lma = __ewram_overlay_end;
-	.data ALIGN(4) (NOLOAD) : AT (__ewram_lma)
+	.ewram_data ALIGN(4) (NOLOAD) : AT (__ewram_lma)
 	{
-		*(.data)
-		*(.data.*)
-		*(.ewram*)
+		*(.ewram_data)
 		. = ALIGN(4);
 		__ewram_end = ABSOLUTE(.);
 	} >ewram
+
+	.data : {
+		__data_begin = .;
+		*(.data*)
+		__data_end = .;
+		ASSERT((__data_begin == __data_end), "ERROR: rwdata should not be used!");
+	} >ewram AT>rom
 
 	/* IWRAM */
 	. = __iwram_start;

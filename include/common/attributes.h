@@ -15,7 +15,7 @@
 
 #define CONST_DATA const
 #define IWRAM_DATA SECTION(".iwram_data")
-#define EWRAM_DATA SECTION(".data.ewram")
+#define EWRAM_DATA SECTION(".ewram_data")
 #define RELOC_DATA SECTION(".rodata.reloc")
 
 #define EWRAM_OVERLAY(id) SECTION(".ewram_overlay_" # id)

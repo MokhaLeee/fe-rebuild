@@ -21,4 +21,6 @@ void sprite_test(ProcPtr proc);
 
 void ekrmainmini_test(ProcPtr proc);
 
+void text_test(ProcPtr proc);
+
 #endif

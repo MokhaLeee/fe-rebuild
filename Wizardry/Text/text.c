@@ -64,19 +64,6 @@ static u16 const *const s2bppTo4bppLutTable[] = {
 	TextColorLut_InverseMask,
 };
 
-struct ProcScr const ProcScr_TextPrint[] =
-{
-	PROC_REPEAT(TextPrint_OnLoop),
-	PROC_END,
-};
-
-struct ProcScr ProcScr_GreenTextColor[] =
-{
-	PROC_END_IF_DUP,
-	PROC_REPEAT(GreenText_OnLoop),
-	PROC_END,
-};
-
 int GetLang(void)
 {
 	return LANG_JAPANESE;
@@ -110,13 +97,9 @@ void InitTextFont(struct Font *font, void *draw_dest, int chr, int palid)
 void SetTextFontGlyphs(int glyphset)
 {
 	if (glyphset == TEXT_GLYPHS_SYSTEM)
-	{
 		gActiveFont->glyphs = TextGlyphs_System;
-	}
 	else
-	{
 		gActiveFont->glyphs = TextGlyphs_Talk;
-	}
 }
 
 void ResetTextFont(void)
@@ -159,8 +142,7 @@ void InitTextDb(struct Text *text, int width)
 
 void InitTextList(struct TextInitInfo const *info)
 {
-	while (info->text != NULL)
-	{
+	while (info->text != NULL) {
 		InitText(info->text, info->width);
 		info++;
 	}
@@ -222,8 +204,7 @@ void PutText(struct Text *text, u16 *tm)
 	int tileref = gActiveFont->tileref + (text->chr_position + text->db_id *text->tile_width) *2;
 	int i;
 
-	for (i = 0; i < text->tile_width; i++)
-	{
+	for (i = 0; i < text->tile_width; i++) {
 		tm[0x00] = tileref++;
 		tm[0x20] = tileref++;
 
@@ -240,8 +221,7 @@ void PutBlankText(struct Text *text, u16 *tm)
 {
 	int i;
 
-	for (i = 0; i < text->tile_width; i++)
-	{
+	for (i = 0; i < text->tile_width; i++) {
 		tm[0x00] = 0;
 		tm[0x20] = 0;
 
@@ -271,8 +251,7 @@ void GetStringTextBox(char const *str, int *out_width, int *out_height)
 	*out_width = 0;
 	*out_height = 0;
 
-	while (*str > 1)
-	{
+	while (*str > 1) {
 		int width = GetStringTextLen(str);
 
 		if (*out_width < width)
@@ -291,10 +270,8 @@ void GetStringTextBox(char const *str, int *out_width, int *out_height)
 
 char const *GetStringLineEnd(char const *str)
 {
-	while (*str > 1)
-	{
-		if (*str == 4)
-		{
+	while (*str > 1) {
+		if (*str == 4) {
 			str++;
 			continue;
 		}
@@ -376,8 +353,7 @@ static void DrawTextGlyphNoClear(struct Text *text, struct Glyph const *glyph)
 	u16 const *maskLut = GetColorLut(TEXT_COLOR_MASK);
 	u16 const *colorLut = GetColorLut(text->color);
 
-	for (i = 0; i < 16; ++i)
-	{
+	for (i = 0; i < 16; ++i) {
 		// read one row of 32 bits from the bitmap
 		bitmapRow = (u64) *bitmap << subx *2;
 
@@ -424,8 +400,7 @@ void PutDrawText(struct Text *text, u16 *tm, int color, int x, int tile_width, c
 {
 	struct Text tmpText;
 
-	if (text == NULL)
-	{
+	if (text == NULL) {
 		text = &tmpText;
 		InitText(text, tile_width);
 	}
@@ -486,7 +461,7 @@ void SpriteText_DrawBackground(struct Text *text)
 
 	text->x = 0;
 
-	CpuFastFill(0x44444444, gActiveFont->get_draw_dest(text),                   0x1B *CHR_SIZE);
+	CpuFastFill(0x44444444, gActiveFont->get_draw_dest(text),                  0x1B *CHR_SIZE);
 	CpuFastFill(0x44444444, gActiveFont->get_draw_dest(text) + 0x20 *CHR_SIZE, 0x1B *CHR_SIZE);
 }
 
@@ -516,8 +491,7 @@ static void DrawSpriteTextGlyph(struct Text *text, struct Glyph const *glyph)
 
 	u16 const *lut = GetColorLut(text->color);
 
-	for (i = 0; i < 8; ++i)
-	{
+	for (i = 0; i < 8; ++i) {
 		bitmapRow = (u64) *bitmap << subx *2;
 
 		dst[0x00] |= lut[bitmapRow & 0xFF] | (lut[(bitmapRow >> 8) & 0xFF] << 16);
@@ -530,8 +504,7 @@ static void DrawSpriteTextGlyph(struct Text *text, struct Glyph const *glyph)
 
 	dst = (u32 *) (gActiveFont->get_draw_dest(text) + 0x20 *CHR_SIZE);
 
-	for (i = 0; i < 8; ++i)
-	{
+	for (i = 0; i < 8; ++i) {
 		bitmapRow = (u64) *bitmap << subx *2;
 
 		dst[0x00] |= lut[bitmapRow & 0xFF] | (lut[(bitmapRow >> 8) & 0xFF] << 16);
@@ -579,6 +552,11 @@ static void TextPrint_OnLoop(struct TextPrintProc *proc)
 	}
 }
 
+static const struct ProcScr ProcScr_TextPrint[] = {
+	PROC_REPEAT(TextPrint_OnLoop),
+	PROC_END,
+};
+
 char const *StartTextPrint(struct Text *text, char const *str, int interval, int char_per_tick)
 {
 	struct TextPrintProc *proc;
@@ -621,6 +599,13 @@ static void GreenText_OnLoop(ProcPtr proc)
 	EnablePalSync();
 }
 
+static const struct ProcScr ProcScr_GreenTextColor[] = {
+	PROC_NAME("GreenText"),
+	PROC_END_IF_DUP,
+	PROC_REPEAT(GreenText_OnLoop),
+	PROC_END,
+};
+
 void StartGreenText(ProcPtr parent)
 {
 	if (parent)
@@ -640,15 +625,11 @@ static void DrawSpecialCharGlyph(int chr_position, int color, struct Glyph const
 
 	u32 *dst = (u32 *) (gActiveFont->draw_dest + chr_position *2 *CHR_SIZE);
 	u32 const *bitmap = glyph->bitmap;
-
-	int lo, hi;
-
 	u16 const *lut = GetColorLut(color);
 
-	for (i = 0; i < 16; ++i)
-	{
-		lo = lut[(*bitmap) & 0xFF];
-		hi = lut[(*bitmap >> 8) & 0xFF];
+	for (i = 0; i < 16; ++i) {
+		int lo = lut[(*bitmap) & 0xFF];
+		int hi = lut[(*bitmap >> 8) & 0xFF];
 
 		*dst = lo + (hi << 16);
 
@@ -674,8 +655,7 @@ static int GetSpecialCharChr(int color, int id)
 {
 	struct SpecialCharSt *it = sSpecialCharStList;
 
-	while (TRUE)
-	{
+	while (TRUE) {
 		if (it->color < 0)
 			return AddSpecialChar(it, color, id);
 
@@ -690,8 +670,7 @@ void PutSpecialChar(u16 *tm, int color, int id)
 {
 	int chr;
 
-	if (id == TEXT_SPECIAL_NOTHING)
-	{
+	if (id == TEXT_SPECIAL_NOTHING) {
 		tm[0x00] = 0;
 		tm[0x20] = 0;
 
@@ -706,14 +685,12 @@ void PutSpecialChar(u16 *tm, int color, int id)
 
 void PutNumberExt(u16 *tm, int color, int number, int id_zero)
 {
-	if (number == 0)
-	{
+	if (number == 0) {
 		PutSpecialChar(tm, color, id_zero);
 		return;
 	}
 
-	while (number != 0)
-	{
+	while (number != 0) {
 		PutSpecialChar(tm, color, k_umod10(number) + id_zero);
 		number = k_udiv10(number);
 
@@ -796,13 +773,10 @@ void PutTime(u16 *tm, int color, int time, bool always_display_punctuation)
 	PutNumber2Digit(tm + 5, color, minutes);
 	PutNumber2DigitSmall(tm + 8, color, seconds);
 
-	if (hs == FALSE || always_display_punctuation)
-	{
+	if (hs == FALSE || always_display_punctuation) {
 		PutSpecialChar(tm + 3, color, TEXT_SPECIAL_COLON);
 		PutSpecialChar(tm + 6, color, TEXT_SPECIAL_DOT);
-	}
-	else
-	{
+	} else {
 		PutSpecialChar(tm + 3, color, TEXT_SPECIAL_NOTHING);
 		PutSpecialChar(tm + 6, color, TEXT_SPECIAL_NOTHING);
 	}

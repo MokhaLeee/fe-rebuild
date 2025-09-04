@@ -8,8 +8,7 @@
 
 enum { ANIM_COUNT = 20 };
 
-struct AnimProc
-{
+struct AnimProc {
 	/* 00 */ PROC_HEADER;
 
 	/* 29 */ u8 pad_29[0x50 - 0x29];
@@ -333,7 +332,7 @@ static void AnimProc_OnEnd(struct AnimProc *proc)
 	EndSpriteAnim(proc->anim);
 }
 
-static struct ProcScr ProcScr_AnimProc[] =
+static const struct ProcScr ProcScr_AnimProc[] =
 {
 	PROC_NAME("AP"),
 	PROC_ONEND(AnimProc_OnEnd),

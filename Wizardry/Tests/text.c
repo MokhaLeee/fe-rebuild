@@ -56,7 +56,7 @@ static void TextTest_Init(ProcPtr proc)
 		gBg0Tm + TM_OFFSET(0, 13),
 		TEXT_COLOR_SYSTEM_GRAY,
 		30,
-		"これは Text のテストです。確認してください");
+		"これは center text のテストです。確認してください");
 
 	EnableBgSync(BG0_SYNC_BIT);
 }

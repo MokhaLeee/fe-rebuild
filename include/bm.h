@@ -89,33 +89,65 @@ enum {
 };
 
 struct BmSt {
-	bool main_loop_ended;
-	i8 bm_lock, disp_lock;
-	u8 flags;
-	u16 main_loop_end_scanline;
-	struct Vec2i camera;
-	struct Vec2i camera_previous;
-	struct Vec2i cursor;
-	struct Vec2i cursor_previous;
-	struct Vec2i cursor_sprite_target;
-	struct Vec2i cursor_sprite;
-	struct Vec2i map_render_anchor;
-	struct Vec2i camera_max;
-
-	short unk_32;
-	short unk_34;
-	i8 unk_36;
-	i8 unk_37;
+	/* 00 */ bool8 main_loop_ended;
+	/* 01 */ i8 lock;
+	/* 02 */ i8 lock_display;
+	/* 03 */ u8 pad_03;
+	/* 04 */ u8 flags;
+	/* 05 */ // pad
+	/* 06 */ u16 main_loop_end_scanline;
+	/* 08 */ int pad_08;
+	/* 0C */ struct Vec2i camera;
+	/* 10 */ struct Vec2i camera_previous;
+	/* 14 */ struct Vec2i cursor;
+	/* 18 */ struct Vec2i cursor_previous;
+	/* 1C */ struct Vec2i cursor_sprite_target;
+	/* 20 */ struct Vec2i cursor_sprite;
+	/* 24 */ struct Vec2i map_render_anchor;
+	/* 28 */ struct Vec2i camera_max;
+	/* 2C */ u16 inventory_item_overflow;
+	/* 2E */ u16 convoy_item_overflow;
+	/* 30 */ bool8 unk_30;
+	/* 31 */ bool8 unk_31;
+	/* 32 */ short unk_32;
+	/* 34 */ short unk_34;
+	/* 36 */ i8 unk_36;
+	/* 37 */ i8 unk_37;
+	/* 38 */ u8 alt_blend_a_ca;
+	/* 39 */ u8 alt_blend_a_cb;
+	/* 3A */ u8 alt_blend_b_ca;
+	/* 3B */ u8 alt_blend_b_cb;
+	/* 3C */ u8 just_resumed;
+	/* 3D */ u8 partial_actions_taken;
+	/* 3E */ u8 swap_action_range_count;
+	/* 3F */ i8 unk_3F;
 };
 
 extern EWRAM_DATA struct BmSt gBmSt;
 
 struct PlaySt {
-	u8 weather;
+	/* 00 */ u32 time_saved;
+	/* 04 */ u32 time_chapter_started;
+	/* 08 */ int gold; // TODO: is this u32 or i32?
+	/* 0C */ u8 save_id;
+	/* 0D */ u8 vision;
+	/* 0E */ i8 chapter;
+	/* 0F */ u8 faction;
+	/* 10 */ u16 turn;
+	/* 12 */ u8 x_cursor, y_cursor;
+	/* 14 */ u8 flags;
+	/* 15 */ u8 weather;
+	/* 16 */ u16 support_gain;
+	/* 18 */ u8 playthrough_id;
+	/* 19 */ u8 ending_id : 4;
+	/* 19 */ u8 last_unit_list_page : 4;
+	/* 1A */ u8 last_sort_key;
+	/* 1B */ u8 unk_1B;
 
+	/* 1C */ // option bits
 	/* bit  0 */ u32 config_unique_pal : 1;
-	/* bit  1 */ u32 config_terrain_mapui : 1;
-	/* bit  2 */ u32 config_unit_mapui : 2;
+	/* bit  1 */ u32 config_terrain_mapui : 1; // TODO: constants
+	/* bit  2 */ u32 config_unit_mapui : 2; // TODO: constants
 	/* bit  4 */ u32 config_no_auto_cursor : 1;
 	/* bit  5 */ u32 config_talk_speed : 2;
 	/* bit  7 */ u32 config_walk_speed : 1;
@@ -148,6 +180,8 @@ u8 GetGameLock(void);
  * UI
  */
 void ApplySystemObjectsGraphics(void);
+void ApplySystemGraphics(void);
+void InitBmDisplay(void);
 
 /**
  * cursor
@@ -184,6 +218,22 @@ void SetMapCursorPosition(int x, int y);
  */
 void PutSysArrow(int x, int y, u8 isDown);
 void PutSysAButton(int x, int y, int palid);
+
+/**
+ * bmio
+ */
+void StartBmVSync(void);
+void EndBmVSync(void);
+void LockBmDisplay(void);
+void UnlockBmDisplay(void);
+void AllocWeatherParticles(int weather);
+void ApplyFlamesWeatherGradient(void);
+void WeatherInit(void);
+void WeatherVBlank(void);
+void WeatherUpdate(void);
+void DisableTilesetPalAnim(void);
+void EnableTilesetPalAnim(void);
+void SetWeather(int weather);
 
 /**
  * Misc

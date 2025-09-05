@@ -11,3 +11,6 @@ extern EWRAM_DATA u8 **gMapRange;
 extern EWRAM_DATA u8 **gMapFog;
 extern EWRAM_DATA u8 **gMapHidden;
 extern EWRAM_DATA u8 **gMapOther;
+
+void ApplyChapterMapGraphics(int chapter);
+void RenderMap(void);

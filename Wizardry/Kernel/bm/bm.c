@@ -7,17 +7,17 @@ EWRAM_DATA struct PlaySt gPlaySt;
 
 void LockGame(void)
 {
-	gBmSt.bm_lock++;
+	gBmSt.lock++;
 }
 
 void UnlockGame(void)
 {
-	gBmSt.bm_lock--;
+	gBmSt.lock--;
 }
 
 u8 GetGameLock(void)
 {
-	return gBmSt.bm_lock;
+	return gBmSt.lock;
 }
 
 void InitBmBgLayers(void)

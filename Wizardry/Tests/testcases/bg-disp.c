@@ -10,9 +10,6 @@ enum video_allocs_bgdisptest {
 	BGPAL_BGDISP_TEST_MURALBG = 14,
 };
 
-extern const u16 Img_MuralBackground[];
-extern const u16 Pal_MuralBackground[];
-
 static void BgDispTest_InitDisp(ProcPtr proc)
 {
 	InitBgs(NULL);

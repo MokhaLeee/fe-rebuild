@@ -53,6 +53,8 @@ static void Tetser_Main(struct ProcTester *proc)
 #elif CONFIG_DEBUG_TEST_TEXT
 	text_test(proc);
 #endif
+
+	StartDebugMenu(proc);
 }
 
 static const struct ProcScr ProcScr_Tester[] = {

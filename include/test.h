@@ -6,6 +6,7 @@
 #if CONFIG_USE_DEBUG
 
 void NewGameTester(void);
+void StartDebugMenu(ProcPtr parent);
 
 /**
  * printf

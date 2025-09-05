@@ -8,7 +8,9 @@ enum bg_video_allocs {
 	// BGPAL
 	BGPAL_TEXT_DEFAULT = 0,
 	BGPAL_WINDOWFRAME = 1,
+	BGPAL_ICONS = 4,
 	BGPAL_UI_STATBAR = 6,
+	BGPAL_MURALBACKGROUND = 14,
 };
 
 // enum ob_video_allocs {};

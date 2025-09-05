@@ -3,3 +3,4 @@
 
 // todo
 void EndFaceById(int slot) {}
+void InitFaces(void) {}

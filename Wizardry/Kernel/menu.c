@@ -151,379 +151,358 @@ struct MenuProc *StartLockingMenuExt(struct MenuInfo const *info, struct MenuRec
 
 ProcPtr EndMenu(struct MenuProc *proc)
 {
-    struct MenuEntProc *active_ent_proc = proc->entries[proc->active_entry];
+	struct MenuEntProc *active_ent_proc = proc->entries[proc->active_entry];
 
-    proc->flags |= MENU_FLAG_ENDING;
+	proc->flags |= MENU_FLAG_ENDING;
 
-    if (active_ent_proc->info->on_switch_out != NULL)
-        active_ent_proc->info->on_switch_out(proc, active_ent_proc);
+	if (active_ent_proc->info->on_switch_out != NULL)
+		active_ent_proc->info->on_switch_out(proc, active_ent_proc);
 
-    if (proc->info->on_end != NULL)
-        proc->info->on_end(proc);
+	if (proc->info->on_end != NULL)
+		proc->info->on_end(proc);
 
-    if (proc->flags & MENU_FLAG_GAMELOCK)
-        UnlockGame();
+	if (proc->flags & MENU_FLAG_GAMELOCK)
+		UnlockGame();
 
-    Proc_End(proc);
+	Proc_End(proc);
 
-    SetBgOffset(0, 0, 0);
-    SetBgOffset(1, 0, 0);
+	SetBgOffset(0, 0, 0);
+	SetBgOffset(1, 0, 0);
 
-    return proc->proc_parent;
+	return proc->proc_parent;
 }
 
 void EndMenus(void)
 {
-    Proc_ForEach(ProcScr_Menu, (void *) EndMenu);
+	Proc_ForEach(ProcScr_Menu, (void *) EndMenu);
 }
 
 inline bool HasMenuChangedItem(struct MenuProc *proc)
 {
-    return proc->active_entry != proc->previous_entry;
+	return proc->active_entry != proc->previous_entry;
 }
 
 void Menu_Init(struct MenuProc *proc)
 {
-    if (proc->info->on_init != NULL)
-        proc->info->on_init(proc);
+	if (proc->info->on_init != NULL)
+		proc->info->on_init(proc);
 
-    if (proc->entries[proc->active_entry]->info->on_switch_in != NULL)
-        proc->entries[proc->active_entry]->info->on_switch_in(proc, proc->entries[proc->active_entry]);
+	if (proc->entries[proc->active_entry]->info->on_switch_in != NULL)
+		proc->entries[proc->active_entry]->info->on_switch_in(proc, proc->entries[proc->active_entry]);
 }
 
 void Menu_Draw(struct MenuProc *proc)
 {
-    int i;
+	int i;
 
-    if (proc->flags & MENU_FLAG_HIDDEN)
-        return;
+	if (proc->flags & MENU_FLAG_HIDDEN)
+		return;
 
-    PutUiWindowFrame(proc->rect.x, proc->rect.y, proc->rect.w, proc->rect.h, proc->info->window_kind);
+	PutUiWindowFrame(proc->rect.x, proc->rect.y, proc->rect.w, proc->rect.h, proc->info->window_kind);
 
-    for (i = 0; i < proc->entry_count; i++)
-    {
-        struct MenuEntProc *ent_proc = proc->entries[i];
+	for (i = 0; i < proc->entry_count; i++) {
+		struct MenuEntProc *ent_proc = proc->entries[i];
 
-        if (ent_proc->info->display != NULL)
-        {
-            ent_proc->info->display(proc, ent_proc);
-            continue;
-        }
+		if (ent_proc->info->display != NULL) {
+			ent_proc->info->display(proc, ent_proc);
+			continue;
+		}
 
-        if (ent_proc->info->text_color)
-            Text_SetColor(&ent_proc->text, ent_proc->info->text_color);
+		if (ent_proc->info->text_color)
+			Text_SetColor(&ent_proc->text, ent_proc->info->text_color);
 
-        if (ent_proc->availability == MENU_ENTRY_DISABLED)
-            Text_SetColor(&ent_proc->text, TEXT_COLOR_SYSTEM_GRAY);
+		if (ent_proc->availability == MENU_ENTRY_DISABLED)
+			Text_SetColor(&ent_proc->text, TEXT_COLOR_SYSTEM_GRAY);
 
-        Text_DrawString(&ent_proc->text, ent_proc->info->label);
+		Text_DrawString(&ent_proc->text, ent_proc->info->label);
 
-        PutText(&ent_proc->text, gBg0Tm + TM_OFFSET(ent_proc->x, ent_proc->y));
-    }
+		PutText(&ent_proc->text, gBg0Tm + TM_OFFSET(ent_proc->x, ent_proc->y));
+	}
 
-    PutMenuEntryHover(proc, proc->active_entry, TRUE);
+	PutMenuEntryHover(proc, proc->active_entry, TRUE);
 
-    EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
+	EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
 void PutMenuEntryHover(struct MenuProc *proc, int entry_id, bool shown)
 {
-    int x, y, w;
+	int x, y, w;
 
-    if (proc->flags & MENU_FLAG_FLAT)
-        return;
+	if (proc->flags & MENU_FLAG_FLAT)
+		return;
 
-    x = proc->rect.x + 1;
-    y = proc->entries[entry_id]->y;
-    w = proc->rect.w - 2;
+	x = proc->rect.x + 1;
+	y = proc->entries[entry_id]->y;
+	w = proc->rect.w - 2;
 
-    switch (shown)
-    {
+	switch (shown) {
+	case TRUE:
+		PutUiEntryHover(x, y, w);
+		break;
 
-    case TRUE:
-        PutUiEntryHover(x, y, w);
-        break;
+	case FALSE:
+		RemoveUiEntryHover(x, y, w);
+		break;
 
-    case FALSE:
-        RemoveUiEntryHover(x, y, w);
-        break;
-
-    }
+	}
 }
 
 void Menu_Main(struct MenuProc *proc)
 {
-    int x, y;
-    u32 actions;
+	int x, y;
+	u32 actions;
 
-    if (proc->flags & MENU_FLAG_FROZEN)
-    {
-        GetMenuCursorPosition(proc, &x, &y);
-        PutFrozenUiHand(x, y);
+	if (proc->flags & MENU_FLAG_FROZEN) {
+		GetMenuCursorPosition(proc, &x, &y);
+		PutFrozenUiHand(x, y);
 
-        return;
-    }
+		return;
+	}
 
-    if (proc->flags & MENU_FLAG_DOOMED)
-    {
-        EndMenu(proc);
-        return;
-    }
+	if (proc->flags & MENU_FLAG_DOOMED) {
+		EndMenu(proc);
+		return;
+	}
 
-    HandleMenuSwitching(proc);
-    actions = HandleMenuActions(proc);
+	HandleMenuSwitching(proc);
+	actions = HandleMenuActions(proc);
 
-    if (actions & MENU_ACTION_END)
-        EndMenu(proc);
+	if (actions & MENU_ACTION_END)
+		EndMenu(proc);
 
-    if (actions & MENU_ACTION_SE_6A)
-        PlaySe(SONG_6A);
+	if (actions & MENU_ACTION_SE_6A)
+		PlaySe(SONG_6A);
 
-    if (actions & MENU_ACTION_SE_6B)
-        PlaySe(SONG_6B);
+	if (actions & MENU_ACTION_SE_6B)
+		PlaySe(SONG_6B);
 
-    if (actions & MENU_ACTION_CLEAR)
-        ClearUi();
+	if (actions & MENU_ACTION_CLEAR)
+		ClearUi();
 
-    if (actions & MENU_ACTION_ENDFACE)
-        EndFaceById(0);
+	if (actions & MENU_ACTION_ENDFACE)
+		EndFaceById(0);
 
-    if (actions & MENU_ACTION_DOOM)
-        proc->flags |= MENU_FLAG_DOOMED;
+	if (actions & MENU_ACTION_DOOM)
+		proc->flags |= MENU_FLAG_DOOMED;
 
-    if (!(actions & MENU_ACTION_NOCURSOR) && !(proc->flags & MENU_FLAG_NOCURSOR))
-    {
-        GetMenuCursorPosition(proc, &x, &y);
-        ApplyMenuCursorScroll(proc, &x, &y);
+	if (!(actions & MENU_ACTION_NOCURSOR) && !(proc->flags & MENU_FLAG_NOCURSOR)) {
+		GetMenuCursorPosition(proc, &x, &y);
+		ApplyMenuCursorScroll(proc, &x, &y);
 
-        PutUiHand(x, y);
-    }
+		PutUiHand(x, y);
+	}
 }
 
 void HandleMenuSwitching(struct MenuProc *proc)
 {
-    proc->previous_entry = proc->active_entry;
+	proc->previous_entry = proc->active_entry;
 
-    // Handle Up keyin
+	// Handle Up keyin
 
-    if (gKeySt->repeated & KEY_DPAD_UP)
-    {
-        if (proc->active_entry == 0)
-        {
-            if (gKeySt->repeated != gKeySt->pressed)
-                return;
+	if (gKeySt->repeated & KEY_DPAD_UP) {
+		if (proc->active_entry == 0) {
+			if (gKeySt->repeated != gKeySt->pressed)
+				return;
 
-            proc->active_entry = proc->entry_count;
-        }
+			proc->active_entry = proc->entry_count;
+		}
 
-        proc->active_entry--;
-    }
+		proc->active_entry--;
+	}
 
-    // Handle Down keyin
+	// Handle Down keyin
 
-    if (gKeySt->repeated & KEY_DPAD_DOWN)
-    {
-        if (proc->active_entry == (proc->entry_count - 1))
-        {
-            if (gKeySt->repeated != gKeySt->pressed)
-                return;
+	if (gKeySt->repeated & KEY_DPAD_DOWN) {
+		if (proc->active_entry == (proc->entry_count - 1)) {
+			if (gKeySt->repeated != gKeySt->pressed)
+				return;
 
-            proc->active_entry = -1;
-        }
+			proc->active_entry = -1;
+		}
 
-        proc->active_entry++;
-    }
+		proc->active_entry++;
+	}
 
-    // Update hover display
+	// Update hover display
 
-    if (proc->previous_entry != proc->active_entry)
-    {
-        PutMenuEntryHover(proc, proc->previous_entry, FALSE);
-        PutMenuEntryHover(proc, proc->active_entry, TRUE);
+	if (proc->previous_entry != proc->active_entry) {
+		PutMenuEntryHover(proc, proc->previous_entry, FALSE);
+		PutMenuEntryHover(proc, proc->active_entry, TRUE);
 
-        PlaySe(SONG_66);
-    }
+		PlaySe(SONG_66);
+	}
 
-    // Invoke switch in/out funcs
+	// Invoke switch in/out funcs
 
-    if (proc->active_entry != proc->previous_entry)
-    {
-        if (proc->entries[proc->previous_entry]->info->on_switch_out != NULL)
-            proc->entries[proc->previous_entry]->info->on_switch_out(proc, proc->entries[proc->previous_entry]);
+	if (proc->active_entry != proc->previous_entry) {
+		if (proc->entries[proc->previous_entry]->info->on_switch_out != NULL)
+			proc->entries[proc->previous_entry]->info->on_switch_out(proc, proc->entries[proc->previous_entry]);
 
-        if (proc->entries[proc->active_entry]->info->on_switch_in != NULL)
-            proc->entries[proc->active_entry]->info->on_switch_in(proc, proc->entries[proc->active_entry]);
-    }
+		if (proc->entries[proc->active_entry]->info->on_switch_in != NULL)
+			proc->entries[proc->active_entry]->info->on_switch_in(proc, proc->entries[proc->active_entry]);
+	}
 }
 
 u32 HandleMenuActions(struct MenuProc *proc)
 {
-    u32 result = 0;
+	u32 result = 0;
 
-    struct MenuEntProc *ent_proc = proc->entries[proc->active_entry];
-    struct MenuEntInfo const *ent_info = ent_proc->info;
+	struct MenuEntProc *ent_proc = proc->entries[proc->active_entry];
+	struct MenuEntInfo const *ent_info = ent_proc->info;
 
-    if (ent_info->on_idle)
-        ent_info->on_idle(proc, ent_proc);
+	if (ent_info->on_idle)
+		ent_info->on_idle(proc, ent_proc);
 
-    if (gKeySt->pressed & KEY_BUTTON_A)
-    {
-        if (ent_info->on_select != NULL)
-            result = ent_info->on_select(proc, ent_proc);
-    }
-    else if (gKeySt->pressed & KEY_BUTTON_B)
-    {
-        if (proc->info->on_b_press != NULL)
-            result = proc->info->on_b_press(proc, ent_proc);
-    }
-    else if (gKeySt->pressed & KEY_BUTTON_R)
-    {
-        if (proc->info->on_r_press != NULL)
-            proc->info->on_r_press(proc);
-    }
+	if (gKeySt->pressed & KEY_BUTTON_A) {
+		if (ent_info->on_select != NULL)
+			result = ent_info->on_select(proc, ent_proc);
+	} else if (gKeySt->pressed & KEY_BUTTON_B) {
+		if (proc->info->on_b_press != NULL)
+			result = proc->info->on_b_press(proc, ent_proc);
+	} else if (gKeySt->pressed & KEY_BUTTON_R) {
+		if (proc->info->on_r_press != NULL)
+			proc->info->on_r_press(proc);
+	}
 
-    return result;
+	return result;
 }
 
 void GetMenuCursorPosition(struct MenuProc *proc, int *x_out, int *y_out)
 {
-    *x_out = proc->entries[proc->active_entry]->x * 8;
-    *y_out = proc->entries[proc->active_entry]->y * 8;
+	*x_out = proc->entries[proc->active_entry]->x * 8;
+	*y_out = proc->entries[proc->active_entry]->y * 8;
 
-    if (proc->info->window_kind != 0)
-        *x_out -= 4;
+	if (proc->info->window_kind != 0)
+		*x_out -= 4;
 }
 
 fu8 MenuEntryEnabled(struct MenuEntInfo const *info, int id)
 {
-    return MENU_ENTRY_ENABLED;
+	return MENU_ENTRY_ENABLED;
 }
 
 fu8 MenuEntryDisabled(struct MenuEntInfo const *info, int id)
 {
-    return MENU_ENTRY_DISABLED;
+	return MENU_ENTRY_DISABLED;
 }
 
 fu8 MenuActionClose(struct MenuProc *proc, struct MenuEntProc *ent)
 {
-    return MENU_ACTION_NOCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_END | MENU_ACTION_SE_6B;
+	return MENU_ACTION_NOCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
 fu8 MenuHelpBoxRegular(struct MenuProc *proc, struct MenuEntProc *ent)
 {
-    StartHelpBox(ent->x * 8, ent->y * 8, ent->info->msg_help);
-    return 0;
+	StartHelpBox(ent->x * 8, ent->y * 8, ent->info->msg_help);
+	return 0;
 }
 
 void Menu_HelpBoxInit(struct MenuProc *proc)
 {
-    LoadHelpBoxGfx(NULL, -1);
-    proc->info->on_help_box(proc, proc->entries[proc->active_entry]);
+	LoadHelpBoxGfx(NULL, -1);
+	proc->info->on_help_box(proc, proc->entries[proc->active_entry]);
 }
 
 void Menu_HelpBoxMain(struct MenuProc *proc)
 {
-    int x, y;
+	int x, y;
 
-    HandleMenuSwitching(proc);
+	HandleMenuSwitching(proc);
 
-    GetMenuCursorPosition(proc, &x, &y);
-    ApplyMenuCursorScroll(proc, &x, &y);
+	GetMenuCursorPosition(proc, &x, &y);
+	ApplyMenuCursorScroll(proc, &x, &y);
 
-    PutUiHand(x, y);
+	PutUiHand(x, y);
 
-    if (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R))
-    {
-        CloseHelpBox();
-        Proc_GotoScript(proc, ProcScr_MenuMain);
+	if (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R)) {
+		CloseHelpBox();
+		Proc_GotoScript(proc, ProcScr_MenuMain);
 
-        return;
-    }
+		return;
+	}
 
-    if (proc->active_entry != proc->previous_entry)
-    {
-        proc->info->on_help_box(proc, proc->entries[proc->active_entry]);
-    }
+	if (proc->active_entry != proc->previous_entry)
+		proc->info->on_help_box(proc, proc->entries[proc->active_entry]);
 }
 
 fu8 MenuActionHelpBox(struct MenuProc *proc)
 {
-    Proc_GotoScript(proc, ProcScr_MenuHelpBox);
-    return 0;
+	Proc_GotoScript(proc, ProcScr_MenuHelpBox);
+	return 0;
 }
 
 void Menu_FrozenHelpBoxMain(struct MenuProc *proc)
 {
-    int x, y;
+	int x, y;
 
-    GetMenuCursorPosition(proc, &x, &y);
-    ApplyMenuCursorScroll(proc, &x, &y);
+	GetMenuCursorPosition(proc, &x, &y);
+	ApplyMenuCursorScroll(proc, &x, &y);
 
-    PutFrozenUiHand(x, y);
+	PutFrozenUiHand(x, y);
 
-    if (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R))
-    {
-        CloseHelpBox();
-        Proc_GotoScript(proc, ProcScr_MenuMain);
-    }
+	if (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R))
+	{
+		CloseHelpBox();
+		Proc_GotoScript(proc, ProcScr_MenuMain);
+	}
 }
 
 fu8 MenuFrozenHelpBox(struct MenuProc *proc, int msg)
 {
-    Proc_GotoScript(proc, ProcScr_MenuFrozenHelpBox);
+	Proc_GotoScript(proc, ProcScr_MenuFrozenHelpBox);
 
-    LoadHelpBoxGfx(NULL, -1);
-    StartHelpBox(GetUiHandPrevX(), GetUiHandPrevY(), msg);
+	LoadHelpBoxGfx(NULL, -1);
+	StartHelpBox(GetUiHandPrevX(), GetUiHandPrevY(), msg);
 
-    return 0;
+	return 0;
 }
 
 void FreezeMenu(void)
 {
-    struct MenuProc *proc = FindProc(ProcScr_Menu);
+	struct MenuProc *proc = FindProc(ProcScr_Menu);
 
-    if (proc != NULL)
-        proc->flags |= MENU_FLAG_FROZEN;
+	if (proc != NULL)
+		proc->flags |= MENU_FLAG_FROZEN;
 }
 
 void ResumeMenu(void)
 {
-    struct MenuProc *proc = FindProc(ProcScr_Menu);
+	struct MenuProc *proc = FindProc(ProcScr_Menu);
 
-    if (proc != NULL)
-        proc->flags &= ~MENU_FLAG_FROZEN;
+	if (proc != NULL)
+		proc->flags &= ~MENU_FLAG_FROZEN;
 }
 
 u8 CONST_DATA gLongMenuCenteringOffsetLut[] = { 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3 };
 
 struct MenuProc *StartCenteredMenu(struct MenuInfo const *info, int x, int left, int right)
 {
-    struct MenuProc *proc;
-    int i;
+	struct MenuProc *proc;
+	int i;
 
-    proc = StartAdjustedMenu(info, x, left, right);
+	proc = StartAdjustedMenu(info, x, left, right);
 
-    if (proc->entry_count <= 6)
-        return proc;
+	if (proc->entry_count <= 6)
+		return proc;
 
-    proc->rect.y -= gLongMenuCenteringOffsetLut[proc->entry_count];
+	proc->rect.y -= gLongMenuCenteringOffsetLut[proc->entry_count];
 
-    for (i = 0; i < proc->entry_count; i++)
-        proc->entries[i]->y -= gLongMenuCenteringOffsetLut[proc->entry_count];
+	for (i = 0; i < proc->entry_count; i++)
+		proc->entries[i]->y -= gLongMenuCenteringOffsetLut[proc->entry_count];
 
-    return proc;
+	return proc;
 }
 
 void ApplyMenuCursorScroll(struct MenuProc *proc, int *x_ref, int *y_ref)
 {
-    enum { THRESHOLD = 9 };
+	enum { THRESHOLD = 9 };
 
-    if (proc->entry_count > THRESHOLD) {
-        int offset = k_udiv((proc->entry_count * 16 - THRESHOLD * 16) *proc->active_entry, THRESHOLD);
+	if (proc->entry_count > THRESHOLD) {
+		int offset = k_udiv((proc->entry_count * 16 - THRESHOLD * 16) *proc->active_entry, THRESHOLD);
 
-        SetBgOffset(0, 0, offset);
-        SetBgOffset(1, 0, offset);
+		SetBgOffset(0, 0, offset);
+		SetBgOffset(1, 0, offset);
 
-        *y_ref -= offset;
-    }
+		*y_ref -= offset;
+	}
 }

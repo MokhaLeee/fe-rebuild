@@ -146,6 +146,16 @@ extern u8 const Img_UiUnitNameFrame[];
 extern u16 const Pal_UiUnitNameFrame[];
 
 /**
+ * bg slide
+ */
+extern u16 const Pal_LinkArenaMuralBackground[];
+extern u16 const Pal_MuralBackground[];
+extern u8 const Img_MuralBackground[];
+
+ProcPtr StartMuralBackground(ProcPtr parent, void *vram, int pal);
+void EndMuralBackground(void);
+
+/**
  * Misc
  */
 void StartTemporaryLock(ProcPtr proc, int duration);
